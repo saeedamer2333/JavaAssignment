@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
+
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -22,7 +23,14 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-
+    
+    //------Navigation-------
+    public static void navigateToCustomerDashboard(String[] details){
+        String userID = details[0];
+        String name = details[1];
+        String email = details[2];
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,7 +135,6 @@ public class Login extends javax.swing.JFrame {
         }
         // You can navigate to the next screen based on the role, for example:
         // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
-        
         
     }//GEN-LAST:event_loginBtnActionPerformed
 

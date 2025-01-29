@@ -73,17 +73,24 @@ public abstract class User implements Notifiable {
         if (loginRecords.isEmpty()) {
             throw new LoginException("Invalid email or password."); // Throw exception if email is not found
         }
+        
+        // Grab user details from USERS file
+        List<String> userRecords = FileManager.searchRecords(FileManager.FileType.USERS, "email", email);
 
         // Parse the result and validate the password
-        String record = loginRecords.get(0); // Assuming there's only one record per email
-        String[] details = record.split(FileManager.DELIMITER);
+        String loginRecord = loginRecords.get(0); // Assuming there's only one record per email
+        String userRecord = userRecords.get(0);
+        
+        String[] loginDetails = loginRecord.split(FileManager.DELIMITER);
 
-        if (details.length < 3 || !details[1].equals(password)) {
+        if (loginDetails.length < 3 || !loginDetails[1].equals(password)) {
             throw new LoginException("Invalid email or password."); // Throw exception if password is incorrect
         }
+        
+        String[] userDetails = userRecord.split(FileManager.DELIMITER);
 
-        // Successful login
-        return details; // Return the details
+        // Upon successful login return userDetails
+        return userDetails; // Return the details
     }
     
     @Override

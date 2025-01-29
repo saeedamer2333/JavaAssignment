@@ -19,7 +19,8 @@ public class FileManager {
         ORDERS("orders.txt"),
         REVIEWS("reviews.txt"),
         PRODUCTS("products.txt"),
-        TICKETS("tickets.txt");
+        TICKETS("tickets.txt"),
+        NOTIFICATIONS("notifications.txt");
 
         private final String filename;
 
@@ -41,6 +42,7 @@ public class FileManager {
         initializeFile(FileType.REVIEWS, "reviewID,customerID,runnerID,orderID,vendorID,reviewText,rating,date");
         initializeFile(FileType.PRODUCTS, "productID,vendorID,productName,price");
         initializeFile(FileType.TICKETS, "ticketID,managerID,customerID,customerComment,managerReply,status");
+        
     }
 
     private static void initializeFile(FileType fileType, String header) {
@@ -180,10 +182,12 @@ public class FileManager {
 
     public static void main(String[] args) {
         // Example usage
-        boolean userAdded = addUser("John Doe", "invalid-email", "+1234567890", "Passw0rd", "customer");
-        System.out.println("User added: " + userAdded);
+        //boolean userAdded = addUser("John Doe", "invalid-email", "+1234567890", "Passw0rd", "customer");
+        //System.out.println("User added: " + userAdded);
 
-        List<String> users = searchRecords(FileType.USERS, "email", "john@example.com");
-        System.out.println("Found users: " + users);
+        //List<String> users = searchRecords(FileType.USERS, "email", "john@example.com");
+        //System.out.println("Found users: " + users);
+        
+        initializeFile(FileType.NOTIFICATIONS, "notificationID,userID,message,timestamp,isRead");
     }
 }
