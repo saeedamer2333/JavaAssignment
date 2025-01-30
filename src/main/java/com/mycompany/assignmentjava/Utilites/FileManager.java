@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FileManager {
     private static final String BASE_PATH = "data/";
@@ -132,7 +134,7 @@ public class FileManager {
 
     //----------Appending .txt files----------
         // append users.txt and login.txt
-    public static boolean addUser(String name, String email, String phone, String password, String role) {
+    public static boolean addUser(String userID, String name, String email, String phone, String password, String role) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
             return false;
@@ -146,7 +148,7 @@ public class FileManager {
             return false;
         }
 
-        String userID = "ID" + generateID();
+        
         String record = String.join(DELIMITER, userID, name, email, phone, password, role);
 
         // Also add to login file
@@ -156,21 +158,24 @@ public class FileManager {
     }
 
     // Append transactions.txt
-    public static boolean addTransaction(String orderID, String customerID,
-                                         double amount, Date paymentDate, String paymentStatus) {
+    public static boolean addTransaction(String transactionID, String orderID, String customerID,
+                                         double amount, LocalDateTime paymentDate, String paymentStatus) {
         if (amount <= 0) {
             showErrorDialog("Transaction amount must be greater than 0.");
             return false;
         }
-        String transactionID = "ID" + generateID();
-        String dateStr = DATE_FORMAT.format(paymentDate);
+
+        // Convert LocalDateTime to String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateStr = paymentDate.format(formatter);
+        
         String record = String.join(DELIMITER, transactionID, orderID, customerID,
                 String.valueOf(amount), dateStr, paymentStatus);
         return appendToFile(FileType.TRANSACTIONS, record);
     }
 
     // Append orders.txt
-    public static boolean addOrder(String customerID, String vendorID, String runnerID,
+    public static boolean addOrder(String orderID, String customerID, String vendorID, String runnerID,
                                    List<String> products, String orderType, String status, double totalAmount) {
         if (products.isEmpty()) {
             showErrorDialog("Order must contain at least one product.");
@@ -180,8 +185,7 @@ public class FileManager {
             showErrorDialog("Total amount must be greater than 0.");
             return false;
         }
-
-        String orderID = "ID" + generateID();
+        
         String productsStr = String.join("|", products);
         String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
                 productsStr, orderType, status, String.valueOf(totalAmount));
@@ -189,11 +193,12 @@ public class FileManager {
     }
     
     //Appending reviews to reviews.txt
-    public static boolean addReview(String customerID, String runnerID, String orderID, 
-                                    String vendorID, String reviewText, int rating, Date date){
+    public static boolean addReview(String reviewID, String customerID, String runnerID, String orderID, 
+                                    String vendorID, String reviewText, int rating, LocalDateTime date){
         
-        String dateStr = DATE_FORMAT.format(date);
-        String reviewID = "ID" + generateID();
+        // Convert LocalDateTime to String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateStr = date.format(formatter);
         
         String record = String.join(DELIMITER, reviewID, customerID, runnerID, orderID,
                                     vendorID, reviewText, Integer.toString(rating), dateStr);
@@ -202,22 +207,21 @@ public class FileManager {
     }
     
     //Appending products to products.txt
-    public static boolean addProduct(String vendorID, String productName, double price) {
+    public static boolean addProduct(String productID, String vendorID, String productName, double price) {
         if (price <= 0) {
             showErrorDialog("Transaction amount must be greater than 0.");
             return false;
         }
         
-        String productID = "ID" + generateID();
         String record = String.join(DELIMITER, productID, vendorID, productName, Double.toString(price));
         
         return appendToFile(FileType.PRODUCTS, record);
     }
     
     //Appending tickets to tickets.txt
-    public static boolean addTicket(String managerID, String customerID, String customerComment, 
+    public static boolean addTicket(String ticketID, String managerID, String customerID, String customerComment, 
                                     String managerReply, String status){
-        String ticketID = "ID" + generateID();
+
         String record = String.join(DELIMITER, ticketID, managerID, customerID, 
                                     customerComment, managerReply, status);
         
@@ -225,11 +229,12 @@ public class FileManager {
     }
     
     //Appending to notifications.txt
-    public static boolean addNotification(String userID, String message, 
-                                            Date timestamp, boolean isRead){
-        String timestampStr = DATE_FORMAT.format(timestamp);
+    public static boolean addNotification(String notificationID, String userID, String message, 
+                                            LocalDateTime timestamp, boolean isRead){
+        // Convert LocalDateTime to String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestampStr = timestamp.format(formatter);
         
-        String notificationID = "ID" + generateID();
         String record = String.join(DELIMITER, notificationID, userID, message, 
                                         timestampStr, Boolean.toString(isRead));
         

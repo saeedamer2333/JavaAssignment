@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.assignmentjava.Utilites;
+import static com.mycompany.assignmentjava.Utilites.FileManager.generateID;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.auth.login.LoginException;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author zechn
  */
-public abstract class User implements Notifiable {
+public abstract class User {
     protected String userID;
     private String name; 
     private String email;
@@ -20,8 +21,8 @@ public abstract class User implements Notifiable {
     private String role;
     
     // Constructor
-    User(String userID, String name, String email, String password, String role) {
-        this.userID = userID;
+    User(String name, String email, String password, String role) {    
+        this.userID = "UID" + generateID();
         this.name = name;
         this.email = email;
         this.password = password;
@@ -95,27 +96,10 @@ public abstract class User implements Notifiable {
         return userDetails; // Return the details
     }
     
-    public static Notification sendNotification(String userID, String message){
-        //Generate notificationID and get current date time
-        String notificationID = "ID" + FileManager.generateID();
-        LocalDateTime timestamp = LocalDateTime.now();
-        
-        //Initialize notification
-        Notification notification = new Notification(notificationID, userID, message, timestamp, false);
-        //Show popup notification to user
-        showPopupNotification(message);
-        
-        return notification;
-    }
+//    public static Notification sendNotification(String userID, String message){
+//        
+//    }
 
-    public static void showPopupNotification(String message) {
-        // Display a popup dialog with the notification message
-        JOptionPane.showMessageDialog(
-            null,                   // Parent component (null means centered on screen)
-            message,                // Notification message
-            "New Notification",     // Dialog title
-            JOptionPane.INFORMATION_MESSAGE // Message type (info icon)
-        );
-    }
+
 }
 
