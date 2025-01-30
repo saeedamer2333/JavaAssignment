@@ -4,7 +4,7 @@
  */
 package com.mycompany.assignmentjava.Lucien;
 
-import com.mycompany.assignmentjava.Zakwaan.UI;
+import com.mycompany.assignmentjava.Zakwaan.UI.Customer_Dashboard;
 import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
 import javax.security.auth.login.LoginException;
@@ -27,17 +27,11 @@ public class Login extends javax.swing.JFrame {
     
     //------Navigation-------
     public static void navigateToCustomerDashboard(String[] userDetails){
-        String userID = userDetails[0];
-        String name = userDetails[1];
-        String email = userDetails[2];
-        String password = userDetails[3];
-        String role = userDetails[4];
-        String address = userDetails[5];
-        String phoneNumber = userDetails[6];
-        String walletID = userDetails[7];
-        
-        Customer
+        Customer_Dashboard dashboard = new Customer_Dashboard(userDetails);
+        dashboard.setVisible(true);
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,14 +128,22 @@ public class Login extends javax.swing.JFrame {
         
         // Try to login with details
         try{
-            String[] details = User.login(email, password);
-            String role = details[2]; // Retrieve the role
+            String[] userDetails = User.login(email, password);
+            String role = userDetails[4]; // Retrieve the role
             JOptionPane.showMessageDialog(null, "Login successful! Welcome, " + role + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // You can navigate to the next screen based on the role, for example:
+            // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
+            
+            //Navigate to customer
+            if ("Customer".equalsIgnoreCase(role)){
+                Login.navigateToCustomerDashboard(userDetails);
+            }
+        
+        
         } catch (LoginException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Login Error" ,JOptionPane.ERROR_MESSAGE);
         }
-        // You can navigate to the next screen based on the role, for example:
-        // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
+        
         
     }//GEN-LAST:event_loginBtnActionPerformed
 

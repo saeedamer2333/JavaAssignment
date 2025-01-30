@@ -6,6 +6,7 @@ package com.mycompany.assignmentjava.Utilites;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -15,8 +16,19 @@ public class Notification {
     private String notificationID;
     private String userID;
     private String message;
+    private LocalDateTime timestamp;
     private boolean isRead;
-
+    
+    //--------Constructor--------
+    Notification(String notificationID, String userID, String message, 
+                    LocalDateTime timestamp , boolean isRead){
+        this.notificationID = notificationID;
+        this.userID = userID;
+        this.message = message;
+        this.timestamp = timestamp;
+        this.isRead = isRead;
+    }
+    
     //--------Getters and Setters--------
     
     // Getter and Setter for notificationID

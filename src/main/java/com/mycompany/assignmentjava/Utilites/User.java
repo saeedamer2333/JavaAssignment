@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.assignmentjava.Utilites;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.auth.login.LoginException;
 import javax.swing.JOptionPane;
@@ -65,7 +66,7 @@ public abstract class User implements Notifiable {
         this.role = role;
     }
     
-    // --------Methods--------
+    // --------Static Methods--------
     public static String[] login(String email, String password) throws LoginException {
         // Search for the user in the LOGIN file
         List<String> loginRecords = FileManager.searchRecords(FileManager.FileType.LOGIN, "email", email);
@@ -74,7 +75,7 @@ public abstract class User implements Notifiable {
             throw new LoginException("Invalid email or password."); // Throw exception if email is not found
         }
         
-        // Grab user details from USERS file
+        // Grab user details from USERS file using email
         List<String> userRecords = FileManager.searchRecords(FileManager.FileType.USERS, "email", email);
 
         // Parse the result and validate the password
@@ -94,9 +95,27 @@ public abstract class User implements Notifiable {
         return userDetails; // Return the details
     }
     
-    @Override
-    public void sendNotification(Notification notification){
+    public static Notification sendNotification(String userID, String message){
+        //Generate notificationID and get current date time
+        String notificationID = "ID" + FileManager.generateID();
+        LocalDateTime timestamp = LocalDateTime.now();
         
+        //Initialize notification
+        Notification notification = new Notification(notificationID, userID, message, timestamp, false);
+        //Show popup notification to user
+        showPopupNotification(message);
+        
+        return notification;
+    }
+
+    public static void showPopupNotification(String message) {
+        // Display a popup dialog with the notification message
+        JOptionPane.showMessageDialog(
+            null,                   // Parent component (null means centered on screen)
+            message,                // Notification message
+            "New Notification",     // Dialog title
+            JOptionPane.INFORMATION_MESSAGE // Message type (info icon)
+        );
     }
 }
 

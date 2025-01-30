@@ -60,12 +60,12 @@ public class FileManager {
 
     //----------More Utility----------
     // Generate 8-digit ID
-    private static String generateID() {
+    public static String generateID() {
         return String.format("%08d", RANDOM.nextInt(100000000));
     }
 
     // Display error in a dialog
-    private static void showErrorDialog(String message) {
+    public static void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
     }
 

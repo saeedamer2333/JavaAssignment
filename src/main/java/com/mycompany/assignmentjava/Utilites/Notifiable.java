@@ -4,10 +4,13 @@
  */
 package com.mycompany.assignmentjava.Utilites;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author zechn
  */
 public interface Notifiable {
-    void sendNotification(Notification notification);
+    Notification sendNotification(String userID, String message, LocalDateTime timestamp);
+    void showPopupNotification(String message);
 }

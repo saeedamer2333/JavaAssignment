@@ -1,5 +1,5 @@
 userID,name,email,phone,password,role
-ID80693061;;Lucien;;lcuiefe@gmai.com;;9999999999;;mnssmgm123@#D;;Vendo
+ID80693061;;Lucien;;lcuiefe@gmai.com;;9999999999;;mnssmgm123@#D;;Vendor
 ID15783101;;Lucien;;luciferiizero@gmailc.omc;;0555893839;;mnssmgmW@#@D111;;Runner
 ID73000110;;Lucien;;luciferiizero@gmailc.omc;;0555893839;;mnssmgmW@#@D111;;Runner
 ID04286638;;Lucien;;luciferiizero@gmailc.omc;;0555893839;;mnssmgmW@#@D111;;Runner

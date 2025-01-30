@@ -14,10 +14,40 @@ public class Customer_Dashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form Customer_HomePage
+     * @param customerID
+     * @param name
+     * @param email
+     * @param password
+     * @param role
+     * @param address
+     * @param phoneNumber
+     * @param walletID
      */
-    public Customer_Dashboard() {
-        initComponents();
+    //Attributes
+    private String customerID;
+    private String name;
+    private String email;
+    private String phone;
+    private String password;
+    private String role;
+    private String address;
+    private String walletID;
+    
+    public Customer_Dashboard(String[] userDetails) {
+        //Initialize attributes
+        this.customerID = userDetails[0];
+        this.name = userDetails[1];
+        this.email = userDetails[2];
+        this.phone = userDetails[3];
+        this.password = userDetails[4];
+        this.role = userDetails[5];
+        this.address = userDetails[6];
+        this.walletID = userDetails[7];
+    }
 
+    private Customer_Dashboard() {
+        //Initialize GUI
+        initComponents();
     }
 
     /**
@@ -141,6 +171,7 @@ public class Customer_Dashboard extends javax.swing.JFrame {
                 new Customer_Dashboard().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
