@@ -201,8 +201,9 @@ public class CreateCustomer extends javax.swing.JFrame {
         String role = roleCombo.getSelectedItem().toString();
         
         
-        FileManager.addUser(name, email, phone, password, role);
-//        FileManager.addUser(name, email, phone, password, "customer");
+        FileManager.addUser(name, email, phone, password, "customer");
+        
+        
 
 
       

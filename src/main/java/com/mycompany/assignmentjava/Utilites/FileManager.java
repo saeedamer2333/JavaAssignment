@@ -16,7 +16,6 @@ public class FileManager {
     // ----------File names----------
     
     public enum FileType {
-        LOGIN("login.txt"),
         USERS("users.txt"),
         TRANSACTIONS("transactions.txt"),
         ORDERS("orders.txt"),
@@ -38,7 +37,6 @@ public class FileManager {
 
     // ----------Initialize files with headers----------
     static {
-        initializeFile(FileType.LOGIN, "email,password,role");
         initializeFile(FileType.USERS, "userID,name,email,phone,password,role");
         initializeFile(FileType.TRANSACTIONS, "transactionID,orderID,customerID,amount,paymentDate,paymentStatus");
         initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,totalAmount");
@@ -134,7 +132,7 @@ public class FileManager {
 
     //----------Appending .txt files----------
         // append users.txt and login.txt
-    public static boolean addUser(String userID, String name, String email, String phone, String password, String role) {
+    public static boolean addUser(String name, String email, String phone, String password, String role) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
             return false;
@@ -147,14 +145,13 @@ public class FileManager {
             showErrorDialog("Invalid phone number: " + phone);
             return false;
         }
+           String userID= generateID();
 
         
         String record = String.join(DELIMITER, userID, name, email, phone, password, role);
 
-        // Also add to login file
-        String loginRecord = String.join(DELIMITER, email, password, role);
 
-        return appendToFile(FileType.USERS, record) && appendToFile(FileType.LOGIN, loginRecord);
+        return appendToFile(FileType.USERS, record);
     }
 
     // Append transactions.txt

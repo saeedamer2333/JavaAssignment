@@ -1,23 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.assignmentjava.Lucien;
 
-/**
- *
- * @author user
- */
-public class Admin {
-    private String userID;
-    private String name;
-    private String email;
-    private String password;
+import com.mycompany.assignmentjava.Utilites.User;
 
-    public Admin(String userID, String name, String email, String password) {
-        if (!validate(userID, "userID")) {
-            throw new IllegalArgumentException("Invalid userID format");
-        }
+public class Admin extends User {
+
+    // Constructor
+    public Admin(String name, String email, String phone, String password) {
+        super(name, email, phone, password, "Admin");
+
+        // Validate the inputs after calling the superclass constructor
         if (!validate(name, "name")) {
             throw new IllegalArgumentException("Invalid name format");
         }
@@ -27,12 +18,9 @@ public class Admin {
         if (!validate(password, "password")) {
             throw new IllegalArgumentException("Invalid password format");
         }
-        
-        this.userID = userID;
-        this.name = name;
-        this.email = email;
-        this.password = password;
     }
+
+    // ---------------- Methods ----------------
 
     // Create user with basic info
     public void createUser(String userId, String userType) {
@@ -44,8 +32,8 @@ public class Admin {
 
     // Create user with detailed info
     public void createUser(String name, String phone, String role, String email, String password) {
-        if (!validate(name, "name") || !validate(phone, "phone") || 
-            !validate(role, "role") || !validate(email, "email") || 
+        if (!validate(name, "name") || !validate(phone, "phone") ||
+            !validate(role, "role") || !validate(email, "email") ||
             !validate(password, "password")) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
@@ -95,6 +83,8 @@ public class Admin {
         // Implementation logic here
     }
 
+    // -------------- Validation Methods --------------
+
     private boolean validate(String value, String type) {
         if (value == null || value.trim().isEmpty()) return false;
 
@@ -118,8 +108,56 @@ public class Admin {
         return false;
     }
 
-    // Getters and setters (optional as per requirements)
-    public String getUserID() { return userID; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
+    // -------------- Getters and Setters --------------
+//
+//    // Getter for userID
+//    public String getUserID() { return userID; }
+//
+//    // Getter and Setter for name
+//    @Override
+//    public String getName() { return name; }
+//
+//    @Override
+//    public void setName(String name) {
+//        if (!validate(name, "name")) {
+//            throw new IllegalArgumentException("Invalid name format");
+//        }
+//        this.name = name;
+//    }
+//
+//    // Getter and Setter for email
+//    @Override
+//    public String getEmail() { return email; }
+//
+//    @Override
+//    public void setEmail(String email) {
+//        if (!validate(email, "email")) {
+//            throw new IllegalArgumentException("Invalid email format");
+//        }
+//        this.email = email;
+//    }
+//
+//    // Getter and Setter for password
+//    @Override
+//    public String getPassword() { return password; }
+//
+//    @Override
+//    public void setPassword(String password) {
+//        if (!validate(password, "password")) {
+//            throw new IllegalArgumentException("Invalid password format");
+//        }
+//        this.password = password;
+//    }
+//
+//    // Getter and Setter for role
+//    @Override
+//    public String getRole() { return role; }
+//
+//    @Override
+//    public void setRole(String role) {
+//        if (!validate(role, "role")) {
+//            throw new IllegalArgumentException("Invalid role");
+//        }
+//        this.role = role;
+//    }
 }

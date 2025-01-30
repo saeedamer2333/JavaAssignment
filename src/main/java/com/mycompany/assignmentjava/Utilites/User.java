@@ -7,6 +7,7 @@ import static com.mycompany.assignmentjava.Utilites.FileManager.generateID;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.auth.login.LoginException;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -19,14 +20,19 @@ public abstract class User {
     private String email;
     private String password;
     private String role;
+    private String phone;
+
     
     // Constructor
-    User(String name, String email, String password, String role) {    
+    public User(String name, String email, String phone, String password, String role) {    
         this.userID = "UID" + generateID();
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phone = phone;
+
+        
     }
     
     // --------Getters and Setters--------
@@ -70,7 +76,7 @@ public abstract class User {
     // --------Static Methods--------
     public static String[] login(String email, String password) throws LoginException {
         // Search for the user in the LOGIN file
-        List<String> loginRecords = FileManager.searchRecords(FileManager.FileType.LOGIN, "email", email);
+        List<String> loginRecords = FileManager.searchRecords(FileManager.FileType.USERS, "email", email);
 
         if (loginRecords.isEmpty()) {
             throw new LoginException("Invalid email or password."); // Throw exception if email is not found
@@ -84,11 +90,13 @@ public abstract class User {
         String userRecord = userRecords.get(0);
         
         String[] loginDetails = loginRecord.split(FileManager.DELIMITER);
-
-        if (loginDetails.length < 3 || !loginDetails[1].equals(password)) {
+//
+        System.out.println(loginDetails[4]);
+        if (loginDetails.length < 3 || !loginDetails[4].equals(password)) {
+            
             throw new LoginException("Invalid email or password."); // Throw exception if password is incorrect
         }
-        
+//        
         //construct userDetails from USERS file
         String[] userDetails = userRecord.split(FileManager.DELIMITER);
 
