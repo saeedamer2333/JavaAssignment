@@ -87,6 +87,7 @@ public abstract class User implements Notifiable {
             throw new LoginException("Invalid email or password."); // Throw exception if password is incorrect
         }
         
+        //construct userDetails from USERS file
         String[] userDetails = userRecord.split(FileManager.DELIMITER);
 
         // Upon successful login return userDetails
