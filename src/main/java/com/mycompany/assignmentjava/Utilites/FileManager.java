@@ -37,12 +37,8 @@ public class FileManager {
 
     // ----------Initialize files with headers----------
     static {
-<<<<<<< HEAD
-        initializeFile(FileType.LOGIN, "email,password,role");
         initializeFile(FileType.USERS, "userID,name,email,phone,password,role,status");
-=======
         initializeFile(FileType.USERS, "userID,name,email,phone,password,role");
->>>>>>> 4779e2def9c6ed53ef703abde0cd4fe428f29174
         initializeFile(FileType.TRANSACTIONS, "transactionID,orderID,customerID,amount,paymentDate,paymentStatus");
         initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,runnerStatus,deliveryfees,totalAmount,OrderDate");
         initializeFile(FileType.REVIEWS, "reviewID,customerID,runnerID,orderID,vendorID,reviewText,rating,date");
@@ -73,20 +69,35 @@ public class FileManager {
     public static void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
     }
+    
+    
+       // method for adding user
+    
+     public static boolean addUser(String name, String email, String phone, String password, String role) {
+        if (!validateEmail(email)) {
+            showErrorDialog("Invalid email format: " + email);
+            return false;
+        }
+        if (!validatePassword(password)) {
+            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
+            return false;
+        }
+        if (!validatePhone(phone)) {
+            showErrorDialog("Invalid phone number: " + phone);
+            return false;
+        }
 
+        String userID = "ID" + generateID();
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role);
 
-
-<<<<<<< HEAD
         // Also add to login file
         String loginRecord = String.join(DELIMITER, email, password, role);
 
-        return appendToFile(FileType.USERS, record) && appendToFile(FileType.LOGIN, loginRecord);
+        return appendToFile(FileType.USERS, record);
     }
-    
-    // Add user for deliveryrunner adding the status property 
-
-   
-     public static boolean addUser(String name, String email, String phone, String password, String role,String status) {
+// Add user for deliveryrunner adding the status property 
+     
+        public static boolean addUser(String name, String email, String phone, String password, String role,String status) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
             return false;
@@ -108,7 +119,6 @@ public class FileManager {
 
         return appendToFile(FileType.USERS, record) && appendToFile(FileType.LOGIN, loginRecord);
     }
-    
     // Transaction methods
     public static boolean addTransaction(String orderID, String customerID,
                                          double amount, Date paymentDate, String paymentStatus) {
@@ -143,9 +153,9 @@ public class FileManager {
     }
 
     // Validation methods
-=======
+
     // ----------Validation methods----------
->>>>>>> 4779e2def9c6ed53ef703abde0cd4fe428f29174
+
     private static boolean validateEmail(String email) {
         return email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$");
     }
