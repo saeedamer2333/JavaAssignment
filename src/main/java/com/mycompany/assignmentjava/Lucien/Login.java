@@ -4,8 +4,10 @@
  */
 package com.mycompany.assignmentjava.Lucien;
 
-import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Zakwaan.UI.Customer_Dashboard;
+import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
+import javax.security.auth.login.LoginException;
 import javax.swing.JOptionPane;
 
 
@@ -13,6 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
+
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -21,7 +24,14 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-
+    
+    //------Navigation-------
+    public static void navigateToCustomerDashboard(String[] userDetails){
+        Customer_Dashboard dashboard = new Customer_Dashboard(userDetails);
+        dashboard.setVisible(true);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,40 +118,42 @@ public class Login extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
 
             // TODO add your handling code here:
-         String email = emailText.getText().trim();
+        String email = emailText.getText().trim();
         String password = passwordText.getText().trim();
         // Validate input fields
+        
         if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email and Password must not be empty.", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // Try to login with details
+        try{
+            String[] userDetails = User.login(email, password);
+            String name = userDetails[1]; // Retrieve the role
+            String role = userDetails[5]; // Retrieve the role
 
-        // Search for the user in the LOGIN file
-        List<String> loginRecords = FileManager.searchRecords(FileManager.FileType.LOGIN, "email", email);
-
-        if (loginRecords.isEmpty()) {
-            // Email not found
-            JOptionPane.showMessageDialog(this, "Invalid email or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(null, "Login successful! Welcome, " + name + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // You can navigate to the next screen based on the role, for example:
+            // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
+            
+            //Navigate to customer
+            if ("Customer".equalsIgnoreCase(role)){
+                Login.navigateToCustomerDashboard(userDetails);
+            }
+            
+         if ("Admin".equalsIgnoreCase(role)){
+                new CreateCustomer().setVisible(true);
+                this.hide();
+            }
+        
+        } catch (LoginException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Login Error" ,JOptionPane.ERROR_MESSAGE);
         }
-
-        // Parse the result and validate the password
-        String record = loginRecords.get(0); // Assuming there's only one record for an email
-        String[] details = record.split(FileManager.DELIMITER);
-
-        if (details.length < 3 || !details[1].equals(password)) {
-            // Password mismatch
-            JOptionPane.showMessageDialog(this, "Invalid email or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Successful login
-        String role = details[2]; // Retrieve the role
-        JOptionPane.showMessageDialog(this, "Login successful! Welcome, " + role + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        // You can navigate to the next screen based on the role, for example:
-        // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
-
+        
+        
+        
+        
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
