@@ -90,8 +90,8 @@ public class FileManager {
         String userID = "ID" + generateID();
         String record = String.join(DELIMITER, userID, name, email, phone, password, role);
 
-        // Also add to login file
-        String loginRecord = String.join(DELIMITER, email, password, role);
+        
+        
 
         return appendToFile(FileType.USERS, record);
     }
@@ -114,10 +114,9 @@ public class FileManager {
         String userID = "ID" + generateID();
         String record = String.join(DELIMITER, userID, name, email, phone, password, role,status);
 
-        // Also add to login file
-        String loginRecord = String.join(DELIMITER, email, password, role);
-
-        return appendToFile(FileType.USERS, record) && appendToFile(FileType.LOGIN, loginRecord);
+        
+      
+        return appendToFile(FileType.USERS, record);
     }
     // Transaction methods
     public static boolean addTransaction(String orderID, String customerID,
@@ -216,27 +215,7 @@ public class FileManager {
 
     //----------Appending .txt files----------
         // append users.txt and login.txt
-    public static boolean addUser(String name, String email, String phone, String password, String role) {
-        if (!validateEmail(email)) {
-            showErrorDialog("Invalid email format: " + email);
-            return false;
-        }
-        if (!validatePassword(password)) {
-            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
-            return false;
-        }
-        if (!validatePhone(phone)) {
-            showErrorDialog("Invalid phone number: " + phone);
-            return false;
-        }
-           String userID= generateID();
-
-        
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role);
-
-
-        return appendToFile(FileType.USERS, record);
-    }
+ 
 
     // Append transactions.txt
     public static boolean addTransaction(String transactionID, String orderID, String customerID,
