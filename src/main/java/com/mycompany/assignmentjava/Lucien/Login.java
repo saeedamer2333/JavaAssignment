@@ -121,6 +121,7 @@ public class Login extends javax.swing.JFrame {
         String email = emailText.getText().trim();
         String password = passwordText.getText().trim();
         // Validate input fields
+        
         if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email and Password must not be empty.", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -129,8 +130,10 @@ public class Login extends javax.swing.JFrame {
         // Try to login with details
         try{
             String[] userDetails = User.login(email, password);
-            String role = userDetails[4]; // Retrieve the role
-            JOptionPane.showMessageDialog(null, "Login successful! Welcome, " + role + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
+            String name = userDetails[1]; // Retrieve the role
+            String role = userDetails[5]; // Retrieve the role
+
+            JOptionPane.showMessageDialog(null, "Login successful! Welcome, " + name + ".", "Success", JOptionPane.INFORMATION_MESSAGE);
             // You can navigate to the next screen based on the role, for example:
             // if ("Admin".equalsIgnoreCase(role)) { navigateToAdminDashboard(); }
             
@@ -138,11 +141,17 @@ public class Login extends javax.swing.JFrame {
             if ("Customer".equalsIgnoreCase(role)){
                 Login.navigateToCustomerDashboard(userDetails);
             }
-        
+            
+         if ("Admin".equalsIgnoreCase(role)){
+                new CreateCustomer().setVisible(true);
+                this.hide();
+            }
         
         } catch (LoginException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Login Error" ,JOptionPane.ERROR_MESSAGE);
         }
+        
+        
         
         
     }//GEN-LAST:event_loginBtnActionPerformed

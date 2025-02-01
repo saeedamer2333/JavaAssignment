@@ -6,8 +6,6 @@ package com.mycompany.assignmentjava.Lucien;
 
 
 import com.mycompany.assignmentjava.Utilites.FileManager;
-import com.mycompany.assignmentjava.Utilites.User;
-import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import java.awt.event.WindowEvent;
 
 /**
@@ -199,12 +197,13 @@ public class CreateCustomer extends javax.swing.JFrame {
         String name = nameText.getText().trim();
         String email = emailText.getText().trim();
         String password = passwordText.getText().trim();
-        String phone = phoneText.getText(); //phone comes before password, PLEEEASE DONT MESS UP ANY OF THE ORDERS -Zakwaan
+        String phone = phoneText.getText();
         String role = roleCombo.getSelectedItem().toString();
         
-        //if role == customer -Zakwaan
-        Customer customer = new Customer(name, email, phone, password, address); // <- I fixed the order here d==( ᵔ U ᵔ )
-//        FileManager.addUser(name, email, phone, password, "customer");
+        
+        FileManager.addUser(name, email, phone, password, "customer");
+        
+        
 
 
       

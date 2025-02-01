@@ -16,7 +16,6 @@ public class FileManager {
     // ----------File names----------
     
     public enum FileType {
-        LOGIN("login.txt"),
         USERS("users.txt"),
         TRANSACTIONS("transactions.txt"),
         ORDERS("orders.txt"),
@@ -38,10 +37,10 @@ public class FileManager {
 
     // ----------Initialize files with headers----------
     static {
-        initializeFile(FileType.LOGIN, "email,password,role");
+        initializeFile(FileType.USERS, "userID,name,email,phone,password,role,status");
         initializeFile(FileType.USERS, "userID,name,email,phone,password,role");
         initializeFile(FileType.TRANSACTIONS, "transactionID,orderID,customerID,amount,paymentDate,paymentStatus");
-        initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,totalAmount");
+        initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,runnerStatus,deliveryfees,totalAmount,OrderDate");
         initializeFile(FileType.REVIEWS, "reviewID,customerID,runnerID,orderID,vendorID,reviewText,rating,date");
         initializeFile(FileType.PRODUCTS, "productID,vendorID,productName,price");
         initializeFile(FileType.TICKETS, "ticketID,managerID,customerID,customerComment,managerReply,status");
@@ -70,10 +69,92 @@ public class FileManager {
     public static void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
     }
+    
+    
+       // method for adding user
+    
+     public static boolean addUser(String name, String email, String phone, String password, String role) {
+        if (!validateEmail(email)) {
+            showErrorDialog("Invalid email format: " + email);
+            return false;
+        }
+        if (!validatePassword(password)) {
+            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
+            return false;
+        }
+        if (!validatePhone(phone)) {
+            showErrorDialog("Invalid phone number: " + phone);
+            return false;
+        }
 
+        String userID = "ID" + generateID();
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role);
 
+        
+        
+
+        return appendToFile(FileType.USERS, record);
+    }
+// Add user for deliveryrunner adding the status property 
+     
+        public static boolean addUser(String name, String email, String phone, String password, String role,String status) {
+        if (!validateEmail(email)) {
+            showErrorDialog("Invalid email format: " + email);
+            return false;
+        }
+        if (!validatePassword(password)) {
+            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
+            return false;
+        }
+        if (!validatePhone(phone)) {
+            showErrorDialog("Invalid phone number: " + phone);
+            return false;
+        }
+
+        String userID = "ID" + generateID();
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role,status);
+
+        
+      
+        return appendToFile(FileType.USERS, record);
+    }
+    // Transaction methods
+    public static boolean addTransaction(String orderID, String customerID,
+                                         double amount, Date paymentDate, String paymentStatus) {
+        if (amount <= 0) {
+            showErrorDialog("Transaction amount must be greater than 0.");
+            return false;
+        }
+        String transactionID = "ID" + generateID();
+        String dateStr = DATE_FORMAT.format(paymentDate);
+        String record = String.join(DELIMITER, transactionID, orderID, customerID,
+                String.valueOf(amount), dateStr, paymentStatus);
+        return appendToFile(FileType.TRANSACTIONS, record);
+    }
+
+    // Order management methods
+    public static boolean addOrder(String customerID, String vendorID, String runnerID,
+                                   List<String> products, String orderType, String status, double deliveryfees  ,double totalAmount, Date orderDate) {
+        if (products.isEmpty()) {
+            showErrorDialog("Order must contain at least one product.");
+            return false;
+        }
+        if (totalAmount <= 0) {
+            showErrorDialog("Total amount must be greater than 0.");
+            return false;
+        }
+        String dateStrnOrder = DATE_FORMAT.format(orderDate);
+        String orderID = "ID" + generateID();
+        String productsStr = String.join("|", products);
+        String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
+                productsStr, orderType, status,String.valueOf(deliveryfees) ,String.valueOf(totalAmount), dateStrnOrder);
+        return appendToFile(FileType.ORDERS, record);
+    }
+
+    // Validation methods
 
     // ----------Validation methods----------
+
     private static boolean validateEmail(String email) {
         return email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$");
     }
@@ -134,28 +215,7 @@ public class FileManager {
 
     //----------Appending .txt files----------
         // append users.txt and login.txt
-    public static boolean addUser(String userID, String name, String email, String phone, String password, String role) {
-        if (!validateEmail(email)) {
-            showErrorDialog("Invalid email format: " + email);
-            return false;
-        }
-        if (!validatePassword(password)) {
-            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
-            return false;
-        }
-        if (!validatePhone(phone)) {
-            showErrorDialog("Invalid phone number: " + phone);
-            return false;
-        }
-
-        
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role);
-
-        // Also add to login file
-        String loginRecord = String.join(DELIMITER, email, password, role);
-
-        return appendToFile(FileType.USERS, record) && appendToFile(FileType.LOGIN, loginRecord);
-    }
+ 
 
     // Append transactions.txt
     public static boolean addTransaction(String transactionID, String orderID, String customerID,
