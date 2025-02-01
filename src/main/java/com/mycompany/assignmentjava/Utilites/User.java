@@ -17,14 +17,16 @@ public abstract class User {
     protected String userID;
     private String name; 
     private String email;
+    private String phone;
     private String password;
     private String role;
     
     // Constructor
-    User(String name, String email, String password, String role) {    
-        this.userID = "UID" + generateID();
+    public User(String name, String email, String phone, String password, String role) {    
+        this.userID = "ID" + generateID();
         this.name = name;
         this.email = email;
+        this.phone = phone;
         this.password = password;
         this.role = role;
     }
@@ -47,6 +49,15 @@ public abstract class User {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    // Getter and Setter for phone
+    public String getPhone() {
+        return phone;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
     // Getter and Setter for password
