@@ -14,7 +14,6 @@ public class FileManager {
     private static final Random RANDOM = new Random();
 
     // ----------File names----------
-    
     public enum FileType {
         USERS("users.txt"),
         TRANSACTIONS("transactions.txt"),
@@ -38,7 +37,6 @@ public class FileManager {
     // ----------Initialize files with headers----------
     static {
         initializeFile(FileType.USERS, "userID,name,email,phone,password,role,status");
-        initializeFile(FileType.USERS, "userID,name,email,phone,password,role");
         initializeFile(FileType.TRANSACTIONS, "transactionID,orderID,customerID,amount,paymentDate,paymentStatus");
         initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,runnerStatus,deliveryfees,totalAmount,OrderDate");
         initializeFile(FileType.REVIEWS, "reviewID,customerID,runnerID,orderID,vendorID,reviewText,rating,date");
@@ -69,11 +67,10 @@ public class FileManager {
     public static void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
     }
-    
-    
-       // method for adding user
-    
-     public static boolean addUser(String name, String email, String phone, String password, String role) {
+
+    // ----------Adding records methods----------
+    // Add a regular user (without status)
+    public static boolean addUser(String name, String email, String phone, String password, String role) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
             return false;
@@ -86,18 +83,13 @@ public class FileManager {
             showErrorDialog("Invalid phone number: " + phone);
             return false;
         }
-
         String userID = "ID" + generateID();
         String record = String.join(DELIMITER, userID, name, email, phone, password, role);
-
-        
-        
-
         return appendToFile(FileType.USERS, record);
     }
-// Add user for deliveryrunner adding the status property 
-     
-        public static boolean addUser(String name, String email, String phone, String password, String role,String status) {
+
+    // Add a delivery runner (user with status property)
+    public static boolean addUser(String name, String email, String phone, String password, String role, String status) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
             return false;
@@ -110,15 +102,12 @@ public class FileManager {
             showErrorDialog("Invalid phone number: " + phone);
             return false;
         }
-
         String userID = "ID" + generateID();
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role,status);
-
-        
-      
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role, status);
         return appendToFile(FileType.USERS, record);
     }
-    // Transaction methods
+
+    // Transaction methods (using java.util.Date)
     public static boolean addTransaction(String orderID, String customerID,
                                          double amount, Date paymentDate, String paymentStatus) {
         if (amount <= 0) {
@@ -134,7 +123,8 @@ public class FileManager {
 
     // Order management methods
     public static boolean addOrder(String customerID, String vendorID, String runnerID,
-                                   List<String> products, String orderType, String status, double deliveryfees  ,double totalAmount, Date orderDate) {
+                                   List<String> products, String orderType, String status,
+                                   double deliveryfees, double totalAmount, Date orderDate) {
         if (products.isEmpty()) {
             showErrorDialog("Order must contain at least one product.");
             return false;
@@ -143,33 +133,81 @@ public class FileManager {
             showErrorDialog("Total amount must be greater than 0.");
             return false;
         }
-        String dateStrnOrder = DATE_FORMAT.format(orderDate);
+        String dateStrOrder = DATE_FORMAT.format(orderDate);
         String orderID = "ID" + generateID();
         String productsStr = String.join("|", products);
         String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
-                productsStr, orderType, status,String.valueOf(deliveryfees) ,String.valueOf(totalAmount), dateStrnOrder);
+                productsStr, orderType, status, String.valueOf(deliveryfees),
+                String.valueOf(totalAmount), dateStrOrder);
         return appendToFile(FileType.ORDERS, record);
     }
 
-    // Validation methods
+    // Other append methods (using LocalDateTime in some cases)
 
-    // ----------Validation methods----------
-
-    private static boolean validateEmail(String email) {
-        return email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$");
+    public static boolean addTransaction(String transactionID, String orderID, String customerID,
+                                         double amount, LocalDateTime paymentDate, String paymentStatus) {
+        if (amount <= 0) {
+            showErrorDialog("Transaction amount must be greater than 0.");
+            return false;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateStr = paymentDate.format(formatter);
+        String record = String.join(DELIMITER, transactionID, orderID, customerID,
+                String.valueOf(amount), dateStr, paymentStatus);
+        return appendToFile(FileType.TRANSACTIONS, record);
     }
 
-    private static boolean validatePassword(String password) {
-        return password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$");
+    public static boolean addOrder(String orderID, String customerID, String vendorID, String runnerID,
+                                   List<String> products, String orderType, String status, double totalAmount) {
+        if (products.isEmpty()) {
+            showErrorDialog("Order must contain at least one product.");
+            return false;
+        }
+        if (totalAmount <= 0) {
+            showErrorDialog("Total amount must be greater than 0.");
+            return false;
+        }
+        String productsStr = String.join("|", products);
+        String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
+                productsStr, orderType, status, String.valueOf(totalAmount));
+        return appendToFile(FileType.ORDERS, record);
     }
 
-    private static boolean validatePhone(String phone) {
-        return phone.matches("^\\+?[0-9]{10,15}$");
+    public static boolean addReview(String reviewID, String customerID, String runnerID, String orderID, 
+                                    String vendorID, String reviewText, int rating, LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateStr = date.format(formatter);
+        String record = String.join(DELIMITER, reviewID, customerID, runnerID, orderID,
+                                    vendorID, reviewText, Integer.toString(rating), dateStr);
+        return appendToFile(FileType.REVIEWS, record);
     }
 
-    
-    //----------Generic File Append & Remove & Search----------
-    // Generic file append method
+    public static boolean addProduct(String productID, String vendorID, String productName, double price) {
+        if (price <= 0) {
+            showErrorDialog("Price must be greater than 0.");
+            return false;
+        }
+        String record = String.join(DELIMITER, productID, vendorID, productName, Double.toString(price));
+        return appendToFile(FileType.PRODUCTS, record);
+    }
+
+    public static boolean addTicket(String ticketID, String managerID, String customerID, String customerComment, 
+                                    String managerReply, String status) {
+        String record = String.join(DELIMITER, ticketID, managerID, customerID, 
+                                    customerComment, managerReply, status);
+        return appendToFile(FileType.TICKETS, record);
+    }
+
+    public static boolean addNotification(String notificationID, String userID, String message, 
+                                            LocalDateTime timestamp, boolean isRead) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestampStr = timestamp.format(formatter);
+        String record = String.join(DELIMITER, notificationID, userID, message, 
+                                        timestampStr, Boolean.toString(isRead));
+        return appendToFile(FileType.NOTIFICATIONS, record);
+    }
+
+    // ----------Generic File Append Method----------
     private static boolean appendToFile(FileType fileType, String record) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileType.getPath(), true))) {
             writer.write(record);
@@ -180,9 +218,8 @@ public class FileManager {
             return false;
         }
     }
-    
-    //searchKey = any header from the txt file
-    // Search method
+
+    // ----------Search Method----------
     public static List<String> searchRecords(FileType fileType, String searchKey, String searchValue) {
         List<String> results = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
@@ -199,7 +236,6 @@ public class FileManager {
                 showErrorDialog("Invalid search key: " + searchKey);
                 return results;
             }
-
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(DELIMITER);
@@ -213,102 +249,183 @@ public class FileManager {
         return results;
     }
 
-    //----------Appending .txt files----------
-        // append users.txt and login.txt
- 
+    // ----------Update a Single Field----------
+   public static boolean updateSingleField(FileType fileType, String id, String fieldName, String newValue, int fieldIndex) {
+    List<String> updatedLines = new ArrayList<>();
+    boolean recordFound = false;
 
-    // Append transactions.txt
-    public static boolean addTransaction(String transactionID, String orderID, String customerID,
-                                         double amount, LocalDateTime paymentDate, String paymentStatus) {
-        if (amount <= 0) {
-            showErrorDialog("Transaction amount must be greater than 0.");
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+        String header = reader.readLine();
+        updatedLines.add(header);
+
+        String[] headers = header.split(","); // Assuming the header uses commas, update if needed
+        if (fieldIndex < 0 || fieldIndex >= headers.length) {
+            showErrorDialog("Invalid field index: " + fieldIndex);
             return false;
         }
 
-        // Convert LocalDateTime to String
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateStr = paymentDate.format(formatter);
-        
-        String record = String.join(DELIMITER, transactionID, orderID, customerID,
-                String.valueOf(amount), dateStr, paymentStatus);
-        return appendToFile(FileType.TRANSACTIONS, record);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(DELIMITER, -1); // Preserve empty fields
+
+            if (parts.length < headers.length) {
+                showErrorDialog("Malformed line detected: " + line);
+                return false;
+            }
+
+            if (parts[0].equals(id)) {
+                recordFound = true;
+                parts[fieldIndex] = newValue;
+                line = String.join(DELIMITER, parts);
+            }
+
+            updatedLines.add(line);
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error reading file: " + e.getMessage());
+        return false;
     }
 
-    // Append orders.txt
-    public static boolean addOrder(String orderID, String customerID, String vendorID, String runnerID,
-                                   List<String> products, String orderType, String status, double totalAmount) {
-        if (products.isEmpty()) {
-            showErrorDialog("Order must contain at least one product.");
-            return false;
-        }
-        if (totalAmount <= 0) {
-            showErrorDialog("Total amount must be greater than 0.");
-            return false;
-        }
-        
-        String productsStr = String.join("|", products);
-        String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
-                productsStr, orderType, status, String.valueOf(totalAmount));
-        return appendToFile(FileType.ORDERS, record);
+    if (!recordFound) {
+        showErrorDialog("Record with ID " + id + " not found.");
+        return false;
     }
-    
-    //Appending reviews to reviews.txt
-    public static boolean addReview(String reviewID, String customerID, String runnerID, String orderID, 
-                                    String vendorID, String reviewText, int rating, LocalDateTime date){
-        
-        // Convert LocalDateTime to String
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateStr = date.format(formatter);
-        
-        String record = String.join(DELIMITER, reviewID, customerID, runnerID, orderID,
-                                    vendorID, reviewText, Integer.toString(rating), dateStr);
-        
-        return appendToFile(FileType.REVIEWS, record);
-    }
-    
-    //Appending products to products.txt
-    public static boolean addProduct(String productID, String vendorID, String productName, double price) {
-        if (price <= 0) {
-            showErrorDialog("Transaction amount must be greater than 0.");
-            return false;
-        }
-        
-        String record = String.join(DELIMITER, productID, vendorID, productName, Double.toString(price));
-        
-        return appendToFile(FileType.PRODUCTS, record);
-    }
-    
-    //Appending tickets to tickets.txt
-    public static boolean addTicket(String ticketID, String managerID, String customerID, String customerComment, 
-                                    String managerReply, String status){
 
-        String record = String.join(DELIMITER, ticketID, managerID, customerID, 
-                                    customerComment, managerReply, status);
-        
-        return appendToFile(FileType.TICKETS, record);
+    return writeLinesToFile(fileType, updatedLines);
+}
+
+    // ----------Rewrite the Entire File with the Given Lines----------
+    private static boolean writeLinesToFile(FileType fileType, List<String> lines) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileType.getPath()))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            return true;
+        } catch (IOException e) {
+            showErrorDialog("Error writing to file: " + e.getMessage());
+            return false;
+        }
     }
     
-    //Appending to notifications.txt
-    public static boolean addNotification(String notificationID, String userID, String message, 
-                                            LocalDateTime timestamp, boolean isRead){
-        // Convert LocalDateTime to String
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String timestampStr = timestamp.format(formatter);
+    // ----------Delete Record Method----------
+    /**
+     * Deletes the record with the specified id from the given file.
+     * @param fileType the file from which the record should be deleted.
+     * @param id the ID (first field in the record) to delete.
+     * @return true if the deletion was successful; false otherwise.
+     */
+    public static boolean deleteRecord(FileType fileType, String id) {
+        List<String> updatedLines = new ArrayList<>();
+        boolean recordFound = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+            // Read header and add it.
+            String header = reader.readLine();
+            updatedLines.add(header);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(DELIMITER);
+                // Assume the ID is in the first column.
+                if (parts[0].equals(id)) {
+                    recordFound = true;
+                    // Skip adding this line to updatedLines (i.e. delete it).
+                    continue;
+                }
+                updatedLines.add(line);
+            }
+        } catch (IOException e) {
+            showErrorDialog("Error reading file: " + e.getMessage());
+            return false;
+        }
+        if (!recordFound) {
+            showErrorDialog("Record with ID " + id + " not found.");
+            return false;
+        }
+        // The helper method writeLinesToFile is called here to overwrite the file with the updated content.
+        return writeLinesToFile(fileType, updatedLines);
         
-        String record = String.join(DELIMITER, notificationID, userID, message, 
-                                        timestampStr, Boolean.toString(isRead));
-        
-        return appendToFile(FileType.NOTIFICATIONS, record);
     }
+        /**
+     * Gets all records within a specified file
+     * @param fileType the file from which the record should be deleted.
+     * @return a list of records.
+     */
     
-    
-    //----------Main----------
+    public static List<String> getAllRecords(FileType fileType) {
+    List<String> records = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+        // Read and ignore the header line
+        String header = reader.readLine();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            records.add(line);
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error reading records: " + e.getMessage());
+    }
+    return records;
+    }
+
+
+    // ----------Main Method with Examples----------
     public static void main(String[] args) {
-        // Example usage
-        //boolean userAdded = addUser("John Doe", "invalid-email", "+1234567890", "Passw0rd", "customer");
-        //System.out.println("User added: " + userAdded);
+        // -------------------------------------------------------------------
+//         Example: Using updateSingleField (which calls writeLinesToFile internally)
+//         (Assuming the first field is the record's ID)
+//         For USERS: update the 'name' property (which is at index 1 based on the header order)
+         updateSingleField(FileType.USERS, "ID12345678", "name", "Alice Smith", 1);
+         
+//         For TRANSACTIONS: update the 'paymentStatus' property (index 5)
+         updateSingleField(FileType.TRANSACTIONS, "ID87654321", "paymentStatus", "Completed", 5);
+        
+//         For ORDERS: update the 'status' property (index 5) or 'runnerStatus' (index 7)
+         updateSingleField(FileType.ORDERS, "ID11111111", "status", "Shipped", 5);
+         updateSingleField(FileType.ORDERS, "ID11111111", "runnerStatus", "Assigned", 7);
+        
+        // For REVIEWS: update the 'rating' property (index 6)
+         updateSingleField(FileType.REVIEWS, "ID22222222", "rating", "5", 6);
+        //
+        // For PRODUCTS: update the 'price' property (index 3)
+         updateSingleField(FileType.PRODUCTS, "ID33333333", "price", "19.99", 3);
+        //
+        // For TICKETS: update the 'managerReply' property (index 4)
+         updateSingleField(FileType.TICKETS, "ID44444444", "managerReply", "We are looking into it", 4);
+        //
+        // For NOTIFICATIONS: update the 'isRead' property (index 4)
+         updateSingleField(FileType.NOTIFICATIONS, "ID55555555", "isRead", "true", 4);
+        // 
+        // In each of the above examples, the updateSingleField method calls writeLinesToFile
+        // after modifying the appropriate record.
+        // -------------------------------------------------------------------
 
-        //List<String> users = searchRecords(FileType.USERS, "email", "john@example.com");
-        //System.out.println("Found users: " + users);
+        // -------------------------------------------------------------------
+        // Example: Using deleteRecord
+        // To delete a user record with a given ID from the USERS file:
+         boolean deleted = deleteRecord(FileType.USERS, "ID12345678");
+        // System.out.println("User deletion successful: " + deleted);
+        //
+        // Similarly, you can delete a transaction, order, review, product, ticket, or notification record:
+         deleteRecord(FileType.TRANSACTIONS, "ID87654321");
+         deleteRecord(FileType.ORDERS, "ID11111111");
+         deleteRecord(FileType.REVIEWS, "ID22222222");
+         deleteRecord(FileType.PRODUCTS, "ID33333333");
+         deleteRecord(FileType.TICKETS, "ID44444444");
+         deleteRecord(FileType.NOTIFICATIONS, "ID55555555");
+         
+         List<String> userRecords = FileManager.getAllRecords(FileManager.FileType.USERS);
+        // -------------------------------------------------------------------
+    }
+
+    // ----------Validation Methods----------
+    private static boolean validateEmail(String email) {
+        return email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    private static boolean validatePassword(String password) {
+        return password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$");
+    }
+
+    private static boolean validatePhone(String phone) {
+        return phone.matches("^\\+?[0-9]{10,15}$");
     }
 }
