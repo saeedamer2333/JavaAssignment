@@ -5,12 +5,22 @@
 package com.mycompany.assignmentjava.Lucien;
 
 import java.awt.event.WindowEvent;
-
+import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.FileManager.FileType;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author user
  */
 public class UserUpdateDetails extends javax.swing.JFrame {
+    static String ID;
+    static String name;
+    static String email;
+    static String phone;
+    static String role;
+
 
     /**
      * Creates new form UserUpdateDetails
@@ -28,16 +38,17 @@ public class UserUpdateDetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        nameText = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        emailText = new javax.swing.JTextField();
+        phoneText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        IDComboBox = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -49,14 +60,14 @@ public class UserUpdateDetails extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit & Delete User Details");
 
-        jTextField1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        nameText.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 48)); // NOI18N
         jLabel1.setText("Edit User Detials");
 
-        jTextField2.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        emailText.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        phoneText.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Monospaced", 1, 36)); // NOI18N
         jButton1.setText("✅︎ Update");
@@ -78,7 +89,12 @@ public class UserUpdateDetails extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jLabel5.setText("UserID");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        IDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        IDComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDComboBoxActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jButton2.setText("✘ Delete");
@@ -145,10 +161,10 @@ public class UserUpdateDetails extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
+                    .addComponent(IDComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(phoneText, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailText, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addGap(38, 38, 38))
@@ -169,37 +185,108 @@ public class UserUpdateDetails extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(jButton1)
                 .addContainerGap(123, Short.MAX_VALUE))
         );
 
+        List<String> records = FileManager.getAllRecords(FileManager.FileType.USERS);
+        List<String> displayRecords = new ArrayList<>();
+
+        for (String record : records) {
+            String[] parts = record.split(FileManager.DELIMITER);
+            // Ensure there are enough parts to display name, ID, and email.
+            if (parts.length >= 6) {
+                ID = parts[0];
+                name = parts[1];
+                email = parts[2];
+                role = parts[5];
+                phone = parts[3];
+                nameText.setText(name);
+                emailText.setText(email);
+                phoneText.setText(phone);
+                // Build a human-readable string
+                displayRecords.add(name + " (" + ID + ") - " + email + " (" +role.toUpperCase() + ")");
+            } else {
+                // If the record doesn't match the expected format, add the raw record.
+                displayRecords.add(record);
+            }
+        }
+
+        // Set the combo box model with the human-readable items
+        IDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(
+            displayRecords.toArray(new String[0])
+        ));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+       String selectedUser = (String) IDComboBox.getSelectedItem();
+    if (selectedUser != null && selectedUser.contains("(") && selectedUser.contains(")")) {
+        int start = selectedUser.indexOf("(") + 1;
+        int end = selectedUser.indexOf(")");
+        String extractedID = selectedUser.substring(start, end).trim();
+
+        // Update each field using the correct field indices
+        boolean nameUpdated = FileManager.updateSingleField(
+            FileType.USERS, extractedID, "name", nameText.getText(), 1
+        );
+        boolean emailUpdated = FileManager.updateSingleField(
+            FileType.USERS, extractedID, "email", emailText.getText(), 2
+        );
+        boolean phoneUpdated = FileManager.updateSingleField(
+            FileType.USERS, extractedID, "phone", phoneText.getText(), 3
+        );
+
+        if (nameUpdated && emailUpdated && phoneUpdated) {
+            JOptionPane.showMessageDialog(this, "User updated successfully!");
+            refreshComboBox(); // Refresh the combobox to reflect changes
+        } else {
+            JOptionPane.showMessageDialog(this, "Error updating user.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No user selected.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+            String selectedUser = (String) IDComboBox.getSelectedItem();
+    if (selectedUser != null && selectedUser.contains("(") && selectedUser.contains(")")) {
+        int start = selectedUser.indexOf("(") + 1;
+        int end = selectedUser.indexOf(")");
+        String extractedID = selectedUser.substring(start, end).trim();
+
+        boolean deleted = FileManager.deleteRecord(FileManager.FileType.USERS, extractedID);
+        if (deleted) {
+            JOptionPane.showMessageDialog(this, "User deleted successfully!");
+            refreshComboBox(); // Refresh combobox after deletion
+        } else {
+            JOptionPane.showMessageDialog(this, "Error deleting user.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No user selected.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
@@ -210,6 +297,7 @@ public class UserUpdateDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         new UserUpdateDetails().setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -220,6 +308,47 @@ public class UserUpdateDetails extends javax.swing.JFrame {
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void IDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDComboBoxActionPerformed
+        // TODO add your handling code here:
+
+        String selectedUser = (String) IDComboBox.getSelectedItem();
+        
+        if (selectedUser != null && selectedUser.contains("(") && selectedUser.contains(")")) {
+            // Extract the user ID from the format: "Zakwan (75250626) - Zakwan@goodboy.com (CUSTOMER)"
+            int start = selectedUser.indexOf("(") + 1;
+            int end = selectedUser.indexOf(")");
+            String extractedID = selectedUser.substring(start, end).trim();
+
+            // Search for the full record using the extracted ID
+            List<String> userDetails = FileManager.searchRecords(FileManager.FileType.USERS, "userID", extractedID);
+            
+            if (!userDetails.isEmpty()) {
+                // Split the record into fields
+                String[] parts = userDetails.get(0).split(FileManager.DELIMITER);
+                
+                if (parts.length >= 6) { // Ensure there are enough fields before accessing them
+                    String userID = parts[0];
+                    String name = parts[1];
+                    String email = parts[2];
+                    String phone = parts[3];
+                    String role = parts[5];
+
+                    // Populate UI fields
+                    nameText.setText(name);
+                    emailText.setText(email);
+                    phoneText.setText(phone);
+
+                    // If you want to store these values in variables, do this:
+                    ID = userID; 
+                } else {
+                    System.out.println("Invalid user record format.");
+                }
+            } else {
+                System.out.println("User not found.");
+            }
+        }
+    }//GEN-LAST:event_IDComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,11 +384,33 @@ public class UserUpdateDetails extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void refreshComboBox() {
+    List<String> records = FileManager.getAllRecords(FileManager.FileType.USERS);
+    List<String> displayRecords = new ArrayList<>();
+    
+    for (String record : records) {
+        String[] parts = record.split(FileManager.DELIMITER);
+        if (parts.length >= 6) {
+            String userID = parts[0];
+            String name = parts[1];
+            String email = parts[2];
+            String role = parts[5];
+            displayRecords.add(name + " (" + userID + ") - " + email + " (" + role.toUpperCase() + ")");
+        } else {
+            displayRecords.add(record);
+        }
+    }
+    IDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(displayRecords.toArray(new String[0])));
+}
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> IDComboBox;
+    private javax.swing.JTextField emailText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -271,8 +422,8 @@ public class UserUpdateDetails extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JTextField nameText;
+    private javax.swing.JTextField phoneText;
     // End of variables declaration//GEN-END:variables
 }
