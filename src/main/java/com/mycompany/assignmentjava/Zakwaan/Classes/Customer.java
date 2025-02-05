@@ -4,7 +4,9 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.Utilites.FileManager;
 import com.mycompany.assignmentjava.Utilites.User;
+import java.util.List;
 
 /**
  *
@@ -42,6 +44,36 @@ public class Customer extends User{
     }
     
     //-------Methods-------
+    // will implement this once Order is implemented
+//    public Order[] getOrderHistory(){
+//        List<String> customerOrders = FileManager.searchRecords(FileManager.FileType.ORDERS, "customerID", this.userID);
+//        return customerOrders.toArray(new Order[customerOrders.size()]);
+//    }
     
+    //for getting the customer transaction history
+    public Transaction[] getTransactionHistory(){
+        List<String> customerTransactions = FileManager.searchRecords(FileManager.FileType.TRANSACTIONS, "customerID", this.userID);
+        return customerTransactions.toArray(new Transaction[customerTransactions.size()]);
+    }
     
+    // for getting the customer review history
+    public Review[] getReviewHistory(){
+        List<String> customerReviews = FileManager.searchRecords(FileManager.FileType.REVIEWS, "customerID", this.userID);
+        return customerReviews.toArray(new Review[customerReviews.size()]);
+    }
+    
+    //for add credit to the customer wallet
+    public void addCredit(double amount){
+        setBalance(this.balance+amount);
+    }
+    
+    //deducting credit from the customer wallet
+    public void deductCredit(double amount){
+        setBalance(this.balance-amount);
+    }
+    
+    //just another getter for the balance but under a more conventional name
+    public double checkBalance(){
+        return this.balance;
+    }
 }
