@@ -3,7 +3,6 @@ package com.mycompany.assignmentjava;
 // import your classes 
 import com.mycompany.assignmentjava.Lucien.Login;
 import com.mycompany.assignmentjava.Saeed.*;
-import com.mycompany.assignmentjava.Shariq.*;
 
 import com.mycompany.assignmentjava.Lucien.*;
 
