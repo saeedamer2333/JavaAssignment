@@ -22,11 +22,11 @@ public class Notification {
     private boolean isRead;
     
     //--------Constructor--------
-    Notification(String userID, String message){
+    public Notification(String userID, String message){
         //get current date and time
         LocalDateTime rTimestamp = LocalDateTime.now();
         
-        this.notificationID = "NID" + FileManager.generateID();
+        this.notificationID = "ID" + FileManager.generateID();
         this.userID = userID;
         this.message = message;
         this.timestamp = rTimestamp;
@@ -37,7 +37,7 @@ public class Notification {
     
     //notificationRecord = one line from notifications.txt
     //constructor to directly read lines
-    Notification(String notificationRecord){
+    public Notification(String notificationRecord){
         //Split notificationRecord into headers
         String[] splitNotificationRecord = notificationRecord.split(FileManager.DELIMITER);
         //Headers
@@ -121,18 +121,39 @@ public class Notification {
         }
     }
     
-    public static List<Notification> listUserNotifications(String userID){
-        List<Notification> userNotifications = new ArrayList<>();
-        
-        //get list of all notifications belonging to userID in notifications.txt
-        List<String> notificationRecords =  FileManager.searchRecords(FileManager.FileType.NOTIFICATIONS, "userID", userID);
-        
-        //for each notification record create a notification object
-        for (String notificationRecord : notificationRecords){
-            Notification notification = new Notification(notificationRecord);
-            userNotifications.add(notification);
+    public static List<Notification> listUserNotifications(String userID) {
+        // Validate input
+        if (userID == null || userID.isEmpty()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty.");
         }
-        
+
+        List<Notification> userNotifications = new ArrayList<>();
+
+        try {
+            // Get the list of notification records
+            List<String> notificationRecords = FileManager.searchRecords(FileManager.FileType.NOTIFICATIONS, "userID", userID);
+
+            // Check if records exist for the user
+            if (notificationRecords.isEmpty()) {
+                throw new RuntimeException("No notifications found for user ID: " + userID);
+            }
+
+            // Convert each record into a Notification object
+            for (String notificationRecord : notificationRecords) {
+                try {
+                    // Safely parse and create Notification objects
+                    Notification notification = new Notification(notificationRecord);
+                    userNotifications.add(notification);
+                } catch (Exception e) {
+                    System.err.println("Error parsing notification record: " + notificationRecord + ". Skipping this record.");
+                }
+            }
+        } catch (Exception e) {
+            // Handle unexpected exceptions
+            System.err.println("Error retrieving notifications: " + e.getMessage());
+            throw new RuntimeException("Failed to retrieve notifications. Please try again.");
+        }
+
         return userNotifications;
     }
     
