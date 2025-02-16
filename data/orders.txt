@@ -1,1 +1,4 @@
-orderID,customerID,vendorID,runnerID,products,orderType,status,totalAmount
+orderID,customerID,customerName,vendorID,vendorName,runnerID,products,orderType,status,runnerStatus,deliveryfees,totalAmount,OrderDate
+Order001;;C001;;John Doe;;V001;;VendorA;;runner1,runner2;;Product1,Product2;;Online;;Waiting for Delivery;;Pending;;10.0;;50.0;;2025-02-01
+Order002;;C002;;Jane Smith;;V002;;VendorB;;runner2;;Product3,Product4;;In-store;;Waiting for Delivery;;Rejected;;15.0;;60.0;;2025-02-02
+Order003;;C003;;Tom White;;V003;;VendorC;;runner3;;Product5,Product6;;Online;;Waiting for Delivery;;Available;;20.0;;70.0;;2025-02-03

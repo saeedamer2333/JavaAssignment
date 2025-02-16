@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Lucien;
 
+import com.mycompany.assignmentjava.Saeed.DeliveryPages;
 import com.mycompany.assignmentjava.Zakwaan.UI.Customer_Dashboard;
 import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
@@ -31,7 +32,10 @@ public class Login extends javax.swing.JFrame {
         dashboard.setVisible(true);
     }
     
-    
+     public static void navigateToDeliveryRunner(String[] userDetails){
+        DeliveryPages HomePage = new DeliveryPages(userDetails);
+        HomePage.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -144,6 +148,11 @@ public class Login extends javax.swing.JFrame {
             
          if ("Admin".equalsIgnoreCase(role)){
                 new CreateCustomer().setVisible(true);
+                this.hide();
+            }
+         
+          if ("Runner".equalsIgnoreCase(role)){
+                Login.navigateToDeliveryRunner(userDetails);
                 this.hide();
             }
         
