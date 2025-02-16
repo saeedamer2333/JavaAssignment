@@ -13,14 +13,35 @@ import com.mycompany.assignmentjava.Utilites.User;
 public class Customer extends User{
     //Attributes
     private String address;
-    private String walletID;
+    private double balance;
     
     public Customer(String name, String email, String phone, String password, String address){
         super(name, email, phone, password, "Customer");
         
         this.address = address;
-        this.walletID = ""; //new Wallet object
-        String poo = "poo";
+        this.balance = 0;
     }
+    
+    //-------Getters and setteres-------
+    //Address
+    public String getAddress(){
+        return this.address;
+    }
+    
+    public void setAddress(String address){
+        this.address = address;
+    }
+    
+    //Balance
+      public double getBalance(){
+        return this.balance;
+    }
+    
+    public void setBalance(double balance){
+        this.balance = balance;
+    }
+    
+    //-------Methods-------
+    
     
 }
