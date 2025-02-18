@@ -25,6 +25,15 @@ public class Customer extends User{
     }
     
     //-------Getters and setteres-------
+    //customerID
+    public String getCustomerID(){
+        return this.userID;
+    }
+    
+    public void setCustomerID(String userID){
+        this.userID = userID;
+    }
+    
     //Address
     public String getAddress(){
         return this.address;

@@ -33,6 +33,9 @@ public class Transaction {
         this.amount = amount;
         this.paymentDate = LocalDateTime.now();
         this.paymentStatus = "Pending";
+        
+        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
     }
     
     // Transaction constructor with all attributes
@@ -43,6 +46,9 @@ public class Transaction {
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
+        
+        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+            this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
     }
     
     //---------Methods---------
