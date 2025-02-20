@@ -4,7 +4,9 @@
  */
 package com.mycompany.assignmentjava.Lucien;
 
+import com.mycompany.assignmentjava.Saeed.DeliveryPages;
 import com.mycompany.assignmentjava.Zakwaan.UI.Customer_Dashboard;
+import com.mycompany.assignmentjava.AbdulRehman.VendorForm;
 import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
 import javax.security.auth.login.LoginException;
@@ -31,6 +33,15 @@ public class Login extends javax.swing.JFrame {
         dashboard.setVisible(true);
     }
     
+     public static void navigateToDeliveryRunner(String[] userDetails){
+        DeliveryPages HomePage = new DeliveryPages(userDetails);
+        HomePage.setVisible(true);
+    }
+    
+    public static void navigateToVendor(String[] userDetails) {
+        VendorForm vendorForm = new VendorForm(userDetails);
+        vendorForm.setVisible(true);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,10 +151,14 @@ public class Login extends javax.swing.JFrame {
             //Navigate to customer
             if ("Customer".equalsIgnoreCase(role)){
                 Login.navigateToCustomerDashboard(userDetails);
-            }
-            
-         if ("Admin".equalsIgnoreCase(role)){
+            } else if ("Admin".equalsIgnoreCase(role)){
                 new CreateCustomer().setVisible(true);
+                this.hide();
+            } else if ("Runner".equalsIgnoreCase(role)){
+                Login.navigateToDeliveryRunner(userDetails);
+                this.hide();
+            } else if ("Vendor".equalsIgnoreCase(role)){
+                Login.navigateToVendor(userDetails);
                 this.hide();
             }
         

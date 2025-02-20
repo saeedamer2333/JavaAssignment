@@ -70,6 +70,26 @@ public class FileManager {
 
     // ----------Adding records methods----------
     // Add a regular user (without status)
+    public static boolean addUser(String name, String email, String phone, String password) {
+        if (!validateEmail(email)) {
+            showErrorDialog("Invalid email format: " + email);
+            return false;
+        }
+        if (!validatePassword(password)) {
+            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
+            return false;
+        }
+        if (!validatePhone(phone)) {
+            showErrorDialog("Invalid phone number: " + phone);
+            return false;
+        }
+        String userID = "ID" + generateID();
+        String record = String.join(DELIMITER, userID, name, email, phone, password);
+        return appendToFile(FileType.USERS, record);
+    }
+
+    // Add a delivery runner (user with status property)
+    
     public static boolean addUser(String name, String email, String phone, String password, String role) {
         if (!validateEmail(email)) {
             showErrorDialog("Invalid email format: " + email);
@@ -84,26 +104,7 @@ public class FileManager {
             return false;
         }
         String userID = "ID" + generateID();
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role);
-        return appendToFile(FileType.USERS, record);
-    }
-
-    // Add a delivery runner (user with status property)
-    public static boolean addUser(String name, String email, String phone, String password, String role, String status) {
-        if (!validateEmail(email)) {
-            showErrorDialog("Invalid email format: " + email);
-            return false;
-        }
-        if (!validatePassword(password)) {
-            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
-            return false;
-        }
-        if (!validatePhone(phone)) {
-            showErrorDialog("Invalid phone number: " + phone);
-            return false;
-        }
-        String userID = "ID" + generateID();
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role, status);
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role, "Available");
         return appendToFile(FileType.USERS, record);
     }
 
@@ -123,8 +124,8 @@ public class FileManager {
 
     // Order management methods
     public static boolean addOrder(String customerID, String vendorID, String runnerID,
-                                   List<String> products, String orderType, String status,
-                                   double deliveryfees, double totalAmount, Date orderDate) {
+                                    List<String> products, String orderType, String status,
+                                  String runnerStatus,double deliveryfees, double totalAmount, Date orderDate) {
         if (products.isEmpty()) {
             showErrorDialog("Order must contain at least one product.");
             return false;
@@ -137,7 +138,7 @@ public class FileManager {
         String orderID = "ID" + generateID();
         String productsStr = String.join("|", products);
         String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
-                productsStr, orderType, status, String.valueOf(deliveryfees),
+                productsStr, orderType, status, runnerStatus,String.valueOf(deliveryfees),
                 String.valueOf(totalAmount), dateStrOrder);
         return appendToFile(FileType.ORDERS, record);
     }
@@ -248,6 +249,79 @@ public class FileManager {
         }
         return results;
     }
+    
+    
+    // method to search records with dynamic columns and filters
+    public static List<String[]> searchRecords(FileType fileType, String searchKey, String searchValue, 
+                                               String[] filterColumns, String[] filterValues, 
+                                               String[] columnsToExtract) {
+        List<String[]> results = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+            String header = reader.readLine();  // Read the header
+            String[] headers = header.split(",");
+
+            // Identifying indices for the searchKey and the columnsToExtract
+            int searchKeyIndex = -1;
+            List<Integer> extractIndices = new ArrayList<>();
+            for (int i = 0; i < headers.length; i++) {
+                if (headers[i].equalsIgnoreCase(searchKey)) {
+                    searchKeyIndex = i;
+                }
+                // Search for the indices of the columns to extract
+                for (String col : columnsToExtract) {
+                    if (headers[i].equalsIgnoreCase(col)) {
+                        extractIndices.add(i);
+                    }
+                }
+            }
+
+            // Ensure the search key and required columns are found
+            if (searchKeyIndex == -1 || extractIndices.isEmpty()) {
+                showErrorDialog("Missing required column(s) in the file.");
+                return results;
+            }
+
+            // Reading the records and applying filters
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(DELIMITER);
+                if (parts.length > searchKeyIndex) {
+                    // Check if the search value matches
+                    if (parts[searchKeyIndex].equalsIgnoreCase(searchValue)) {
+                        boolean matchesAllFilters = true;
+                        // Apply each filter
+                        for (int i = 0; i < filterColumns.length; i++) {
+                            int filterColumnIndex = -1;
+                            for (int j = 0; j < headers.length; j++) {
+                                if (headers[j].equalsIgnoreCase(filterColumns[i])) {
+                                    filterColumnIndex = j;
+                                    break;
+                                }
+                            }
+                            if (filterColumnIndex != -1 && !parts[filterColumnIndex].equalsIgnoreCase(filterValues[i])) {
+                                matchesAllFilters = false;
+                                break;
+                            }
+                        }
+
+                        // If the row matches the search and all filters, extract the required columns
+                        if (matchesAllFilters) {
+                            // Create an array to store the values of the extracted columns
+                            String[] extractedData = new String[extractIndices.size()];
+                            for (int i = 0; i < extractIndices.size(); i++) {
+                                extractedData[i] = parts[extractIndices.get(i)];
+                            }
+                            results.add(extractedData);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            showErrorDialog("Error searching records: " + e.getMessage());
+        }
+        return results;
+    }
+    
 
     // ----------Update a Single Field----------
    public static boolean updateSingleField(FileType fileType, String id, String fieldName, String newValue, int fieldIndex) {
@@ -295,7 +369,7 @@ public class FileManager {
 }
 
     // ----------Rewrite the Entire File with the Given Lines----------
-    private static boolean writeLinesToFile(FileType fileType, List<String> lines) {
+    public static boolean writeLinesToFile(FileType fileType, List<String> lines) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileType.getPath()))) {
             for (String line : lines) {
                 writer.write(line);
@@ -314,7 +388,7 @@ public class FileManager {
      * @param fileType the file from which the record should be deleted.
      * @param id the ID (first field in the record) to delete.
      * @return true if the deletion was successful; false otherwise.
-     */
+     */    
     public static boolean deleteRecord(FileType fileType, String id) {
         List<String> updatedLines = new ArrayList<>();
         boolean recordFound = false;
@@ -429,3 +503,5 @@ public class FileManager {
         return phone.matches("^\\+?[0-9]{10,15}$");
     }
 }
+
+
