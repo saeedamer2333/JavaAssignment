@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class Cart {
     //attributes
     private String cartID;
     private Customer customer;
-    
+    private List<Product> cartProducts = new ArrayList<Product>();
     
     //cart is initialized whenever a new customer object is created
     
