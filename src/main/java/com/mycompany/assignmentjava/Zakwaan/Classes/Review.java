@@ -18,25 +18,25 @@ public class Review {
     private Customer customer;
     private Deliveryrunner runner;
     private Order order;
-    private Vendor vendor;
+  //  private Vendor vendor;
     private String reviewText;
     private int rating;
     private LocalDateTime date;
     
     //normal constructor
-    public Review(Customer customer, Deliveryrunner runner, Order order, Vendor vendor, String reviewText, int rating){
+    public Review(Customer customer, Runner runner, Order order, Vendor vendor, String reviewText, int rating){
         //implementation
         this.reviewID = FileManager.generateID();
         this.customer = customer;
-        this.runner = runner;
+        //this.runner = runner;
         this.order = order;
-        this.vendor = vendor;
+        // this.vendor = vendor;
         this.reviewText = reviewText;
         this.rating = rating;
         this.date = LocalDateTime.now();
         
-        FileManager.addReview(this.reviewID, this.customer.getCustomerID(), this.runner.getRunnerID(), this.order.getOrderID(), 
-                this.vendor.getVendorID(), this.reviewText, this.rating, this.date);
+      // FileManager.addReview(this.reviewID, this.customer.getCustomerID(), this.runner.getRunnerID(), this.order.getOrderID(), 
+//              this.vendor.getVendorID(), this.reviewText, this.rating, this.date);
     }
     
     //Methods
@@ -62,12 +62,14 @@ public class Review {
         this.customer = customer;
     }
 
-    public Deliveryrunner getRunner() {
-        return runner;
+    public Runner getRunner() {
+       // return runner;
+        return null;
+       // return runner;
     }
 
-    public void setRunner(Deliveryrunner runner) {
-        this.runner = runner;
+    public void setRunner(Runner runner) {
+        //this.runner = runner;
     }
 
     public Order getOrder() {
@@ -79,11 +81,13 @@ public class Review {
     }
 
     public Vendor getVendor() {
-        return vendor;
+        //return vendor;
+        return null;
+        //return vendor;
     }
 
     public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
+        //this.vendor = vendor;
     }
 
     public String getReviewText() {

@@ -8,11 +8,11 @@ import com.mycompany.assignmentjava.Utilites.User;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import static com.mycompany.assignmentjava.Utilites.FileManager.showErrorDialog;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,24 +51,132 @@ public class Deliveryrunner extends User {
         // Initialize the runnerid with a default value or null
 }
     
-    public static List<String[]> Viewtaske( String runnerid ) {
-       String[]filterColumns = {"runnerstatus"};
-       String [] filterValues = {"accepted"};
-       String[] columnsToExtract = {"customerName","vendorName","products","status","deliveryfees","totalAmount","OrderDate"};
-      // improt reaschrecord method to get all task assign to the user check the UserId and Runnstatus(is accepted) and order status(is not deliveried) in ordre.txt
-       return FileManager.searchRecords(FileManager.FileType.ORDERS, "runnerid", runnerid, filterColumns, filterValues, columnsToExtract);   
-   }
+    
+    
+    
+    
+    
+    
+  public static List<String[]> getTask(String runnerID) {
+    List<String[]> results = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader("data/orders.txt"))) { 
+        String header = reader.readLine();  // Read the header
+        String[] headers = header.split(",");  // Assuming ';;' is your delimiter
+
+        // Identifying indices for the required columns
+        List<Integer> extractIndices = new ArrayList<>();
+        String[] columnsToExtract = {"orderID","customerName", "vendorName", "products", "status", "address","deliveryfees", "totalAmount", "OrderDate"};
+
+        for (int i = 0; i < headers.length; i++) {
+            // Identify columns to extract
+            for (String col : columnsToExtract) {
+                if (headers[i].equalsIgnoreCase(col)) {
+                    extractIndices.add(i);
+                }
+            }
+        }
+
+        // Ensure the necessary columns are found
+        if (extractIndices.isEmpty()) {
+            showErrorDialog("Missing required column(s) in the file.");
+            return results;
+        }
+
+        // Reading the records and applying the filters
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(";;");
+
+            // Check if the runnerID and status match the conditions
+            String status = parts[8]; 
+            String runner = parts[5]; 
+
+            // Updated condition: runnerID matches, and status is either "delivered" or "decline" but not "Waiting for Delivery"
+            if (runner.equalsIgnoreCase(runnerID) &&
+                 ((!status.equalsIgnoreCase("delivered") && !status.equalsIgnoreCase("decline"))
+                    && !status.equalsIgnoreCase("Waiting for Delivery"))) {
+
+                // Extract the specified columns
+                String[] extractedData = new String[extractIndices.size()];
+                for (int i = 0; i < extractIndices.size(); i++) {
+                    extractedData[i] = parts[extractIndices.get(i)];
+                }
+                results.add(extractedData);
+            }
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error searching records: " + e.getMessage());
+    }
+    return results;
+}
    
   
-  public static List<String[]> showHistory( String runnerid) {
-       String[]filterColumns = {"status"};
-       String [] filterValues = {"delivered"};
-       String[] columnsToExtract = {"customerName","vendorName","products","status","","deliveryfees","totalAmount","OrderDate"};
-      // improt reaschrecord method to get all task assign to the user check the UserId and Runnstatus(is accepted) and order status(is not deliveried) in ordre.txt
-       return FileManager.searchRecords(FileManager.FileType.ORDERS, "runnerid", runnerid, filterColumns, filterValues, columnsToExtract);   
-   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // retrive history data from order.txt
+  public static List<String[]> getHistory(String runnerID) {
+    List<String[]> results = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader("data/orders.txt"))) { 
+        String header = reader.readLine();  // Read the header
+        String[] headers = header.split(",");  // Assuming ';;' is your delimiter
 
-    public static List<String[]> getOrdersForRunner(String runnerID) {
+        // Identifying indices for the required columns
+        List<Integer> extractIndices = new ArrayList<>();
+        String[] columnsToExtract = {"customerName", "vendorName", "products", "status", "address","deliveryfees", "totalAmount", "OrderDate"};
+
+        for (int i = 0; i < headers.length; i++) {
+            // Identify columns to extract
+            for (String col : columnsToExtract) {
+                if (headers[i].equalsIgnoreCase(col)) {
+                    extractIndices.add(i);
+                }
+            }
+        }
+
+        // Ensure the necessary columns are found
+        if (extractIndices.isEmpty()) {
+            showErrorDialog("Missing required column(s) in the file.");
+            return results;
+        }
+
+        // Reading the records and applying the filters
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(";;");
+
+            // Check if the runnerID and status match the conditions
+            String status = parts[8]; 
+            String runner = parts[5]; 
+
+            // Updated condition: runnerID matches, and status is either "delivered" or "decline" but not "Waiting for Delivery"
+            if (runner.equalsIgnoreCase(runnerID) &&
+                 ((status.equalsIgnoreCase("delivered") || status.equalsIgnoreCase("decline"))
+                    && !status.equalsIgnoreCase("Waiting for Delivery"))) {
+
+                // Extract the specified columns
+                String[] extractedData = new String[extractIndices.size()];
+                for (int i = 0; i < extractIndices.size(); i++) {
+                    extractedData[i] = parts[extractIndices.get(i)];
+                }
+                results.add(extractedData);
+            }
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error searching records: " + e.getMessage());
+    }
+    return results;
+}
+
+  
+  public static List<String[]> getOrdersForRunner(String runnerID) {
     List<String[]> ordersForRunner = new ArrayList<>();
    
     try (BufferedReader reader = new BufferedReader(new FileReader("data/orders.txt"))) {
@@ -84,13 +192,15 @@ public class Deliveryrunner extends User {
            // String runnerStatus = parts[9]; // Assuming runnerStatus is in index 9
            
             for (String runner : assignedRunnerID) {
-            if (runner.equals(runnerID)) {
+            if (runner.equals(runnerID) && "Waiting for Delivery".equalsIgnoreCase(parts[8])) {
         // Runner is assigned to this order
          String[] extractedOrder = {
+                        parts[1],  // orderid (indx 1)
                         parts[2],  // customerName (index 2)
                         parts[4],  // vendorName (index 4)
                         parts[6],  // products (index 6)
                         parts[8],  // status (index 8)
+                        parts[9], // address
                         parts[10], // deliveryfees (index 10)
                         parts[11], // totalAmount (index 11)
                         parts[12]  // OrderDate (index 12)
@@ -110,49 +220,10 @@ public class Deliveryrunner extends User {
     return ordersForRunner;
 } 
   
- public static List<String[]> getAssignOrderForRuuner(String runnerID) {
-    List<String[]> ordersForRunner = new ArrayList<>();
-   
-    try (BufferedReader reader = new BufferedReader(new FileReader("data/orders.txt"))) {
-        String line;
-        String header = reader.readLine(); // skip the header
-     
-        // Read through each line of orders
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(";;");
+  
+  
+  
 
-            
-            String assignedRunnerID = parts[5];  // The runnerID field (index 5) contains the assigned runner ID
-           // String runnerStatus = parts[9]; // Assuming runnerStatus is in index 9
-           
-            
-            if (assignedRunnerID.equalsIgnoreCase(runnerID) && "Accepted".equalsIgnoreCase(parts[9])) {
-                if("deliveried".equalsIgnoreCase(parts[8])){
-        // Runner is assigned to this order
-         String[] extractedOrder = {
-                        parts[2],  // customerName (index 2)
-                        parts[4],  // vendorName (index 4)
-                        parts[6],  // products (index 6)
-                        parts[8],  // status (index 8)
-                        parts[10], // deliveryfees (index 10)
-                        parts[11], // totalAmount (index 11)
-                        parts[12]  // OrderDate (index 12)
-                    };
-
-                    // Add the extracted order details to the list
-                    ordersForRunner.add(extractedOrder);
-         
-                }
-            }
-        }
-        // If no orders were found, handle accordingly
-       
-
-    } catch (IOException e) {
-        showErrorDialog("Error reading orders file: " + e.getMessage());
-    }
-    return ordersForRunner;
-} 
 
     public static void assignRunnerToOrder(String orderID, String customerID) {
         // Create an executor service to manage the timer
@@ -242,14 +313,21 @@ public class Deliveryrunner extends User {
             showErrorDialog("Error reading Users or Orders file: " + e.getMessage());
         }
     }
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+      
 
     public static void acceptOrder(String orderID, String runnerID) {
         // Stop the 60-second timer as the runner has accepted the order
         executor.shutdown();  // Stops the executor (if the timer is running)
         // Now, update the runner status in the order to "Accepted"
-        boolean updateSuccess = FileManager.updateSingleField(FileManager.FileType.ORDERS, orderID, "runnerStatus", "Accepted", 9); // Index 9 for `runnerStatus`
+        boolean updateSuccess = FileManager.updateSingleField(FileManager.FileType.ORDERS, orderID, "runnerStatus", "Accepted", 8); // Index 9 for `runnerStatus`
         if (updateSuccess) {
             // Update the order with the accepted runner's ID
             boolean updtaterunnid = FileManager.updateSingleField(FileManager.FileType.ORDERS, orderID, "runnerID", runnerID, 5);  // Assign runnerID to the order (index 5)
@@ -271,6 +349,12 @@ public class Deliveryrunner extends User {
  }
     
     
+    
+    
+    
+    
+    
+    
     public static void rejectOrder(String orderID, String runnerID) {
     
     try {
@@ -278,7 +362,7 @@ public class Deliveryrunner extends User {
         List<String> updatedLines = new ArrayList<>();
         boolean orderFound = false;
         boolean allRunnersRejected = true;  // To track if all runners reject
-
+        String customerid = null;
         // Reading the order file and checking for the order
         try (BufferedReader readorder = new BufferedReader(new FileReader("data/orders.txt"))) {
             String line;
@@ -300,6 +384,7 @@ public class Deliveryrunner extends User {
                     orderFound = true;
                 }
                 updatedLines.add(line);
+                customerid = orderParts[1];
             }
         }
 
@@ -310,7 +395,7 @@ public class Deliveryrunner extends User {
             if (allRunnersRejected) {
                 String message = "Your order " + orderID + " was not accepted. Please choose between Take-away or Dine-in.";
                 LocalDateTime timestamp = LocalDateTime.now();
-                FileManager.addNotification("ID" + FileManager.generateID(), orderID, message, timestamp, false);
+                FileManager.addNotification("ID" + FileManager.generateID(), customerid, message, timestamp, false);
 
                 // Show a rejection message dialog
                 JOptionPane.showMessageDialog(null, "All runners have rejected your order.", "Order Rejected", JOptionPane.INFORMATION_MESSAGE);
@@ -325,6 +410,54 @@ public class Deliveryrunner extends User {
         JOptionPane.showMessageDialog(null, "Error rejecting the order: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+    
+    
+    
+    
+    
+    
+    public static void UpdateOrderStatus(String orderID, String selectedStatus,String runnerid){
+     // Check if the selected status is valid
+    boolean updateSuccess = false;
+
+    if (selectedStatus.equalsIgnoreCase("Pick Up")) {
+        // Update the status to "Pick Up"
+        updateSuccess = FileManager.updateSingleField(
+            FileManager.FileType.ORDERS, orderID, "Status", "Pick Up", 8);
+        
+    } else if (selectedStatus.equalsIgnoreCase("On the Way")) {
+        // Update the status to "On the Way"
+        updateSuccess = FileManager.updateSingleField(
+            FileManager.FileType.ORDERS, orderID, "Status", "On the Way", 8);
+        
+    } else if (selectedStatus.equalsIgnoreCase("Delivered")) {
+        // Update the status to "Delivered"
+        updateSuccess = FileManager.updateSingleField(
+            FileManager.FileType.ORDERS, orderID, "status", "Delivered", 8);
+        
+        updateSuccess = FileManager.updateSingleField(
+            FileManager.FileType.USERS, runnerid, "status", "Delivered", 8);
+        
+        
+    } else {
+        // If the status is not valid
+        JOptionPane.showMessageDialog(null, "Invalid Status selected.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;  // Exit the method if the status is invalid
+    }
+
+    // Check if the update was successful
+    if (updateSuccess) {
+        JOptionPane.showMessageDialog(null, "Order " + orderID + " status successfully updated.", "Status Update", JOptionPane.INFORMATION_MESSAGE);
+    } 
+    
+    
+    
+    }
+    
+    
+    
+    
+    
 
 // Helper method to remove runnerID from the runnerID list
     private static String removeRunnerFromList(String currentRunners, String runnerIDToRemove) {
@@ -338,16 +471,91 @@ public class Deliveryrunner extends User {
         // Join the remaining runner IDs into a string and return
         return String.join(",", runnersList);
     }
+
     
-    //getter -Zakwaan
-    public String getRunnerID(){
-        return this.runnerid;
+    
+    
+    
+    
+    
+    
+    
+    
+     // Method to get revenue data based on date range
+ public static List<String[]> getRevenueData(String dateRange, String runnerID) {
+    List<String[]> orderDetails = new ArrayList<>();  // List to store the orders' details (date, revenue, order count)
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust the date format to match yyyy-MM-dd
+
+
+    // Variables to keep track of the total revenue and order count for each period
+    double totalRevenue = 0.0;
+    int orderCount = 0;
+
+    // Track the last processed date or month/year to group the orders
+    String lastPeriodKey = "";
+
+    try (BufferedReader reader = new BufferedReader(new FileReader("data/orders.txt"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] orderParts = line.split(";;");
+
+            if (orderParts.length >= 13) {
+                String orderDateStr = orderParts[12];  // Order Date
+                String orderRunnerID = orderParts[5]; // Runner ID
+                double deliveryFee = Double.parseDouble(orderParts[10]); // Delivery Fee
+                String orderStatus = orderParts[8];
+
+                // Only process orders that match the current runner and are delivered
+                if (orderRunnerID.equals(runnerID) && "delivered".equalsIgnoreCase(orderStatus)) {
+                    // Extract only the date part (yyyy-MM-dd)
+                    String orderDateOnly = orderDateStr.split(" ")[0];  // Take only the date (yyyy-MM-dd)
+
+                    // Now parse the date string (yyyy-MM-dd)
+                    LocalDate orderDate = LocalDate.parse(orderDateOnly, dateFormatter);
+
+                    // Calculate the key for grouping orders
+                    String periodKey = "";
+                    switch (dateRange) {
+                        case "day" -> periodKey = orderDate.toString();  // Use exact date (yyyy-MM-dd)
+                        case "month" -> periodKey = orderDate.getMonthValue() + "/" + orderDate.getYear();  // Month/Year (MM/yyyy)
+                        case "year" -> periodKey = String.valueOf(orderDate.getYear());  // Year only
+                        default -> {
+                        }
+                    }
+
+                    // Check if we are still processing the same period (avoid repeating the same day, month, or year)
+                    if (!periodKey.equals(lastPeriodKey)) {
+                        // If this is not the first period, save the data for the last period
+                        if (!lastPeriodKey.isEmpty()) {
+                            orderDetails.add(new String[]{lastPeriodKey, String.valueOf(totalRevenue), String.valueOf(orderCount)});
+                        }
+
+                        // Reset the revenue and order count for the new period
+                        totalRevenue = 0.0;
+                        orderCount = 0;
+                        lastPeriodKey = periodKey;
+                    }
+
+                    // Add revenue and increment order count for this period
+                    totalRevenue += deliveryFee;
+                    orderCount++;
+                }
+            }
+        }
+
+        // Add the last period to the list (after the loop ends)
+        if (!lastPeriodKey.isEmpty()) {
+            orderDetails.add(new String[]{lastPeriodKey, String.valueOf(totalRevenue), String.valueOf(orderCount)});
+        }
+
+    } catch (IOException e) {
+        System.err.println("Error reading orders file: " + e.getMessage());
     }
 
+    return orderDetails;  // Return the list of orders with date, revenue, and order count
 }
 
 
 
-
-
-
+    
+}

@@ -36,7 +36,7 @@ public class Transaction {
         this.paymentStatus = "Pending";
         
 //        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-//                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
+  //              this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
     }
     
     // Transaction constructor with all attributes
@@ -47,9 +47,15 @@ public class Transaction {
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
-        
-//        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-//            this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
+        /*
+        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+        this.customer.getCustomerID(), 
+        this.amount, 
+        this.paymentDate, 
+        this.paymentStatus
+          
+        );
+ */
     }
     
     //---------Methods---------
