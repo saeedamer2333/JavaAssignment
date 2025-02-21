@@ -127,7 +127,7 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendorPerformanceActionPerformed
 
     private void btnRunnerPerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunnerPerformanceActionPerformed
-        //manager.monitorRunnerPerformance();
+        manager.monitorRunnerPerformance.launchJFrame();
     }//GEN-LAST:event_btnRunnerPerformanceActionPerformed
 
     private void btnVendorListingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendorListingsActionPerformed

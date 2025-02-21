@@ -58,27 +58,6 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="284" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblTotalOrdersVendor" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAvgOrderVendor" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblTotalRevenueVendor" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="28" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="319" max="-2" attributes="0"/>
-                      <Component id="jProgressBar1" min="-2" pref="446" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -95,8 +74,32 @@
                               <Component id="btnSelectVendor" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="220" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnBack" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblTotalOrdersVendor1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTotalRevenueVendor1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAvgOrderVendor1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblTotalRevenueVendor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTotalOrdersVendor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAvgOrderVendor" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="319" max="-2" attributes="0"/>
+                              <Component id="jProgressBar1" min="-2" pref="446" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -131,12 +134,21 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="lblTotalOrdersVendor" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblTotalOrdersVendor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTotalOrdersVendor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="lblTotalRevenueVendor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblAvgOrderVendor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblTotalRevenueVendor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTotalRevenueVendor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblAvgOrderVendor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvgOrderVendor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jProgressBar1" min="-2" pref="46" max="-2" attributes="0"/>
@@ -145,7 +157,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSelectVendor" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -208,17 +222,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTotalRevenueVendor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Revenue Generated:"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTotalOrdersVendor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total Orders:"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgOrderVendor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Avg. Order Value:"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="jProgressBar1">
@@ -261,5 +275,28 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lblTotalOrdersVendor1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Total Orders:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTotalRevenueVendor1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Revenue Generated:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvgOrderVendor1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Avg. Order Value:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBack">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Back"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

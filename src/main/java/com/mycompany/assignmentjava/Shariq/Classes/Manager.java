@@ -29,7 +29,7 @@ public class Manager extends User{
         piss.setVisible(true);
         
         this.monitorVendorPerformance = new MonitorVendorPerformance(Manager.this); 
-        this.monitorRunnerPerformance = new MonitorRunnerPerformance();
+        this.monitorRunnerPerformance = new MonitorRunnerPerformance(Manager.this);
         this.manageVendorListings = new ManageVendorListings();
         this.manageCustomerComplaints = new ManageCustomerComplaints();
         

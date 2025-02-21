@@ -4,33 +4,67 @@
  */
 package com.mycompany.assignmentjava.Shariq.Classes;
 
+import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Shariq.UI.ManagerRunnerFeedbackJFrame;
+import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllRunners;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
  *
  * @author ysssh
  */
-class MonitorRunnerPerformance {
+public class MonitorRunnerPerformance {
+    Manager manager;
+    private Deliveryrunner selectedRunner;
+    private List<Deliveryrunner> runnerList;
 
-    public MonitorRunnerPerformance(){
-        // launches the Jframe
-        ManagerRunnerFeedbackJFrame runnerFeedbackForm = new ManagerRunnerFeedbackJFrame();
-        runnerFeedbackForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-        runnerFeedbackForm.setVisible(true);
+    public MonitorRunnerPerformance(Manager manager){
+        this.manager = manager;
     }
-        
+    
+    public List<Deliveryrunner> getRunnerList() {
+        return this.runnerList;
+    }
+    
+    public Deliveryrunner getSelectedVendor(){
+        return this.selectedRunner;
+    }    
     
 // ==============================================
 // =   METHODS                                  =
 // ==============================================
-    //select Runner
-    public void selectRunner(){
+    // launches JFrame
+    public void launchJFrame(){
+        ManagerRunnerFeedbackJFrame runnerFeedbackForm = new ManagerRunnerFeedbackJFrame(manager);
+        runnerFeedbackForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+        runnerFeedbackForm.setVisible(true);
+    }
+        
+    //returns list of  all Vendor names
+    public List<String> listAllRunnerNames(){
+        List<String> runnerNames = new ArrayList<>();
+        for (Deliveryrunner runner : runnerList) {
+            runnerNames.add(runner.getName()); // Extract and add name to list
+        }
+        return runnerNames;
+    }
     
+    //loads list of all Vendor objects from file
+    public void loadAllRunners(){
+       this.runnerList = getAllRunners(); 
+    }
+    
+    //sets selected Vendor object
+    public void selectRunner(int index){
+        this.selectedRunner = runnerList.get(index);
     }
     
     //load Runner info
-    public void viewRunnerInfor(){
+    public void viewRunnerInfo(){
         
     }
+
+    
 }

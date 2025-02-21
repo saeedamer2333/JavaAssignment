@@ -22,16 +22,18 @@ public class MonitorVendorPerformance{
     Manager manager;
     private Vendor selectedVendor;
     private List<Vendor> vendorList;
-    
-    // TODO: private VendorList;    
+     
     
     public MonitorVendorPerformance(Manager manager){
-        this.manager = manager;
-        
+        this.manager = manager;   
     }
     
     public List<Vendor> getVendorList() {
         return this.vendorList;
+    }
+    
+    public Vendor getSelectedVendor(){
+        return this.selectedVendor;
     }
     
     
@@ -44,8 +46,25 @@ public class MonitorVendorPerformance{
         ManagerRevenueDashboardJFrame revenueDashboardForm = new ManagerRevenueDashboardJFrame(manager);
         revenueDashboardForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         revenueDashboardForm.setVisible(true);
+    }
         
-       
+    //returns list of  all Vendor names
+    public List<String> listAllVendorNames(){
+        List<String> vendorNames = new ArrayList<>();
+        for (Vendor vendor : vendorList) {
+            vendorNames.add(vendor.getName()); // Extract and add name to list
+        }
+        return vendorNames;
+    }
+    
+    //loads list of all Vendor objects from file
+    public void loadAllVendors(){
+       this.vendorList = getAllVendors(); 
+    }
+    
+    //sets selected Vendor object
+    public void selectVendor(int index){
+        this.selectedVendor = vendorList.get(index);
     }
     
     // finds total revenue
@@ -86,32 +105,42 @@ public class MonitorVendorPerformance{
         return totalRevenue/totalOrders;
     }
     
-    //returns list of  all Vendor names
-    public List<String> listAllVendorNames(){
-        List<String> vendorNames = new ArrayList<>();
-        for (Vendor vendor : vendorList) {
-            vendorNames.add(vendor.getName()); // Extract and add name to list
-        }
-        return vendorNames;
-    }
-    
-    //loads list of all Vendor objects from file
-    public void loadAllVendors(){
-       this.vendorList = getAllVendors(); 
-    }
-    
-    //sets selected Vendor object
-    public void selectVendor(int index){
-        this.selectedVendor = vendorList.get(index);
-    }    
     
     //returns total orders of vendor
     public int calcTotalOrdersOfVendor(){
         if (this.selectedVendor == null) {
             return 0;
         }
-        List<String> allOrders = FileManager.searchRecords(FileManager.FileType.PRODUCTS, "vendorID", this.selectedVendor.getVendorID());
+        List<String> allOrders = FileManager.searchRecords(FileManager.FileType.ORDERS, "vendorID", this.selectedVendor.getVendorID());
         return allOrders.size(); 
+    }
+    
+    public float calcTotalRevenueOfVendor(){
+        if (this.selectedVendor == null) {
+            return 0f;
+        }
+        //get all orders
+        List<String> allOrders = FileManager.searchRecords(FileManager.FileType.ORDERS, "vendorID", this.selectedVendor.getVendorID());
+        //add their total values!
+        float totalAmount = 0.0f;
+        for (String order : allOrders){
+            String[] details = order.split(FileManager.DELIMITER);
+            if (details.length > 10) { // Ensure amount column exists
+                try {
+                    totalAmount += Double.parseDouble(details[11]); // Extract amount
+                } catch (NumberFormatException e) {
+                    showErrorDialog("Invalid number format in amount column: " + details[11]);
+                }
+            }
+        }
+        return totalAmount;
+        
+    }
+    
+    public float calcAvgOrderValueOfVendor(){
+        float totalRevenue = calcTotalRevenueOfVendor();
+        float totalOrders = calcTotalOrdersOfVendor();
+        return totalRevenue/totalOrders;
     }
 
     

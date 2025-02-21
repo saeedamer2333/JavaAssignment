@@ -107,8 +107,25 @@ public class ObjectWriter {
             vendorObjects.add(vendor);
         }  
         return vendorObjects;
-    public static Order getOrderByID(String orderID){
-        return null;
+    }
+    
+    public static List<Deliveryrunner> getAllRunners(){
+        List<Deliveryrunner> runnerObjects = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.USERS, "role", "Runner");
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rID = attributes[0];
+            String rName = attributes[1];
+            String rEmail = attributes[2];
+            String rPhone = attributes[3];
+            String rPassword = attributes[4];
+            String rRole = attributes[5];
+            
+            Deliveryrunner runner = new Deliveryrunner(rID, rName, rEmail,rPhone, rPassword, rRole);
+            runnerObjects.add(runner);
+        }  
+        return runnerObjects;
     }
 }
 

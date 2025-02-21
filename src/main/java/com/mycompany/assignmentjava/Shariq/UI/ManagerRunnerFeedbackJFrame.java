@@ -4,19 +4,26 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ysssh
  */
 public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
-
+    Manager manager;
     /**
      * Creates new form Manager_RunnerFeedback
      */
     public ManagerRunnerFeedbackJFrame() {
         initComponents();
+    }
+    public ManagerRunnerFeedbackJFrame(Manager manager) {
+        initComponents();
+        this.manager = manager;
+        showAllRunners();
     }
 
     /**
@@ -28,33 +35,22 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        listVendors = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtRunnerInfo = new javax.swing.JTextArea();
         btnBack = new javax.swing.JButton();
         btnSelect = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listDeliveries = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listRunners = new javax.swing.JList<>();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        listVendors.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listVendorsActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Delivery Runner Performance");
 
-        jLabel2.setText("[img of the delivery guy]");
-
         jLabel3.setText("Select Runner");
-
-        txtRunnerInfo.setColumns(20);
-        txtRunnerInfo.setRows(5);
-        txtRunnerInfo.setText("Info about the runner...");
-        jScrollPane1.setViewportView(txtRunnerInfo);
 
         btnBack.setText("Back");
 
@@ -65,33 +61,58 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("All Deliveries");
+
+        listDeliveries.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listDeliveries);
+
+        listRunners.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(listRunners);
+
+        btnRefresh.setText("⟳");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBack)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBack)
+                                    .addComponent(jLabel3))
+                                .addGap(222, 222, 222)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)))))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSelect)
-                            .addComponent(listVendors, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(55, 55, 55))))))
+                            .addComponent(btnRefresh)
+                            .addComponent(btnSelect))))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(22, 22, 22)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(350, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,33 +120,36 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(listVendors, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSelect)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addComponent(btnBack)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(btnRefresh)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(btnSelect)
+                .addGap(7, 7, 7)
+                .addComponent(btnBack)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(80, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(69, 69, 69)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listVendorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listVendorsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listVendorsActionPerformed
-
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = this.listRunners.getSelectedIndex();
+        selectRunner(selectedIndex);
     }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        showAllRunners();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,12 +191,29 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSelect;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.List listVendors;
-    private javax.swing.JTextArea txtRunnerInfo;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listDeliveries;
+    private javax.swing.JList<String> listRunners;
     // End of variables declaration//GEN-END:variables
+
+    private void showAllRunners() {
+        manager.monitorRunnerPerformance.loadAllRunners();
+        //(convert List<String> to String[] for JList)
+        String[] runnerNames = manager.monitorRunnerPerformance.listAllRunnerNames().toArray(new String[0]);
+        listRunners.setListData(runnerNames);
+    } 
+
+    private void selectRunner(int index) {
+        if (index >= 0 && index < manager.monitorRunnerPerformance.getRunnerList().size()) {
+            manager.monitorRunnerPerformance.selectRunner(index);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a delivery runner.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
