@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
  */
 public class Transaction {
     //---------Attributes---------
-    String transactionID;
-    Order order;
-    Customer customer;
-    double amount;
-    LocalDateTime paymentDate;
-    String paymentStatus;
-    boolean receiptGenerated = false;
+    private String transactionID;
+    private Order order;
+    private Customer customer;
+    private double amount;
+    private LocalDateTime paymentDate;
+    private String paymentStatus;
+    private boolean receiptGenerated = false;
     //Payment status options
 //    Pending
 //    Completed

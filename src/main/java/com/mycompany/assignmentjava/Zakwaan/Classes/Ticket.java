@@ -24,11 +24,11 @@ public class Ticket {
     */
     
     //Constructors for new ticket
-    public Ticket(/*Manager manager,*/String customerID, String customerComment, 
+    public Ticket(String customerID, String customerComment, 
                     String managerReply, String status){
         this.ticketID = "TID" + FileManager.generateID();
         //this.manager = manager;
-        this.customer = customer;
+        //this.customer = customer;
         this.customerComment = customerComment;
         this.managerReply = managerReply;
         this.status = status;

@@ -6,12 +6,8 @@ package com.mycompany.assignmentjava.Utilites;
 
 import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
-import com.mycompany.assignmentjava.Utilites.FileManager;
-import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
-import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
-import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import java.util.List;
 
