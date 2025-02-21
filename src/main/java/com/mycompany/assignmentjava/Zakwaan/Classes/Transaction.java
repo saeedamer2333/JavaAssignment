@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
  */
 public class Transaction {
     //---------Attributes---------
-    String transactionID;
-    Order order;
-    Customer customer;
-    double amount;
-    LocalDateTime paymentDate;
-    String paymentStatus;
-    boolean receiptGenerated = false;
+    private String transactionID;
+    private Order order;
+    private Customer customer;
+    private double amount;
+    private LocalDateTime paymentDate;
+    private String paymentStatus;
+    private boolean receiptGenerated = false;
     //Payment status options
 //    Pending
 //    Completed
@@ -36,7 +36,7 @@ public class Transaction {
         this.paymentStatus = "Pending";
         
 //        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-//                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
+  //              this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
     }
     
     // Transaction constructor with all attributes
@@ -47,9 +47,15 @@ public class Transaction {
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
-        
-//        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-//            this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
+        /*
+        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+        this.customer.getCustomerID(), 
+        this.amount, 
+        this.paymentDate, 
+        this.paymentStatus
+          
+        );
+ */
     }
     
     //---------Methods---------

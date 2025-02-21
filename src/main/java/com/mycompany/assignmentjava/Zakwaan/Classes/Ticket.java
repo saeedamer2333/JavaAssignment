@@ -24,13 +24,71 @@ public class Ticket {
     */
     
     //Constructors for new ticket
-    public Ticket(/*Manager manager,*/String customerID, String customerComment, 
+    public Ticket(String customerID, String customerComment, 
                     String managerReply, String status){
         this.ticketID = "TID" + FileManager.generateID();
         //this.manager = manager;
-        this.customer = customer;
+        //this.customer = customer;
         this.customerComment = customerComment;
         this.managerReply = managerReply;
         this.status = status;
     }
+    
+    //Getters and setters
+    public String getTicketID() {
+        return ticketID;
+    }
+
+    public void setTicketID(String ticketID) {
+        this.ticketID = ticketID;
+    }
+
+    public String getManagerID() {
+        return managerID;
+    }
+
+    public void setManagerID(String managerID) {
+        this.managerID = managerID;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getCustomerComment() {
+        return customerComment;
+    }
+
+    public void setCustomerComment(String customerComment) {
+        this.customerComment = customerComment;
+    }
+
+    public String getManagerReply() {
+        return managerReply;
+    }
+
+    public void setManagerReply(String managerReply) {
+        this.managerReply = managerReply;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

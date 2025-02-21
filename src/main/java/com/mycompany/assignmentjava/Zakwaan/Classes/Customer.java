@@ -5,6 +5,7 @@
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectToFileUpdater;
 import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class Customer extends User{
     
     public void setCustomerID(String userID){
         this.userID = userID;
+        ObjectToFileUpdater.updateCustomerInUsersTxt(this, "userID", userID);
     }
     
     //Address
@@ -52,6 +54,7 @@ public class Customer extends User{
     
     public void setAddress(String address){
         this.address = address;
+        ObjectToFileUpdater.updateCustomerInUsersTxt(this, "address", address);
     }
     
     //Balance
@@ -61,6 +64,7 @@ public class Customer extends User{
     
     public void setBalance(double balance){
         this.balance = balance;
+        ObjectToFileUpdater.updateCustomerInUsersTxt(this, "balance", Double.toString(balance));
     }
     
     //-------Methods-------
