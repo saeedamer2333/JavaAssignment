@@ -11,7 +11,7 @@ public class Start {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         // run whichever Jform you want from here:
-        Login login = new Login();
+        CreateCustomer login = new CreateCustomer();
         login.setVisible(true);
     }
 }

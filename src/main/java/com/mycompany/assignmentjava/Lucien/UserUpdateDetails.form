@@ -18,20 +18,36 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu1ActionPerformed"/>
           </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2_CreateUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="\ud83d\uddf9 &#xfe0e; Create " containsInvalidXMLChars="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2_CreateUserActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3_updateUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x2705;&#x2718;&#xfe0e;&#xfe0e;  Edi&#xfe0e;t &amp; Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3_updateUserActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1_topUp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x25b2; Top-up"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1_topUpActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5_receipts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x2709; Send Receipts"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5_receiptsActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -115,7 +131,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButton1" min="-2" pref="257" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="254" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -147,9 +163,9 @@
                   <Component id="phoneText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="123" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
