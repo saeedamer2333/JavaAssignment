@@ -86,6 +86,15 @@ public class ObjectWriter {
         return product;
     }
     
+    public static List<Product> getProductListByIDList(List<String> productIDList){
+        List<Product> productList = new ArrayList<>();
+        for (String productID : productIDList){
+            Product product = getProductByID(productID);
+            productList.add(product);
+        }
+        return productList;
+    }
+    
 //    public static Order getOrderByID(String orderID){
 //        
 //    }
@@ -126,10 +135,6 @@ public class ObjectWriter {
             runnerObjects.add(runner);
         }  
         return runnerObjects;
-    public static Order getOrderByID(String orderID){
-        
-        return null;
-        
     }
 }
 
