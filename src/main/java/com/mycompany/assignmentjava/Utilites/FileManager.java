@@ -36,9 +36,10 @@ public class FileManager {
 
     // ----------Initialize files with headers----------
     static {
-        initializeFile(FileType.USERS, "userID,name,email,phone,password,role,status");
+        initializeFile(FileType.USERS, "userID,name,email,phone,password,role,status,address,balance");
         initializeFile(FileType.TRANSACTIONS, "transactionID,orderID,customerID,amount,paymentDate,paymentStatus");
-        initializeFile(FileType.ORDERS, "orderID,customerID,vendorID,runnerID,products,orderType,status,runnerStatus,deliveryfees,totalAmount,OrderDate");
+        initializeFile(FileType.ORDERS, "orderID,customerID,customerName,vendorID,"
+                + "vendorName,runnerID,products,orderType,status,address,deliveryfees,totalAmount,OrderDate");
         initializeFile(FileType.REVIEWS, "reviewID,customerID,runnerID,orderID,vendorID,reviewText,rating,date");
         initializeFile(FileType.PRODUCTS, "productID,vendorID,productName,price");
         initializeFile(FileType.TICKETS, "ticketID,managerID,customerID,customerComment,managerReply,status");
@@ -145,9 +146,11 @@ public class FileManager {
     }
 
     // Order management methods
-    public static boolean addOrder(String customerID, String vendorID, String runnerID,
+    //
+    public static boolean addOrder(String orderID, String customerID, String customerName,
+                                    String vendorID, String vendorName, String runnerID,
                                     List<String> products, String orderType, String status,
-                                  String runnerStatus,double deliveryfees, double totalAmount, Date orderDate) {
+                                  String address,double deliveryfees, double totalAmount, Date orderDate) {
         if (products.isEmpty()) {
             showErrorDialog("Order must contain at least one product.");
             return false;
@@ -157,11 +160,13 @@ public class FileManager {
             return false;
         }
         String dateStrOrder = DATE_FORMAT.format(orderDate);
-        String orderID = "ID" + generateID();
-        String productsStr = String.join("|", products);
-        String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
-                productsStr, orderType, status, runnerStatus,String.valueOf(deliveryfees),
+        String productsStr = String.join(",", products);
+        
+        String record = String.join(DELIMITER, orderID, customerID, customerName,
+                vendorID, vendorName, runnerID, productsStr, orderType, status, 
+                address,String.valueOf(deliveryfees),
                 String.valueOf(totalAmount), dateStrOrder);
+        
         return appendToFile(FileType.ORDERS, record);
     }
 
@@ -179,22 +184,6 @@ public class FileManager {
         String record = String.join(DELIMITER, transactionID, orderID, customerID,
                 String.valueOf(amount), dateStr, paymentStatus, receiptGenerated);
         return appendToFile(FileType.TRANSACTIONS, record);
-    }
-
-    public static boolean addOrder(String orderID, String customerID, String vendorID, String runnerID,
-                                   List<String> products, String orderType, String status, double totalAmount) {
-        if (products.isEmpty()) {
-            showErrorDialog("Order must contain at least one product.");
-            return false;
-        }
-        if (totalAmount <= 0) {
-            showErrorDialog("Total amount must be greater than 0.");
-            return false;
-        }
-        String productsStr = String.join("|", products);
-        String record = String.join(DELIMITER, orderID, customerID, vendorID, runnerID,
-                productsStr, orderType, status, String.valueOf(totalAmount));
-        return appendToFile(FileType.ORDERS, record);
     }
 
     public static boolean addReview(String reviewID, String customerID, String runnerID, String orderID, 
@@ -388,6 +377,54 @@ public class FileManager {
         return false;
     }
 
+    return writeLinesToFile(fileType, updatedLines);
+}
+   public static boolean updateSingleField(FileType fileType, String id, String fieldName, String newValue) {
+    List<String> updatedLines = new ArrayList<>();
+    boolean recordFound = false;
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+        String header = reader.readLine();
+        updatedLines.add(header);
+        String[] headers = header.split(DELIMITER);
+        
+        // Find the field index based on the field name
+        int fieldIndex = -1;
+        for (int i = 0; i < headers.length; i++) {
+            if (headers[i].trim().equalsIgnoreCase(fieldName)) {
+                fieldIndex = i;
+                break;
+            }
+        }
+        
+        if (fieldIndex < 0) {
+            showErrorDialog("Field not found: " + fieldName);
+            return false;
+        }
+        
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(DELIMITER, -1); // Preserve empty fields
+            if (parts.length < headers.length) {
+                showErrorDialog("Malformed line detected: " + line);
+                return false;
+            }
+            if (parts[0].equals(id)) {
+                recordFound = true;
+                parts[fieldIndex] = newValue;
+                line = String.join(DELIMITER, parts);
+            }
+            updatedLines.add(line);
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error reading file: " + e.getMessage());
+        return false;
+    }
+    
+    if (!recordFound) {
+        showErrorDialog("Record with ID " + id + " not found.");
+        return false;
+    }
+    
     return writeLinesToFile(fileType, updatedLines);
 }
 

@@ -24,7 +24,7 @@ public class Review {
     private LocalDateTime date;
     
     //normal constructor
-    public Review(Customer customer, Runner runner, Order order, Vendor vendor, String reviewText, int rating){
+    public Review(Customer customer, Deliveryrunner runner, Order order, Vendor vendor, String reviewText, int rating){
         //implementation
         this.reviewID = FileManager.generateID();
         this.customer = customer;
@@ -61,13 +61,13 @@ public class Review {
         this.customer = customer;
     }
 
-//    public Runner getRunner() {
-//        return runner;
-//    }
-//
-//    public void setRunner(Runner runner) {
-//        this.runner = runner;
-//    }
+    public Deliveryrunner getRunner() {
+        return runner;
+    }
+
+    public void setRunner(Deliveryrunner runner) {
+        this.runner = runner;
+    }
 
     public Order getOrder() {
         return order;
