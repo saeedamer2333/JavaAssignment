@@ -515,14 +515,41 @@ public class FileManager {
 
     // ----------Validation Methods----------
     private static boolean validateEmail(String email) {
+        if (email.contains(";;")) {
+    JOptionPane.showMessageDialog(
+        null,
+        "Password cannot contain consecutive semicolons.",
+        "You trying to hack us?",
+        JOptionPane.QUESTION_MESSAGE
+    );
+    return false;
+    }
         return email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$");
     }
 
     private static boolean validatePassword(String password) {
+        if (password.contains(";;")) {
+    JOptionPane.showMessageDialog(
+        null,
+        "Password cannot contain consecutive semicolons.",
+        "You trying to hack us?",
+        JOptionPane.QUESTION_MESSAGE
+    );
+    return false;
+    }
         return password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$");
     }
 
     private static boolean validatePhone(String phone) {
+        if (phone.contains(";;")) {
+    JOptionPane.showMessageDialog(
+        null,
+        "Password cannot contain consecutive semicolons.",
+        "You trying to hack us?",
+        JOptionPane.QUESTION_MESSAGE
+    );
+    return false;
+    }
         return phone.matches("^\\+?[0-9]{10,15}$");
     }
 }
