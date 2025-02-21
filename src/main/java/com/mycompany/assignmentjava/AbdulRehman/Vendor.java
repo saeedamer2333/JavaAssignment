@@ -84,7 +84,7 @@ public class Vendor extends User {
             String[] orderDetails = order.split(FileManager.DELIMITER);
             if (orderDetails[0].equals(orderID) && orderDetails[9].equalsIgnoreCase("Pending")) {
                 String newStatus = isAccepted ? "Available" : "Rejected";
-                return FileManager.updateSingleField(FileManager.FileType.ORDERS, orderID, "status", newStatus, 9);
+                return FileManager.updateSingleField(FileManager.FileType.ORDERS, orderID, "status", newStatus, 8);
             }
         }
         return false;
