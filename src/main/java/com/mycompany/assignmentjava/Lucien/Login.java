@@ -7,6 +7,8 @@ package com.mycompany.assignmentjava.Lucien;
 import com.mycompany.assignmentjava.Saeed.DeliveryPages;
 import com.mycompany.assignmentjava.Zakwaan.UI.Customer_Dashboard;
 import com.mycompany.assignmentjava.AbdulRehman.VendorForm;
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
+import com.mycompany.assignmentjava.Shariq.UI.ManagerHomeJFrame;
 import com.mycompany.assignmentjava.Utilites.User;
 import java.util.List;
 import javax.security.auth.login.LoginException;
@@ -41,6 +43,12 @@ public class Login extends javax.swing.JFrame {
     public static void navigateToVendor(String[] userDetails) {
         VendorForm vendorForm = new VendorForm(userDetails);
         vendorForm.setVisible(true);
+    }
+    
+    public static void navigateToManager(String[] userDetails) {
+        Manager manager = new Manager(userDetails[1], userDetails[2], userDetails[3], userDetails[4]);
+        ManagerHomeJFrame managerHome = new ManagerHomeJFrame(manager);
+        managerHome.setVisible(true);
     }
     
     /**
@@ -159,6 +167,9 @@ public class Login extends javax.swing.JFrame {
                 this.hide();
             } else if ("Vendor".equalsIgnoreCase(role)){
                 Login.navigateToVendor(userDetails);
+                this.hide();
+            } else if ("Manager".equalsIgnoreCase(role)){
+                Login.navigateToManager(userDetails);
                 this.hide();
             }
         

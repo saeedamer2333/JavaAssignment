@@ -4,16 +4,18 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author ysssh
  */
-public class Manager_RunnerFeedback extends javax.swing.JFrame {
+public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form Manager_RunnerFeedback
      */
-    public Manager_RunnerFeedback() {
+    public ManagerRunnerFeedbackJFrame() {
         initComponents();
     }
 
@@ -142,20 +144,23 @@ public class Manager_RunnerFeedback extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Manager_RunnerFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRunnerFeedbackJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Manager_RunnerFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRunnerFeedbackJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Manager_RunnerFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRunnerFeedbackJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Manager_RunnerFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRunnerFeedbackJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Manager_RunnerFeedback().setVisible(true);
+                new ManagerRunnerFeedbackJFrame().setVisible(true);
             }
         });
     }

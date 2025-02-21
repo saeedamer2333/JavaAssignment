@@ -3,3 +3,4 @@ ID75250626;;Lcien;;lucifer@hmm.com;;0492859382;;goodpassword;;admin;;Available
 ID34024619;;Saeed Al-ameri;;saeed@gmail.com;;01111704830;;R#S@DFFs#24;;customer;;Available
 ID32490921;;Saeed Amer;;saeedamer@gmail.com;;01111232023;;R#S@DFFs#24;;Runner;;Available
 V001;;ABC;;abc@gmail.com;;01010101;;something;;Vendor;;Available
+D16;;am;;wasd@gmail.com;;01010101;;123;;Manager;;Available

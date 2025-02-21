@@ -4,17 +4,32 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
+import com.mycompany.assignmentjava.Utilites.FileManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ysssh
  */
-public class Manager_RevenueDashboard extends javax.swing.JFrame {
-
+public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
+    Manager manager;
     /**
      * Creates new form Manager_RevenueDashboard
+     * @param manager
      */
-    public Manager_RevenueDashboard() {
+    
+    public ManagerRevenueDashboardJFrame() {
         initComponents();
+    }
+    
+    public ManagerRevenueDashboardJFrame(Manager manager) {
+        initComponents();
+        this.manager = manager;
+        
+        
+        showTotalRevenue();
+        showTotalOrders();
     }
 
     /**
@@ -34,15 +49,13 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
         lblTotalRevenue = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblTotalOrders = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblAvgOrder = new javax.swing.JLabel();
         lblAvgOrderValue = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblTopVendor = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnSelectVendor = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblTotalRevenue2 = new javax.swing.JLabel();
+        lblTotalOrders2 = new javax.swing.JLabel();
+        lblAvgOrder2 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel11 = new javax.swing.JLabel();
 
@@ -67,13 +80,9 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
 
         lblTotalOrders.setText("[]");
 
-        jLabel7.setText("Avg. Order Value:");
+        lblAvgOrder.setText("Avg. Order Value:");
 
         lblAvgOrderValue.setText("[]");
-
-        jLabel9.setText("Top Vendor:");
-
-        lblTopVendor.setText("[]");
 
         jLabel4.setText("Vendors");
 
@@ -84,11 +93,11 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Revenue Generated:");
+        lblTotalRevenue2.setText("Revenue Generated:");
 
-        jLabel8.setText("Total Orders:");
+        lblTotalOrders2.setText("Total Orders:");
 
-        jLabel10.setText("Avg. Order Value:");
+        lblAvgOrder2.setText("Avg. Order Value:");
 
         jLabel11.setText("Target Revenue:");
 
@@ -105,7 +114,7 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
+                                        .addComponent(lblAvgOrder)
                                         .addGap(18, 18, 18)
                                         .addComponent(lblAvgOrderValue))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,10 +128,6 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                                             .addComponent(jLabel5)
                                             .addGap(18, 18, 18)
                                             .addComponent(lblTotalOrders))))
-                                .addGap(102, 102, 102)
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTopVendor)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -137,11 +142,11 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel10))
+                                            .addComponent(lblTotalOrders2)
+                                            .addComponent(lblAvgOrder2))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
+                                        .addComponent(lblTotalRevenue2)
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
@@ -164,12 +169,10 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(lblTotalRevenue)
                     .addComponent(jLabel5)
-                    .addComponent(lblTotalOrders)
-                    .addComponent(jLabel9)
-                    .addComponent(lblTopVendor))
+                    .addComponent(lblTotalOrders))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(lblAvgOrder)
                     .addComponent(lblAvgOrderValue))
                 .addGap(55, 55, 55)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,11 +181,11 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(lblTotalOrders2)
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel6)
+                        .addComponent(lblTotalRevenue2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel10)
+                        .addComponent(lblAvgOrder2)
                         .addGap(137, 137, 137)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,7 +204,8 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_listVendorsActionPerformed
 
     private void btnSelectVendorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectVendorActionPerformed
-        // TODO add your handling code here:
+                                             
+
     }//GEN-LAST:event_btnSelectVendorActionPerformed
 
     /**
@@ -221,20 +225,23 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Manager_RevenueDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRevenueDashboardJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Manager_RevenueDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRevenueDashboardJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Manager_RevenueDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRevenueDashboardJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Manager_RevenueDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerRevenueDashboardJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Manager_RevenueDashboard().setVisible(true);
+                new ManagerRevenueDashboardJFrame().setVisible(true);
             }
         });
     }
@@ -242,22 +249,39 @@ public class Manager_RevenueDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelectVendor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblAvgOrder;
+    private javax.swing.JLabel lblAvgOrder2;
     private javax.swing.JLabel lblAvgOrderValue;
-    private javax.swing.JLabel lblTopVendor;
     private javax.swing.JLabel lblTotalOrders;
+    private javax.swing.JLabel lblTotalOrders2;
     private javax.swing.JLabel lblTotalRevenue;
+    private javax.swing.JLabel lblTotalRevenue2;
     private java.awt.List listVendors;
     // End of variables declaration//GEN-END:variables
+
+    private void showTotalRevenue() {
+        // DEBUG System.out.println("total orders: " + String.valueOf(manager.monitorVendorPerformance.calcTotalOrders()));
+        this.lblTotalRevenue.setText("MYR " + String.valueOf(manager.monitorVendorPerformance.calcTotalRevenue()));
+        this.lblTotalRevenue2.setText("MYR " + String.valueOf(manager.monitorVendorPerformance.calcTotalRevenue()));
+    }
+    
+    private void showTotalOrders() {
+        // DEBUG System.out.println("total orders: " + String.valueOf(manager.monitorVendorPerformance.calcTotalOrders()));
+        this.lblTotalOrders.setText(String.valueOf(manager.monitorVendorPerformance.calcTotalOrders()));
+        this.lblTotalOrders2.setText(String.valueOf(manager.monitorVendorPerformance.calcTotalOrders()));
+        
+    }
+    
+    private void showAvgOrder() {
+        // DEBUG System.out.println("total orders: " + String.valueOf(manager.monitorVendorPerformance.calcTotalOrders()));
+        this.lblAvgOrder.setText("MYR " + String.valueOf(manager.monitorVendorPerformance.calcAvgOrderValue()));
+        this.lblAvgOrder2.setText("MYR " + String.valueOf(manager.monitorVendorPerformance.calcAvgOrderValue()));
+    }
 }
