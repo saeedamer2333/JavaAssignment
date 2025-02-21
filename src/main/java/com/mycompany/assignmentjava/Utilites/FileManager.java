@@ -379,7 +379,8 @@ public class FileManager {
 
     return writeLinesToFile(fileType, updatedLines);
 }
-   public static boolean updateSingleField(FileType fileType, String id, String fieldName, String newValue) {
+   //update single field but without the need for field index
+   public static boolean updateSingleFieldWithoutIndex(FileType fileType, String id, String fieldName, String newValue) {
     List<String> updatedLines = new ArrayList<>();
     boolean recordFound = false;
     try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
