@@ -16,11 +16,11 @@ import javax.swing.JOptionPane;
  */
 public abstract class User {
     protected String userID;
-    private String name; 
-    private String email;
-    private String password;
-    private String role;
-    private String phone;
+    protected String name; 
+    protected String email;
+    protected String password;
+    protected String role;
+    protected String phone;
 
     
     // Constructor
@@ -35,11 +35,23 @@ public abstract class User {
         
     }
     
+    //For creating objects read from the txt file
+    public User(String userID, String name, String email, String phone, String password, String role) {    
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+
+        
+    }
+    
     // --------Getters and Setters--------
     
     // Getter and Setter for name
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public void setName(String name) {
@@ -48,7 +60,7 @@ public abstract class User {
     
     // Getter and Setter for email
     public String getEmail() {
-        return email;
+        return this.email;
     }
     
     public void setEmail(String email) {
@@ -57,7 +69,7 @@ public abstract class User {
     
     // Getter and Setter for password
     public String getPassword() {
-        return password;
+        return this.password;
     }
     
     public void setPassword(String password) {
@@ -66,7 +78,7 @@ public abstract class User {
     
     // Getter and Setter for role
     public String getRole() {
-        return role;
+        return this.role;
     }
     
     public void setRole(String role) {

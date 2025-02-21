@@ -37,6 +37,14 @@ public class Deliveryrunner extends User {
         this.runnerid = runnerid;
         
     }
+    //needed this constructor for something thanks :) -zakwaan
+    public Deliveryrunner(String runnerid,String name, String email, String phone, String password) {
+        
+        super(runnerid, name, email, phone, password, "Runner");
+        this.runnerid = runnerid;
+        
+    }
+    
     public Deliveryrunner() {
         // Call the parent class constructor with default or empty values
         super("Default Name", "default@email.com", "0000000000", "defaultPassword", "Runner");
@@ -329,6 +337,11 @@ public class Deliveryrunner extends User {
 
         // Join the remaining runner IDs into a string and return
         return String.join(",", runnersList);
+    }
+    
+    //getter -Zakwaan
+    public String getRunnerID(){
+        return this.runnerid;
     }
 
 }

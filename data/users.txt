@@ -1,4 +1,4 @@
-userID,name,email,phone,password,role,status
+userID,name,email,phone,password,role,status,address,balance
 ID34024619;;Saeed Al-ameri;;saeed@yahoo.com;;100032;;R#S@DFFs#24;;customer;;Available
 ID32490921;;Saeed Amer;;saeedamer@gmail.com;;4442;;R#S@DFFs#24;;Runner;;Available
 V001;;ABC;;abc@gmail.com;;000443;;something;;Vendor;;Available
