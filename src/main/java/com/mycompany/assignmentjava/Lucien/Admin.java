@@ -1,6 +1,11 @@
 package com.mycompany.assignmentjava.Lucien;
 
 import com.mycompany.assignmentjava.Utilites.User;
+import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.FileManager.FileType;
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
+import java.util.List;
 
 public class Admin extends User {
 
@@ -23,21 +28,14 @@ public class Admin extends User {
     // ---------------- Methods ----------------
 
     // Create user with basic info
-    public void createUser(String userId, String userType) {
-        if (!validate(userId, "userID") || !validate(userType, "userType")) {
-            throw new IllegalArgumentException("Invalid input parameters");
-        }
-        // Implementation logic here
-    }
-
-    // Create user with detailed info
-    public void createUser(String name, String phone, String role, String email, String password) {
-        if (!validate(name, "name") || !validate(phone, "phone") ||
-            !validate(role, "role") || !validate(email, "email") ||
-            !validate(password, "password")) {
-            throw new IllegalArgumentException("Invalid input parameters");
-        }
-        // Implementation logic here
+    public static boolean createUser(String name, String phone, String role, String email, String password) {
+        // You could add extra validations here if needed.
+        // For now, we delegate to FileManager.addUser which already performs validations.
+        boolean success = FileManager.addUser(name, email, phone, password, role);
+        if(success) {
+            JOptionPane.showMessageDialog(null, "Customer created successfully!");
+        } 
+        return success;
     }
 
     public String readUserDetails(String userId) {
@@ -55,11 +53,8 @@ public class Admin extends User {
         // Implementation logic here
     }
 
-    public void deleteUser(String userId) {
-        if (!validate(userId, "userID")) {
-            throw new IllegalArgumentException("Invalid userID");
-        }
-        // Implementation logic here
+    public static boolean deleteUser(String customerID) {
+        return FileManager.deleteRecord(FileManager.FileType.USERS, customerID);
     }
 
     public void topUpCredit(String userId, double amount) {
@@ -107,7 +102,92 @@ public class Admin extends User {
         }
         return false;
     }
+    
+    public static boolean updateCustomerBalance(String customerID, double addAmount) {
+        // Search for the user record by customerID.
+        List<String> records = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
+        if (records.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Customer not found with ID: " + customerID);
+            return false;
+        }
 
+        // Assume the record is in the format: userID;;name;;email;;phone;;password;;role;;status
+        String record = records.get(0);
+        String[] fields = record.split(FileManager.DELIMITER);
+
+        if (fields.length < 4) {
+            JOptionPane.showMessageDialog(null, "Invalid record format for customer: " + customerID);
+            return false;
+        }
+
+        try {
+            // Parse the current balance from the phone field (index 3)
+            double currentBalance = Double.parseDouble(fields[3]);
+            double newBalance = currentBalance + addAmount;
+
+            // Update the record using updateSingleField. Here, fieldIndex is 3 (phone field)
+            boolean updated = FileManager.updateSingleField(
+                    FileManager.FileType.USERS,
+                    customerID,
+                    "balance", // this is just an identifier; updateSingleField doesn't use it internally
+                    String.valueOf(newBalance),
+                    3
+            );
+
+            if (updated) {
+                JOptionPane.showMessageDialog(null, "Balance updated successfully. New balance: " + newBalance);
+            }
+            return updated;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Current balance is not a valid number: " + fields[3]);
+            return false;
+        }
+    }
+
+        public static void CreateReceipttAndSendNotification() {
+        List<String> transactions = FileManager.getAllRecords(FileType.TRANSACTIONS);
+        int count = 0; // count of notifications sent
+        
+        for (String record : transactions) {
+            String[] parts = record.split(FileManager.DELIMITER);
+            // Expecting: transactionID, orderID, customerID, amount, paymentDate, paymentStatus, receiptGenerated
+            if (parts.length >= 7) {
+                String transactionID = parts[0];
+                String orderID = parts[1];
+                String customerID = parts[2];
+                String amount = parts[3];
+                String paymentDate = parts[4];
+                String paymentStatus = parts[5];
+                String receiptGenerated = parts[6];
+                
+                // Only process if transaction is Completed and receipt is not yet generated
+                if (paymentStatus.equalsIgnoreCase("Completed") && receiptGenerated.equalsIgnoreCase("false")) {
+                    // Build a notification message that includes receipt info
+                    String message = "Receipt for Transaction " + transactionID 
+                            + ": Order " + orderID 
+                            + ", Amount RM" + amount 
+                            + ", Date: " + paymentDate;
+                    
+                    // Generate a notificationID
+                    String notificationID = "ID" + FileManager.generateID();
+                    
+                    // Add the notification (using current time and isRead = false)
+                    boolean notifAdded = FileManager.addNotification(notificationID, customerID, message, 
+                                                LocalDateTime.now(), false);
+                    if (notifAdded) {
+                        // Update the transaction's receiptGenerated field to "true" (index 6)
+                        boolean updateSuccess = FileManager.updateSingleField(FileType.TRANSACTIONS, transactionID, 
+                                                "receiptGenerated", "true", 6);
+                        if (updateSuccess) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null, count + " receipt notifications generated and sent.");
+    }
     // -------------- Getters and Setters --------------
 //
 //    // Getter for userID

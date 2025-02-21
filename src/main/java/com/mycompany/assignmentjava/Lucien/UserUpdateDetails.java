@@ -52,8 +52,10 @@ public class UserUpdateDetails extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2_CreateUser = new javax.swing.JMenuItem();
+        jMenuItem3_updateUser = new javax.swing.JMenuItem();
+        jMenuItem1_topUp = new javax.swing.JMenuItem();
+        jMenuItem5_receipts = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -111,21 +113,37 @@ public class UserUpdateDetails extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem2.setText("🗹 ︎ Create ");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2_CreateUser.setText("🗹 ︎ Create ");
+        jMenuItem2_CreateUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem2_CreateUserActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(jMenuItem2_CreateUser);
 
-        jMenuItem3.setText("✅✘︎︎  Edi︎t & Delete");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3_updateUser.setText("✅✘︎︎  Edi︎t & Delete");
+        jMenuItem3_updateUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItem3_updateUserActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jMenuItem3_updateUser);
+
+        jMenuItem1_topUp.setText("▲ Top-up");
+        jMenuItem1_topUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1_topUpActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1_topUp);
+
+        jMenuItem5_receipts.setText("✉ Send Receipts");
+        jMenuItem5_receipts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5_receiptsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5_receipts);
 
         jMenuBar1.add(jMenu1);
 
@@ -176,7 +194,7 @@ public class UserUpdateDetails extends javax.swing.JFrame {
                         .addGap(144, 144, 144))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(242, 242, 242))))
+                        .addGap(254, 254, 254))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +218,9 @@ public class UserUpdateDetails extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         List<String> records = FileManager.getAllRecords(FileManager.FileType.USERS);
@@ -273,8 +291,8 @@ public class UserUpdateDetails extends javax.swing.JFrame {
         int start = selectedUser.indexOf("(") + 1;
         int end = selectedUser.indexOf(")");
         String extractedID = selectedUser.substring(start, end).trim();
-
-        boolean deleted = FileManager.deleteRecord(FileManager.FileType.USERS, extractedID);
+        
+        boolean deleted = Admin.deleteUser(extractedID);
         if (deleted) {
             JOptionPane.showMessageDialog(this, "User deleted successfully!");
             refreshComboBox(); // Refresh combobox after deletion
@@ -287,28 +305,6 @@ public class UserUpdateDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        new CreateCustomer().setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        new UserUpdateDetails().setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1ActionPerformed
-
     private void IDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDComboBoxActionPerformed
         // TODO add your handling code here:
 
@@ -349,6 +345,42 @@ public class UserUpdateDetails extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_IDComboBoxActionPerformed
+
+    private void jMenuItem2_CreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_CreateUserActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new CreateCustomer().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2_CreateUserActionPerformed
+
+    private void jMenuItem3_updateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_updateUserActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new UserUpdateDetails().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3_updateUserActionPerformed
+
+    private void jMenuItem1_topUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_topUpActionPerformed
+        // open top-up
+        this.dispose();
+        new Top_up().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1_topUpActionPerformed
+
+    private void jMenuItem5_receiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5_receiptsActionPerformed
+        // Dispose the current frame
+        this.dispose();
+        // Create and show a new instance of send_receipts
+        new send_receipts().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5_receiptsActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,9 +451,11 @@ public class UserUpdateDetails extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem1_topUp;
+    private javax.swing.JMenuItem jMenuItem2_CreateUser;
+    private javax.swing.JMenuItem jMenuItem3_updateUser;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5_receipts;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField nameText;
     private javax.swing.JTextField phoneText;

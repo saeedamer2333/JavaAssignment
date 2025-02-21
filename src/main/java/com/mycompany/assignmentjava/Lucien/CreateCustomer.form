@@ -13,21 +13,40 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x272a; Users"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu1ActionPerformed"/>
+          </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2_CreateUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="\ud83d\uddf9 &#xfe0e; Create " containsInvalidXMLChars="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2_CreateUserActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3_updateUser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x2705;&#x2718;&#xfe0e;&#xfe0e;  Edi&#xfe0e;t &amp; Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3_updateUserActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1_topUp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x25b2; Top-up"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1_topUpActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5_receipts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x2709; Send Receipts"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5_receiptsActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -204,7 +223,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
             <StringItem index="0" value="Customer"/>
-            <StringItem index="1" value="Vendo"/>
+            <StringItem index="1" value="Vendor"/>
             <StringItem index="2" value="Runner"/>
           </StringArray>
         </Property>
