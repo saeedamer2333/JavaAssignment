@@ -30,7 +30,7 @@ public class Product {
         
         FileManager.addProduct(productID, vendorID, productName, price);
     }
-    //Constructor for constructing object straight from the txt file
+    //Constructor for constructing an existing entry in the text file
     public Product(String productID, String vendorID, String productName, double price){
         this.productID = productID;
         this.vendorID = vendorID;
@@ -57,6 +57,8 @@ public class Product {
     }
     
     // Setters
+    
+    //Put the ObjectToFileUpdater stuff in here to update the file when these details are changed with setters
     public void setProductID(String productID) {
         this.productID = productID;
     }

@@ -78,12 +78,14 @@ public class Customer extends User{
     public Transaction[] getTransactionHistory(){
         List<String> customerTransactions = FileManager.searchRecords(FileManager.FileType.TRANSACTIONS, "customerID", this.userID);
         return customerTransactions.toArray(new Transaction[customerTransactions.size()]);
+        //improve with loadAll method from ObjectWriter
     }
     
     // for getting the customer review history
     public Review[] getReviewHistory(){
         List<String> customerReviews = FileManager.searchRecords(FileManager.FileType.REVIEWS, "customerID", this.userID);
         return customerReviews.toArray(new Review[customerReviews.size()]);
+        //improve with loadAll method from ObjectWriter
     }
     
     //for add credit to the customer wallet

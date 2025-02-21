@@ -9,6 +9,7 @@ import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,24 @@ public class ObjectWriter {
     
     //get customer by id
     public static Customer getCustomerByID(String customerID){
+        List<String> record = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
+        String line = record.get(0);
+        String[] attributes = line.split(FileManager.DELIMITER);
+        String rID = attributes[0];
+        String rName = attributes[1];
+        String rEmail = attributes[2];
+        String rPhone = attributes[3];
+        String rPassword = attributes[4];
+        String rRole = attributes[5];
+        String rStatus = attributes[6];
+        String rAddress = attributes[7];
+        String rBalance = attributes[8];
+        Customer customer = new Customer(rID, rName, rEmail, rPhone, rPassword, rAddress);
+        
+        return customer;
+    }
+    
+    public static Customer getCustomerByLine(String customerID){
         List<String> record = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
         String line = record.get(0);
         String[] attributes = line.split(FileManager.DELIMITER);
@@ -83,6 +102,15 @@ public class ObjectWriter {
         
         Product product = new Product(rProductID, rVendorID, rProductName, Double.parseDouble(rPrice));
         return product;
+    }
+    
+    public static List<Product> getProductListByIDList(List<String> productIDList){
+        List<Product> productList = new ArrayList<>();
+        for (String productID : productIDList){
+            Product product = getProductByID(productID);
+            productList.add(product);
+        }
+        return productList;
     }
     
     public static Order getOrderByID(String orderID){

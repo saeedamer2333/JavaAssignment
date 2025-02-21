@@ -590,6 +590,10 @@ public class FileManager {
     }
         return phone.matches("^\\+?[0-9]{10,15}$");
     }
+    
+    public static SimpleDateFormat getDATE_FORMAT(){
+        return DATE_FORMAT;
+    }
 }
 
 
