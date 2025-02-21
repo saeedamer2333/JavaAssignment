@@ -35,8 +35,8 @@ public class Transaction {
         this.paymentDate = LocalDateTime.now();
         this.paymentStatus = "Pending";
         
-        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
+//        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+//                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
     }
     
     // Transaction constructor with all attributes
@@ -48,8 +48,8 @@ public class Transaction {
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
         
-        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-            this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
+//        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
+//            this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
     }
     
     //---------Methods---------

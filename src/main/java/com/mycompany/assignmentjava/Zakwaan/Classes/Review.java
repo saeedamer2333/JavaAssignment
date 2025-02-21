@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class Review {
     private LocalDateTime date;
     
     //normal constructor
-    public Review(Customer customer, Runner runner, Order order, Vendor vendor, String reviewText, int rating){
+    public Review(Customer customer, Deliveryrunner runner, Order order, Vendor vendor, String reviewText, int rating){
         //implementation
         this.reviewID = FileManager.generateID();
         this.customer = customer;
@@ -61,11 +62,11 @@ public class Review {
         this.customer = customer;
     }
 
-    public Runner getRunner() {
+    public Deliveryrunner getRunner() {
         return runner;
     }
 
-    public void setRunner(Runner runner) {
+    public void setRunner(Deliveryrunner runner) {
         this.runner = runner;
     }
 
