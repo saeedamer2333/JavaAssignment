@@ -45,25 +45,13 @@ public class Order {
         this.status = "In the kitchen";
         this.totalAmount = totalAmount;
         
-        List<String> productIDList = arrayToStringListProducts(this.products);
         String runnerID = "";
         
-        FileManager.addOrder(this.orderID, this.customer.getCustomerID(), this.vendor.getVendorID(), 
-                                runnerID, productIDList, this.orderType, this.status, this.totalAmount);
+//        FileManager.addOrder(this.orderID, this.customer.getCustomerID(), this.vendor.getVendorID(), 
+//                                runnerID, productIDList, this.orderType, this.status, this.totalAmount);
     }
     
     //----Methods
-    //For Deliveryrunner
-    public void acceptOrder(){
-        
-    }
-    
-    //calculating deliveryfees, we should have communicated about this saeeeeeeddddd
-    //so maybe can have a fixed value
-//    public double calculateDeliveryFees(){
-//        
-//    }
-    
     //allocating a runner
     public void allocateRunner(Deliveryrunner runner){
         this.runner = runner;
@@ -86,16 +74,6 @@ public class Order {
     }
     
     //Helper methods
-    public List<String> arrayToStringListProducts(Product[] products){
-        List<String> productIDList = new ArrayList<String>();
-        
-        for (Product product : products){
-            String productID = product.getProductID();
-            productIDList.add(productID);
-        }
-        return productIDList;
-    }
-    
     //notifying customer
     public void notifyCustomer(String message){
         Notification notification = new Notification(this.customer.getCustomerID(), message);

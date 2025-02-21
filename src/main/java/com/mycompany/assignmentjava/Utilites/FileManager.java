@@ -379,6 +379,54 @@ public class FileManager {
 
     return writeLinesToFile(fileType, updatedLines);
 }
+   public static boolean updateSingleFieldWithoutIndex(FileType fileType, String id, String fieldName, String newValue) {
+    List<String> updatedLines = new ArrayList<>();
+    boolean recordFound = false;
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
+        String header = reader.readLine();
+        updatedLines.add(header);
+        String[] headers = header.split(DELIMITER);
+        
+        // Find the field index based on the field name
+        int fieldIndex = -1;
+        for (int i = 0; i < headers.length; i++) {
+            if (headers[i].trim().equalsIgnoreCase(fieldName)) {
+                fieldIndex = i;
+                break;
+            }
+        }
+        
+        if (fieldIndex < 0) {
+            showErrorDialog("Field not found: " + fieldName);
+            return false;
+        }
+        
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(DELIMITER, -1); // Preserve empty fields
+            if (parts.length < headers.length) {
+                showErrorDialog("Malformed line detected: " + line);
+                return false;
+            }
+            if (parts[0].equals(id)) {
+                recordFound = true;
+                parts[fieldIndex] = newValue;
+                line = String.join(DELIMITER, parts);
+            }
+            updatedLines.add(line);
+        }
+    } catch (IOException e) {
+        showErrorDialog("Error reading file: " + e.getMessage());
+        return false;
+    }
+    
+        if (!recordFound) {
+            showErrorDialog("Record with ID " + id + " not found.");
+            return false;
+        }
+
+        return writeLinesToFile(fileType, updatedLines);
+    }
 
     // ----------Rewrite the Entire File with the Given Lines----------
     public static boolean writeLinesToFile(FileType fileType, List<String> lines) {
