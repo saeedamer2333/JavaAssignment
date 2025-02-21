@@ -1,1 +1,1 @@
-transactionID,orderID,customerID,amount,paymentDate,paymentStatus
+transactionID,orderID,customerID,amount,paymentDate,paymentStatus,receiptGenerated

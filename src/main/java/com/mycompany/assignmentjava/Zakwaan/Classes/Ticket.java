@@ -4,17 +4,33 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.Utilites.FileManager;
+
 /**
  *
  * @author zechn
  */
 public class Ticket {
     private String ticketID;
-    private Manager manager;
+    private String managerID;
+    //private Manager manager;
+    private String customerID;
     private Customer customer;
     private String customerComment;
     private String managerReply;
-    private String status;
+    private String status = "Submitted";
+    /*
+    
+    */
     
     //Constructors for new ticket
+    public Ticket(/*Manager manager,*/String customerID, String customerComment, 
+                    String managerReply, String status){
+        this.ticketID = "TID" + FileManager.generateID();
+        //this.manager = manager;
+        this.customer = customer;
+        this.customerComment = customerComment;
+        this.managerReply = managerReply;
+        this.status = status;
+    }
 }

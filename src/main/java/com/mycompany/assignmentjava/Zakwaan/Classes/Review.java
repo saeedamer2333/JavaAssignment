@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import java.time.LocalDateTime;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class Review {
     private String reviewID;
     private Customer customer;
-    private Runner runner;
+    private Deliveryrunner runner;
     private Order order;
     private Vendor vendor;
     private String reviewText;
@@ -37,19 +38,10 @@ public class Review {
                 this.vendor.getVendorID(), this.reviewText, this.rating, this.date);
     }
     
-    //constructor because I dont know how runner and vendor is going to be implemented
-    public Review(Order order, String reviewText, int rating){
-        //implementation
-    }
-    
-    //constructor just in case 
-    public Review(String orderID, String reviewText, int rating){
-        //implementation
-    }
-    
     //Methods
     public Review[] getCustomerReviews(String customerID){
-        
+        //Object writer call
+        return null;
     }
     
     //Getters and setters

@@ -18,7 +18,8 @@ public class Transaction {
     Customer customer;
     double amount;
     LocalDateTime paymentDate;
-    String paymentStatus; 
+    String paymentStatus;
+    boolean receiptGenerated = false;
     //Payment status options
 //    Pending
 //    Completed
@@ -35,7 +36,7 @@ public class Transaction {
         this.paymentStatus = "Pending";
         
         FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus);
+                this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
     }
     
     // Transaction constructor with all attributes
@@ -67,6 +68,7 @@ public class Transaction {
         //get the order amount from the order object
         //add that amount to customer balance
         //set transaction status to Cancelled
+        //set order status as cancelled
     }
     
     public String generateReceipt(){

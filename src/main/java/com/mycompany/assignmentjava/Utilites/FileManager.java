@@ -107,10 +107,32 @@ public class FileManager {
         String record = String.join(DELIMITER, userID, name, email, phone, password, role, "Available");
         return appendToFile(FileType.USERS, record);
     }
+    
+    //Add user with address and balance (For customer)
+    public static boolean addCustomer(String name, String email, String phone, String password, String role, 
+            String address, double balance) {
+        if (!validateEmail(email)) {
+            showErrorDialog("Invalid email format: " + email);
+            return false;
+        }
+        if (!validatePassword(password)) {
+            showErrorDialog("Password must be at least 8 characters long, contain uppercase, lowercase, and a number.");
+            return false;
+        }
+        if (!validatePhone(phone)) {
+            showErrorDialog("Invalid phone number: " + phone);
+            return false;
+        }
+        String userID = "ID" + generateID();
+        String record = String.join(DELIMITER, userID, name, email, phone, password, 
+                                       role, "status", address, Double.toString(balance));
+        return appendToFile(FileType.USERS, record);
+    }
 
     // Transaction methods (using java.util.Date)
     public static boolean addTransaction(String orderID, String customerID,
-                                         double amount, Date paymentDate, String paymentStatus) {
+                                         double amount, Date paymentDate, String paymentStatus,
+                                         String receiptGenerated) {
         if (amount <= 0) {
             showErrorDialog("Transaction amount must be greater than 0.");
             return false;
@@ -118,7 +140,7 @@ public class FileManager {
         String transactionID = "ID" + generateID();
         String dateStr = DATE_FORMAT.format(paymentDate);
         String record = String.join(DELIMITER, transactionID, orderID, customerID,
-                String.valueOf(amount), dateStr, paymentStatus);
+                String.valueOf(amount), dateStr, paymentStatus, receiptGenerated);
         return appendToFile(FileType.TRANSACTIONS, record);
     }
 
@@ -146,7 +168,8 @@ public class FileManager {
     // Other append methods (using LocalDateTime in some cases)
 
     public static boolean addTransaction(String transactionID, String orderID, String customerID,
-                                         double amount, LocalDateTime paymentDate, String paymentStatus) {
+                                         double amount, LocalDateTime paymentDate, String paymentStatus, 
+                                         String receiptGenerated) {
         if (amount <= 0) {
             showErrorDialog("Transaction amount must be greater than 0.");
             return false;
@@ -154,7 +177,7 @@ public class FileManager {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String dateStr = paymentDate.format(formatter);
         String record = String.join(DELIMITER, transactionID, orderID, customerID,
-                String.valueOf(amount), dateStr, paymentStatus);
+                String.valueOf(amount), dateStr, paymentStatus, receiptGenerated);
         return appendToFile(FileType.TRANSACTIONS, record);
     }
 

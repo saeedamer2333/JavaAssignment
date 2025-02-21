@@ -17,8 +17,19 @@ public class Customer extends User{
     private String address;
     private double balance;
     
+    //Brand new Customer
     public Customer(String name, String email, String phone, String password, String address){
         super(name, email, phone, password, "Customer");
+        
+        this.address = address;
+        this.balance = 0;
+        
+        FileManager.addCustomer(this.name, this.email, this.phone, this.password, 
+                                this.role, this.address, this.balance);
+    }
+    //new customer object from record that already exists
+    public Customer(String customerID, String name, String email, String phone, String password, String address){
+        super(customerID, name, email, phone, password, "Customer");
         
         this.address = address;
         this.balance = 0;

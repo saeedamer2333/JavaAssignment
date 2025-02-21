@@ -17,6 +17,11 @@ public class Vendor extends User {
         super(name, email, phone, password, "Vendor");
         this.vendorID = vendorId;
     }
+    //Wanted an extra constructor for something thanks :) -zakwaan
+    public Vendor(String vendorId, String name, String email, String phone, String password, String role) {
+        super(vendorId, name, email, phone, password, role);
+        this.vendorID = vendorId;
+    }
 
     // Constructor with random values
     public Vendor() {
