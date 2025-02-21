@@ -379,7 +379,7 @@ public class FileManager {
 
     return writeLinesToFile(fileType, updatedLines);
 }
-   public static boolean updateSingleFieldWithoutIndex(FileType fileType, String id, String fieldName, String newValue) {
+   public static boolean updateSingleField(FileType fileType, String id, String fieldName, String newValue) {
     List<String> updatedLines = new ArrayList<>();
     boolean recordFound = false;
     try (BufferedReader reader = new BufferedReader(new FileReader(fileType.getPath()))) {
@@ -420,13 +420,13 @@ public class FileManager {
         return false;
     }
     
-        if (!recordFound) {
-            showErrorDialog("Record with ID " + id + " not found.");
-            return false;
-        }
-
-        return writeLinesToFile(fileType, updatedLines);
+    if (!recordFound) {
+        showErrorDialog("Record with ID " + id + " not found.");
+        return false;
     }
+    
+    return writeLinesToFile(fileType, updatedLines);
+}
 
     // ----------Rewrite the Entire File with the Given Lines----------
     public static boolean writeLinesToFile(FileType fileType, List<String> lines) {
