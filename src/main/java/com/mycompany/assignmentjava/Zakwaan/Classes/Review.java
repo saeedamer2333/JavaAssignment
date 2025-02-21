@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import java.time.LocalDateTime;
@@ -27,7 +28,6 @@ public class Review {
         //implementation
         this.reviewID = FileManager.generateID();
         this.customer = customer;
-        this.runner = runner;
         this.order = order;
         this.vendor = vendor;
         this.reviewText = reviewText;
@@ -61,13 +61,13 @@ public class Review {
         this.customer = customer;
     }
 
-    public Runner getRunner() {
-        return runner;
-    }
-
-    public void setRunner(Runner runner) {
-        this.runner = runner;
-    }
+//    public Runner getRunner() {
+//        return runner;
+//    }
+//
+//    public void setRunner(Runner runner) {
+//        this.runner = runner;
+//    }
 
     public Order getOrder() {
         return order;

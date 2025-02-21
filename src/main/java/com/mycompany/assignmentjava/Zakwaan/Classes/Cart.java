@@ -14,7 +14,7 @@ public class Cart {
     //attributes
     private String cartID;
     private Customer customer;
-    private List<Product> cartProducts = new Arraylist<Product>();
+    //private List<Product> cartProducts = new List<Product>();
     
     //cart is initialized whenever a new customer object is created
     
