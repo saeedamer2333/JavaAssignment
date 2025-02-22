@@ -10,6 +10,7 @@ import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -95,9 +96,41 @@ public class ObjectWriter {
         return productList;
     }
     
-//    public static Order getOrderByID(String orderID){
-//        
-//    }
+    public static Order getOrderByID(String orderID){
+        List<String> record = FileManager.searchRecords(FileManager.FileType.ORDERS, "orderID", orderID);
+        String line = record.get(0);
+        //headers from txt file
+        String[] attributes = line.split(FileManager.DELIMITER);
+        String rOrderID = attributes[0];
+        String rCustomerID = attributes[1];
+        String rCustomerName = attributes[2];
+        String rVendorID = attributes[3];
+        String rVendorName = attributes[4];
+        String rRunnerID = attributes[5];
+        //convert products comma into a List<String>
+        String rProductsComma = attributes[6];
+        List<String> rProductIDList = Arrays.asList(rProductsComma.split(","));
+        String rOrderType = attributes[7];
+        String rStatus = attributes[8];
+        String rAddress = attributes[9];
+        String rDeliveryfees = attributes[10];
+        String rTotalAmount = attributes[11];
+        String rOrderDate = attributes[12];
+        
+        //objects
+        Customer rCustomer = getCustomerByID(rCustomerID);
+        Vendor rVendor = getVendorByID(rVendorID);
+        Deliveryrunner rRunner = getDeliveryrunnerByID(rRunnerID);
+        List<Product> rProductList = getProductListByIDList(rProductIDList);
+        
+        Order order = new Order(rOrderID, rCustomerID, rCustomerName, rCustomer,
+                                rVendorID, rVendorName, rVendor, rRunnerID, rRunner,
+                                rProductIDList, rProductList, rOrderType, rStatus,
+                                rAddress, Double.parseDouble(rDeliveryfees), 
+                                Double.parseDouble(rTotalAmount), 
+                                DateConverter.stringToDate(rOrderDate));
+        return order;
+    }
     
     public static List<Vendor> getAllVendors(){
         List<Vendor> vendorObjects = new ArrayList<>();

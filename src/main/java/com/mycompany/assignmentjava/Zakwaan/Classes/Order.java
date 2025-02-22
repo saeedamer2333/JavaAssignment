@@ -74,6 +74,32 @@ public class Order {
                                 this.totalAmount, this.orderDate);
     }
     
+    //Constructor to accept data from the order.txt file
+    public Order(String orderID, String customerID, String customerName, Customer customer, String vendorID, 
+             String vendorName, Vendor vendor, String runnerID, Deliveryrunner runner, 
+             List<String> productIDList, List<Product> productList, String orderType, 
+             String status, String address, double deliveryfees, double totalAmount, Date orderDate) {
+        this.orderID = orderID;
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.customer = customer;
+        this.vendorID = vendorID;
+        this.vendorName = vendorName;
+        this.vendor = vendor;
+        this.runnerID = runnerID;
+        this.runner = runner;
+        this.productIDList = productIDList;
+        this.productList = productList;
+        this.orderType = orderType;
+        this.status = status;
+        this.address = address;
+        this.deliveryfees = deliveryfees;
+        this.totalAmount = totalAmount;
+        this.orderDate = orderDate;
+    }
+
+    
+    
     //----Methods
     //allocating a runner
     public void allocateRunner(Deliveryrunner runner){
