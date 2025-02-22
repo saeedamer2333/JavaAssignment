@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,12 +25,18 @@ public class DeliveryPages extends javax.swing.JFrame {
     
     private Deliveryrunner Runner;
     private String RunnerID;
+    private String selectedOrderID = null;
     public DeliveryPages() {
        initComponents();
         // initate as homepage
         populateTaskTable();
        //initiate as teh first fliter 
        updateDashboard("day");
+       // inirate the slesct in combox 
+       initializeComponents();
+     
+      
+      
        
     }
     
@@ -59,15 +67,30 @@ public class DeliveryPages extends javax.swing.JFrame {
        table.setModel(model);
    }
     
+    
+private void removeTabHeaders() {
+    // Set the JTabbedPane UI to null to completely remove the tab headers
+    jTabbedPane1.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI() {
+        @Override
+        protected void installComponents() {
+            super.installComponents();
+            // Prevent adding tab components (headers) by removing them
+            tabPane.removeAll();  // Remove all tab headers
+        }
+    });
+
+    // Make sure the tabs' content is still visible by adding content back
+    jTabbedPane1.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI());
+}
     private void populateTaskTable() {
         
         
         String[] columns = {"Task ID","Customer Name", "Vendor Name", "Products", "Status","Address", "Delivery Fees", "Total Amount", "Order Date"};
         Runner  = new  Deliveryrunner();
-       List<String[]> task = Runner.getTask("runner2");
+       List<String[]> task = Runner.getTask(RunnerID);
        populatedata(tasktable,columns,task);
     
-    // Add MouseListener to jTable5 to handle row clicks and display data in JTextFields
+    // Add MouseListener to tasktable to handle row clicks and display data in JTextFields
         tasktable.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             // Get the selected row index
@@ -98,7 +121,7 @@ public class DeliveryPages extends javax.swing.JFrame {
     });
 }
 
-    
+    // initilzation methods 
     
     
      private void initfilterComponents() {
@@ -116,7 +139,7 @@ public class DeliveryPages extends javax.swing.JFrame {
 
     private void updateDashboard(String dateRange) {
         // Get revenue data for the selected filter (daily, monthly, yearly)
-        List<String[]> revenueData = Runner.getRevenueData(dateRange, "runner2" );
+        List<String[]> revenueData = Runner.getRevenueData(dateRange, RunnerID );
 
         // Convert the revenue data to a 2D array for JTable display
         String[][] data = new String[revenueData.size()][3];
@@ -133,6 +156,23 @@ public class DeliveryPages extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         jTable2.setModel(model);  // Populate the jTable with the data
     }
+
+    
+    
+    // Method to initialize components like combo box and its ActionListener
+    private void initializeComponents() {
+    // Add ActionListener to the combo box
+    updatestatuscomb.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Get the selected status when the combo box selection changes
+            String selectedStatus = (String) updatestatuscomb.getSelectedItem();
+            // No update trigger here. The update will be triggered by the button click.
+        }
+    });
+}
+    
+
 
     
     /**
@@ -177,7 +217,7 @@ public class DeliveryPages extends javax.swing.JFrame {
         historytbl = new javax.swing.JTable();
         CustomerFeedbackpnl = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        reviewtbl = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         homepagebtn = new javax.swing.JButton();
         dashboradbtn = new javax.swing.JButton();
@@ -186,12 +226,15 @@ public class DeliveryPages extends javax.swing.JFrame {
         customerreviewbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(240, 240, 240));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTabbedPane1.setBackground(new java.awt.Color(204, 204, 204));
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
         jButton1.setText("Update status");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -217,6 +260,11 @@ public class DeliveryPages extends javax.swing.JFrame {
         jLabel2.setText("Order Details");
 
         updatestatuscomb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pick up", "On the way", "Delivered" }));
+        updatestatuscomb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatestatuscombActionPerformed(evt);
+            }
+        });
 
         Producttxf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,37 +295,39 @@ public class DeliveryPages extends javax.swing.JFrame {
                     .addGroup(homepageLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         homepageLayout.setVerticalGroup(
             homepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homepageLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(taskidtxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CutomerNametxfe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(vendorNametxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Producttxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(statustxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalamounttxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(orderdatetxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(updatestatuscomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(66, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(homepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(homepageLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(taskidtxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CutomerNametxfe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(vendorNametxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Producttxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(statustxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalamounttxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orderdatetxf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(updatestatuscomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addGroup(homepageLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("hompage", homepage);
@@ -308,16 +358,17 @@ public class DeliveryPages extends javax.swing.JFrame {
         dashbord.setLayout(dashbordLayout);
         dashbordLayout.setHorizontalGroup(
             dashbordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashbordLayout.createSequentialGroup()
+            .addGroup(dashbordLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 681, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(revenuflitercob, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashbordLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         dashbordLayout.setVerticalGroup(
@@ -332,9 +383,9 @@ public class DeliveryPages extends javax.swing.JFrame {
                         .addGroup(dashbordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(revenuflitercob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dashborad", dashbord);
@@ -350,10 +401,20 @@ public class DeliveryPages extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orderstableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(orderstable);
 
         acceptbtn.setText("Accept");
         acceptbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        acceptbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptbtnActionPerformed(evt);
+            }
+        });
 
         declinebtn.setText("Decline");
         declinebtn.addActionListener(new java.awt.event.ActionListener() {
@@ -367,25 +428,25 @@ public class DeliveryPages extends javax.swing.JFrame {
         notificationpnlLayout.setHorizontalGroup(
             notificationpnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(notificationpnlLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notificationpnlLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(acceptbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(declinebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
-            .addGroup(notificationpnlLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(137, 137, 137))
         );
         notificationpnlLayout.setVerticalGroup(
             notificationpnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notificationpnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                .addGap(34, 34, 34)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(notificationpnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(declinebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(acceptbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                    .addComponent(acceptbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(declinebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Notification", notificationpnl);
@@ -407,21 +468,22 @@ public class DeliveryPages extends javax.swing.JFrame {
         historypnl.setLayout(historypnlLayout);
         historypnlLayout.setHorizontalGroup(
             historypnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historypnlLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+            .addGroup(historypnlLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
                 .addContainerGap())
         );
         historypnlLayout.setVerticalGroup(
             historypnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historypnlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("history", historypnl);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        reviewtbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -432,22 +494,22 @@ public class DeliveryPages extends javax.swing.JFrame {
                 "Name", "Feedback", "Date"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(reviewtbl);
 
         javax.swing.GroupLayout CustomerFeedbackpnlLayout = new javax.swing.GroupLayout(CustomerFeedbackpnl);
         CustomerFeedbackpnl.setLayout(CustomerFeedbackpnlLayout);
         CustomerFeedbackpnlLayout.setHorizontalGroup(
             CustomerFeedbackpnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CustomerFeedbackpnlLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CustomerFeedbackpnlLayout.setVerticalGroup(
             CustomerFeedbackpnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerFeedbackpnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(CustomerFeedbackpnlLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 154, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Review", CustomerFeedbackpnl);
@@ -524,37 +586,45 @@ public class DeliveryPages extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(172, 172, 172))
         );
+
+        // Remove all tabs and make the tabs non-interactive
+        jTabbedPane1.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -574,13 +644,15 @@ public class DeliveryPages extends javax.swing.JFrame {
          // retreive task from order.txt
         String[] columns = {"Task ID","Customer Name", "Vendor Name", "Products", "Status", "Address","Delivery Fees", "Total Amount", "Order Date"};
         Runner  = new  Deliveryrunner();
-       List<String[]> task = Runner.getTask("runner2");
+       List<String[]> task = Runner.getTask(RunnerID);
        populatedata(tasktable,columns,task);
     }//GEN-LAST:event_homepagebtnActionPerformed
 
     private void dashboradbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboradbtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(1);
+        
+        initfilterComponents();
         
     }//GEN-LAST:event_dashboradbtnActionPerformed
 
@@ -591,17 +663,17 @@ public class DeliveryPages extends javax.swing.JFrame {
         // retrive the data of avavible orders
         String[] columns = {"Task Id","Customer Name", "Vendor Name", "Products", "Status", "Address","Delivery Fees", "Total Amount", "Order Date"};
         Runner  = new  Deliveryrunner();
-       List<String[]> orders = Runner.getOrdersForRunner("runner2");
+       List<String[]> orders = Runner.getOrdersForRunner(RunnerID);
        populatedata(orderstable,columns,orders);
     }//GEN-LAST:event_orderbtnActionPerformed
 
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(3);
-     List<String[]> historyData = Runner.getHistory("runner2");  // Use the appropriate runner ID
+     List<String[]> historyData = Runner.getHistory(RunnerID);  // Use the appropriate runner ID
     
     // Define the columns you want to display
-    String[] columns = {"Customer Name", "Vendor Name", "Products", "Status", "Delivery Fees", "Total Amount", "Order Date"};
+    String[] columns = {"Customer Name", "Vendor Name", "Products", "Status", "Address","Delivery Fees", "Total Amount", "Order Date"};
     
     // Populate the JTable with the data
     populatedata(historytbl, columns, historyData);
@@ -612,6 +684,14 @@ public class DeliveryPages extends javax.swing.JFrame {
     private void customerreviewbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerreviewbtnActionPerformed
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(4);
+       // retrive the data of Reviews 
+          // retrive the data of avavible orders
+        String[] columns =  {"Review ID", "Customer Name", "Vendor Name", "Review Text", "Rating", "Date"};
+        Runner  = new  Deliveryrunner();
+       List<String[]> orders = Runner.parseReviews(RunnerID);
+       populatedata(reviewtbl,columns,orders);
+        
+        
     }//GEN-LAST:event_customerreviewbtnActionPerformed
 
     private void ProducttxfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProducttxfActionPerformed
@@ -619,51 +699,83 @@ public class DeliveryPages extends javax.swing.JFrame {
     }//GEN-LAST:event_ProducttxfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    updatestatuscomb.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // Get the selected status from the combo box
-        String selectedStatus = (String) updatestatuscomb.getSelectedItem();
-        
-        // Get the orderID from UI
-        String orderID = taskidtxf.getText(); // Retrieve text entered in the JTextField
-        
-        // Check if orderID is not empty
-        if (orderID.trim().isEmpty()) {
-            // Show an error dialog if the orderID is empty
-            JOptionPane.showMessageDialog(null, "Select raw ", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-      
-        // Call the UpdateOrderStatus method
-        Runner.UpdateOrderStatus(orderID,selectedStatus,RunnerID); 
+         String selectedStatus = (String) updatestatuscomb.getSelectedItem();
+    
+    // Get the orderID from UI
+    String orderID = taskidtxf.getText(); // Retrieve text entered in the JTextField
+    
+    // Check if orderID is not empty
+    if (orderID.trim().isEmpty()) {
+        // Show an error dialog if the orderID is empty
+        JOptionPane.showMessageDialog(null, "Please select a row to update the order.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;  // Exit the method if the orderID is empty
     }
-    });
+
+    // Ensure a valid status is selected
+    if (selectedStatus == null || selectedStatus.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please select a valid status.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Call the UpdateOrderStatus method
+    Runner.UpdateOrderStatus(orderID, selectedStatus, RunnerID);
+    
+    populateTaskTable();
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void declinebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declinebtnActionPerformed
         // TODO add your handling code here:
-        orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
-        // Get the selected row index
-        int row = orderstable.getSelectedRow();
-        
-         if (row == -1) {
-            // No row selected, show a warning dialog
-            JOptionPane.showMessageDialog(null, "Please select a row to reject the order.", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;  // Exit the method if no row is selected
-        }
-        // Get the orderID, runnerI from the selected row
-       String orderID = (String) orderstable.getValueAt(row, 0);  // Assuming orderID is in the first column
-         
-        
-
-        // Call the rejectOrder method with the extracted parameters
-       Runner.rejectOrder(orderID,"runner2");
+     if (selectedOrderID == null ) {
+        JOptionPane.showMessageDialog(null, "Please select a row to reject the order.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;  // Exit the method if no row is selected
     }
-});
+
+    // Call the rejectOrder method with the selected orderID and runnerID
+    Runner.rejectOrder(selectedOrderID,RunnerID);
+    // retrive the data of avavible orders again refresh
+        String[] columns = {"Task Id","Customer Name", "Vendor Name", "Products", "Status", "Address","Delivery Fees", "Total Amount", "Order Date"};
+        Runner  = new  Deliveryrunner();
+       List<String[]> orders = Runner.getOrdersForRunner(RunnerID);
+       populatedata(orderstable,columns,orders);
+
         
     }//GEN-LAST:event_declinebtnActionPerformed
+
+    private void updatestatuscombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatestatuscombActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updatestatuscombActionPerformed
+
+    private void acceptbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptbtnActionPerformed
+        // TODO add your handling code here:
+         if (selectedOrderID == null ) {
+        JOptionPane.showMessageDialog(null, "Please select a row to reject the order.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;  // Exit the method if no row is selected
+        }
+
+    // Call the rejectOrder method with the selected orderID and runnerID
+        Runner.acceptOrder(selectedOrderID,RunnerID);
+    // retrive the data of avavible orders again refresh
+        String[] columns = {"Task Id","Customer Name", "Vendor Name", "Products", "Status", "Address","Delivery Fees", "Total Amount", "Order Date"};
+        Runner  = new  Deliveryrunner();
+       List<String[]> orders = Runner.getOrdersForRunner(RunnerID);
+       populatedata(orderstable,columns,orders);
+    }//GEN-LAST:event_acceptbtnActionPerformed
+
+   
+    private void orderstableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderstableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)orderstable.getModel();
+        
+        
+        int selectedRawindx = orderstable.getSelectedRow();
+        
+                // Capture orderID and runnerID from the selected row
+                selectedOrderID = (String) orderstable.getValueAt(selectedRawindx, 0);  // Task ID (Order ID)
+                System.out.println("select orderid " + selectedOrderID );
+          
+        
+    }//GEN-LAST:event_orderstableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -729,12 +841,12 @@ public class DeliveryPages extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JPanel notificationpnl;
     private javax.swing.JButton orderbtn;
     private javax.swing.JTextField orderdatetxf;
     private javax.swing.JTable orderstable;
     private javax.swing.JComboBox<String> revenuflitercob;
+    private javax.swing.JTable reviewtbl;
     private javax.swing.JTextField statustxf;
     private javax.swing.JTextField taskidtxf;
     private javax.swing.JTable tasktable;
