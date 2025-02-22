@@ -187,7 +187,46 @@ public class ObjectWriter {
         }  
         return reviewObjects;
     }
-    
+    //Get the order history using CustomerID
+    public List<Order> getOrderHistoryByCustomerID(String customerID){
+        List<Order> orderObjects = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.ORDERS, "customerID", customerID);
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            //headers from txt file
+            String rOrderID = attributes[0];
+            String rCustomerID = attributes[1];
+            String rCustomerName = attributes[2];
+            String rVendorID = attributes[3];
+            String rVendorName = attributes[4];
+            String rRunnerID = attributes[5];
+            //convert products comma into a List<String>
+            String rProductsComma = attributes[6];
+            List<String> rProductIDList = Arrays.asList(rProductsComma.split(","));
+            String rOrderType = attributes[7];
+            String rStatus = attributes[8];
+            String rAddress = attributes[9];
+            String rDeliveryfees = attributes[10];
+            String rTotalAmount = attributes[11];
+            String rOrderDate = attributes[12];
+
+            //objects
+            Customer rCustomer = getCustomerByID(rCustomerID);
+            Vendor rVendor = getVendorByID(rVendorID);
+            Deliveryrunner rRunner = getDeliveryrunnerByID(rRunnerID);
+            List<Product> rProductList = getProductListByIDList(rProductIDList);
+
+            Order order = new Order(rOrderID, rCustomerID, rCustomerName, rCustomer,
+                                    rVendorID, rVendorName, rVendor, rRunnerID, rRunner,
+                                    rProductIDList, rProductList, rOrderType, rStatus,
+                                    rAddress, Double.parseDouble(rDeliveryfees), 
+                                    Double.parseDouble(rTotalAmount), 
+                                    DateConverter.stringToDate(rOrderDate));
+            orderObjects.add(order);
+        }  
+        return orderObjects;
+    }
     //get Ticket history using customerID
     public List<Ticket> getTicketHistoryByCustomerID(String customerID){
         List<Ticket> ticketObjects = new ArrayList<>();
