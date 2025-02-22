@@ -1,3 +1,2 @@
 productID,vendorID,productName,price
 PID34257320;;V001;;abc;;100.0
-PID10691743;;V001;;goodname;;100.0

@@ -58,14 +58,14 @@ public class Top_up extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nameText_CustomAmount = new javax.swing.JTextField();
         jButton_CustomRM = new javax.swing.JButton();
-        jMenuBar3 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
         jMenuItem2_CreateUser = new javax.swing.JMenuItem();
         jMenuItem3_updateUser = new javax.swing.JMenuItem();
         jMenuItem1_topUp = new javax.swing.JMenuItem();
         jMenuItem5_receipts = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jMenu1.setText("✪ Users");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -202,10 +202,10 @@ public class Top_up extends javax.swing.JFrame {
             }
         });
 
-        jMenu5.setText("✪ Users");
-        jMenu5.addActionListener(new java.awt.event.ActionListener() {
+        jMenu3.setText("✪ Users");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu5ActionPerformed(evt);
+                jMenu3ActionPerformed(evt);
             }
         });
 
@@ -215,7 +215,7 @@ public class Top_up extends javax.swing.JFrame {
                 jMenuItem2_CreateUserActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem2_CreateUser);
+        jMenu3.add(jMenuItem2_CreateUser);
 
         jMenuItem3_updateUser.setText("✅✘︎︎  Edi︎t & Delete");
         jMenuItem3_updateUser.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +223,7 @@ public class Top_up extends javax.swing.JFrame {
                 jMenuItem3_updateUserActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem3_updateUser);
+        jMenu3.add(jMenuItem3_updateUser);
 
         jMenuItem1_topUp.setText("▲ Top-up");
         jMenuItem1_topUp.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +231,7 @@ public class Top_up extends javax.swing.JFrame {
                 jMenuItem1_topUpActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem1_topUp);
+        jMenu3.add(jMenuItem1_topUp);
 
         jMenuItem5_receipts.setText("✉ Send Receipts");
         jMenuItem5_receipts.addActionListener(new java.awt.event.ActionListener() {
@@ -239,23 +239,23 @@ public class Top_up extends javax.swing.JFrame {
                 jMenuItem5_receiptsActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem5_receipts);
+        jMenu3.add(jMenuItem5_receipts);
 
-        jMenuBar3.add(jMenu5);
+        jMenuBar2.add(jMenu3);
 
-        jMenu6.setText("⫸ Options");
+        jMenu4.setText("⫸ Options");
 
-        jMenuItem8.setText("🞖 Logout ");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setText("🞖 Logout ");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem8);
+        jMenu4.add(jMenuItem5);
 
-        jMenuBar3.add(jMenu6);
+        jMenuBar2.add(jMenu4);
 
-        setJMenuBar(jMenuBar3);
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -570,39 +570,41 @@ public class Top_up extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton_CustomRMActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void jMenuItem2_CreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_CreateUserActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        new Login().setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu5ActionPerformed
-
-    private void jMenuItem5_receiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5_receiptsActionPerformed
-        // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        this.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5_receiptsActionPerformed
-
-    private void jMenuItem1_topUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_topUpActionPerformed
-        // open top-up
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        new Top_up().setVisible(true);
-    }//GEN-LAST:event_jMenuItem1_topUpActionPerformed
+        this.dispose();
+        new CreateCustomer().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2_CreateUserActionPerformed
 
     private void jMenuItem3_updateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3_updateUserActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
         new UserUpdateDetails().setVisible(true);
     }//GEN-LAST:event_jMenuItem3_updateUserActionPerformed
 
-    private void jMenuItem2_CreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2_CreateUserActionPerformed
+    private void jMenuItem1_topUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1_topUpActionPerformed
+        // open top-up
+        this.dispose();
+        new Top_up().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1_topUpActionPerformed
+
+    private void jMenuItem5_receiptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5_receiptsActionPerformed
+        // Dispose the current frame
+        this.dispose();
+        // Create and show a new instance of send_receipts
+        new send_receipts().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5_receiptsActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        new CreateCustomer().setVisible(true);
-    }//GEN-LAST:event_jMenuItem2_CreateUserActionPerformed
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -656,18 +658,18 @@ public class Top_up extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1_topUp;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem2_CreateUser;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem3_updateUser;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem5_receipts;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JTextField nameText_CustomAmount;
     // End of variables declaration//GEN-END:variables
 }

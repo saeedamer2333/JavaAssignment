@@ -145,6 +145,7 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         int selectedIndex = this.listRunners.getSelectedIndex();
         selectRunner(selectedIndex);
+        showOrders();
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -215,5 +216,12 @@ public class ManagerRunnerFeedbackJFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Please select a delivery runner.", "No Selection", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private void showOrders() {
+        listDeliveries.setListData(new String[0]);
+        //(convert List<String> to String[] for JList)
+        String[] deliveries = manager.monitorRunnerPerformance.getDeliveries().toArray(new String[0]);
+        listDeliveries.setListData(deliveries);
     }
 }

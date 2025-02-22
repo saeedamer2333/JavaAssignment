@@ -6,6 +6,7 @@ package com.mycompany.assignmentjava.Shariq.Classes;
 
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Shariq.UI.ManagerRunnerFeedbackJFrame;
+import com.mycompany.assignmentjava.Utilites.FileManager;
 import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllRunners;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +63,14 @@ public class MonitorRunnerPerformance {
     }
     
     //load Runner info
-    public void viewRunnerInfo(){
-        
+    public List<String> getDeliveries(){
+        List<String> runnerOrders = new ArrayList<>();
+        List<String> allOrders = FileManager.searchRecords(FileManager.FileType.ORDERS, "runnerID", this.selectedRunner.getRunnerID());
+        for (String order : allOrders) {
+            String[] details = order.split(FileManager.DELIMITER);
+            runnerOrders.add(details[0]);
+        } 
+        return runnerOrders;
     }
 
     

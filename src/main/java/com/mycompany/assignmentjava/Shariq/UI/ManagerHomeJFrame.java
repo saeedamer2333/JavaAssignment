@@ -13,17 +13,17 @@ import javax.swing.JOptionPane;
  * @author ysssh
  */
 public class ManagerHomeJFrame extends javax.swing.JFrame {
-    
     Manager manager;
+
 
     /**
      * Creates new form ManagerHomeJFrame
      * @param manager
      * @param userDetails
      */
-    public ManagerHomeJFrame(Manager manager){
+    public ManagerHomeJFrame(String[] userDetails){
         initComponents();
-        this.manager = manager;
+        this.manager = new Manager(userDetails[0], userDetails[1], userDetails[2], userDetails[3], userDetails[4]);
     }
     
     public ManagerHomeJFrame(){
@@ -131,11 +131,11 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRunnerPerformanceActionPerformed
 
     private void btnVendorListingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendorListingsActionPerformed
-        //manager.manageVendorListings();
+        manager.manageVendorListings.launchJFrame();
     }//GEN-LAST:event_btnVendorListingsActionPerformed
 
     private void btnCustomerComplaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerComplaintsActionPerformed
-        //manager.manageCustomerComplaints();
+        manager.manageCustomerComplaints.launchJFrame();
     }//GEN-LAST:event_btnCustomerComplaintsActionPerformed
 
     /**

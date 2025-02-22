@@ -4,17 +4,29 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
+import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllVendors;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author ysssh
  */
 public class ManagerComplaintsJFrame extends javax.swing.JFrame {
-
+    Manager manager;
     /**
      * Creates new form Manager_Complaints
      */
     public ManagerComplaintsJFrame() {
         initComponents();
+    }
+    
+    public ManagerComplaintsJFrame(Manager manager) {
+        this.manager = manager;
+        initComponents();
+        
+        showAllTickets();
     }
 
     /**
@@ -26,15 +38,17 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        listComplaints = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnViewComplaint = new javax.swing.JButton();
         txtReply = new javax.swing.JFormattedTextField();
         btnReply = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtComplaint = new javax.swing.JTextArea();
+        txtComment = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listTickets = new javax.swing.JList<>();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,7 +56,7 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
 
         btnBack.setText("Back");
 
-        btnViewComplaint.setText("View Complaint");
+        btnViewComplaint.setText("View Ticket");
         btnViewComplaint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewComplaintActionPerformed(evt);
@@ -58,11 +72,21 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
             }
         });
 
-        txtComplaint.setColumns(20);
-        txtComplaint.setRows(5);
-        jScrollPane1.setViewportView(txtComplaint);
+        txtComment.setEditable(false);
+        txtComment.setColumns(20);
+        txtComment.setRows(5);
+        jScrollPane1.setViewportView(txtComment);
 
         jLabel2.setText("[i want to put customer image here]");
+
+        jScrollPane2.setViewportView(listTickets);
+
+        btnRefresh.setText("⟳");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,12 +94,16 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnViewComplaint)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
-                        .addComponent(listComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(197, 197, 197))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefresh))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -84,7 +112,7 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
                             .addComponent(btnReply))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(23, 23, 23))))
@@ -92,22 +120,30 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtReply, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(listComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewComplaint)
                     .addComponent(btnReply))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(18, 18, 18))
         );
@@ -116,12 +152,19 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewComplaintActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = this.listTickets.getSelectedIndex();
+        selectTicket(selectedIndex);
+        showAllTickets();
+        showComment();
     }//GEN-LAST:event_btnViewComplaintActionPerformed
 
     private void btnReplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReplyActionPerformed
-        // TODO add your handling code here:
+        replyTicket();
     }//GEN-LAST:event_btnReplyActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        showAllTickets();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,13 +206,43 @@ public class ManagerComplaintsJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReply;
     private javax.swing.JButton btnViewComplaint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.List listComplaints;
-    private javax.swing.JTextArea txtComplaint;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listTickets;
+    private javax.swing.JTextArea txtComment;
     private javax.swing.JFormattedTextField txtReply;
     // End of variables declaration//GEN-END:variables
+
+    private void showAllTickets() {
+        manager.manageCustomerComplaints.loadAllTickets();
+        //(convert List<String> to String[] for JList)
+        String[] ticketIDs = manager.manageCustomerComplaints.listAllTicketIDs().toArray(new String[0]);
+        listTickets.setListData(ticketIDs);
+    }
+
+    private void selectTicket(int index) {
+        if (index >= 0 && index < manager.manageCustomerComplaints.getTicketList().size()) {
+            manager.manageCustomerComplaints.selectTicket(index);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a ticket.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void showComment() {
+        this.txtComment.setText(manager.manageCustomerComplaints.viewComment());
+    }
+
+    private void replyTicket() {
+        if (manager.manageCustomerComplaints.replyTicket(txtReply.getText())){
+            JOptionPane.showMessageDialog(this, "Successfully replied to ticket.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Could not reply to ticket.", "Unsuccessful", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }
 }

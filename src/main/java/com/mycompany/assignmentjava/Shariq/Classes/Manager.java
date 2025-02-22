@@ -14,24 +14,23 @@ import com.mycompany.assignmentjava.Utilites.User;
  */
 public class Manager extends User{
     
-    private int managerID;
     public MonitorVendorPerformance monitorVendorPerformance;
     public MonitorRunnerPerformance monitorRunnerPerformance;
     public ManageVendorListings manageVendorListings;
     public ManageCustomerComplaints manageCustomerComplaints;
     
     
-    public Manager (String name, String email, String phone, String password) {
-        super(name, email, phone, password, "Manager");
+    public Manager (String id, String name, String email, String phone, String password) {
+        super(id, name, email, phone, password, "Manager");
         
         
-        ManagerHomeJFrame piss = new ManagerHomeJFrame(Manager.this);
-        piss.setVisible(true);
+//        ManagerHomeJFrame piss = new ManagerHomeJFrame(Manager.this);
+//        piss.setVisible(true);
         
         this.monitorVendorPerformance = new MonitorVendorPerformance(Manager.this); 
         this.monitorRunnerPerformance = new MonitorRunnerPerformance(Manager.this);
-        this.manageVendorListings = new ManageVendorListings();
-        this.manageCustomerComplaints = new ManageCustomerComplaints();
+        this.manageVendorListings = new ManageVendorListings(Manager.this);
+        this.manageCustomerComplaints = new ManageCustomerComplaints(Manager.this);
         
     }
     
@@ -44,8 +43,8 @@ public class Manager extends User{
 // ==============================================
 // =   GETTERS                                  =
 // ==============================================
-    public int getManagerID(){
-        return managerID;
+    public String getManagerID(){
+        return this.userID;
     }
 
     
