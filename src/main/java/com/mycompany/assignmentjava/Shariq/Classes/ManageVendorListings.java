@@ -87,7 +87,7 @@ public class ManageVendorListings {
         List<String> allItems = FileManager.searchRecords(FileManager.FileType.PRODUCTS, "vendorID", this.selectedVendor.getVendorID());
         for (String item : allItems) {
             String[] details = item.split(FileManager.DELIMITER);
-            vendorItems.add(details[0]);
+            vendorItems.add(details[2]);
         } 
         return vendorItems;
     }

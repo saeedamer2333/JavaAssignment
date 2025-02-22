@@ -46,21 +46,17 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblTotalRevenue = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblTotalOrders = new javax.swing.JLabel();
+        lbl23 = new javax.swing.JLabel();
         lblAvgOrder = new javax.swing.JLabel();
-        lblAvgOrderValue = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnSelectVendor = new javax.swing.JButton();
         lblTotalRevenueVendor = new javax.swing.JLabel();
         lblTotalOrdersVendor = new javax.swing.JLabel();
         lblAvgOrderVendor = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel11 = new javax.swing.JLabel();
         btnRefreshVendors = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listVendors = new javax.swing.JList<>();
@@ -68,13 +64,10 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
         lblTotalRevenueVendor1 = new javax.swing.JLabel();
         lblAvgOrderVendor1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 500));
-
-        jLabel1.setText("Vendor Performance");
-
-        jLabel2.setText("Overview");
 
         jLabel3.setText("Total Revenue:");
 
@@ -84,9 +77,9 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
 
         lblTotalOrders.setText("[]");
 
-        lblAvgOrder.setText("Avg. Order Value:");
+        lbl23.setText("Avg. Order Value:");
 
-        lblAvgOrderValue.setText("[]");
+        lblAvgOrder.setText("[]");
 
         jLabel4.setText("Vendors");
 
@@ -102,8 +95,6 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
         lblTotalOrdersVendor.setText(" ");
 
         lblAvgOrderVendor.setText(" ");
-
-        jLabel11.setText("Target Revenue:");
 
         btnRefreshVendors.setText("⟳");
         btnRefreshVendors.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +123,9 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Monospaced", 1, 48)); // NOI18N
+        jLabel6.setText("Revenue Dashboard");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,63 +139,54 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblAvgOrder)
+                                        .addComponent(lbl23)
                                         .addGap(18, 18, 18)
-                                        .addComponent(lblAvgOrderValue))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lblTotalRevenue)
-                                            .addGap(98, 98, 98)
-                                            .addComponent(jLabel5)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lblTotalOrders))))
+                                        .addComponent(lblAvgOrder))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblTotalRevenue)
+                                        .addGap(98, 98, 98)
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblTotalOrders)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(271, 271, 271)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTotalOrdersVendor1)
+                            .addComponent(lblTotalRevenueVendor1)
+                            .addComponent(lblAvgOrderVendor1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTotalRevenueVendor)
+                            .addComponent(lblTotalOrdersVendor)
+                            .addComponent(lblAvgOrderVendor))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(141, 141, 141)
-                                .addComponent(btnRefreshVendors))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBack)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRefreshVendors))
                                 .addComponent(btnSelectVendor)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnBack))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(271, 271, 271)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTotalOrdersVendor1)
-                                    .addComponent(lblTotalRevenueVendor1)
-                                    .addComponent(lblAvgOrderVendor1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTotalRevenueVendor)
-                                    .addComponent(lblTotalOrdersVendor)
-                                    .addComponent(lblAvgOrderVendor)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(319, 319, 319)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 4, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 404, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lblTotalRevenue)
@@ -209,16 +194,16 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
                     .addComponent(lblTotalOrders))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAvgOrder)
-                    .addComponent(lblAvgOrderValue))
-                .addGap(55, 55, 55)
+                    .addComponent(lbl23)
+                    .addComponent(lblAvgOrder))
+                .addGap(16, 16, 16)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(btnRefreshVendors))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTotalOrdersVendor)
@@ -230,17 +215,13 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblAvgOrderVendor)
-                            .addComponent(lblAvgOrderVendor1))
-                        .addGap(135, 135, 135)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
+                            .addComponent(lblAvgOrderVendor1)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSelectVendor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(btnBack)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,17 +285,14 @@ public class ManagerRevenueDashboardJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRefreshVendors;
     private javax.swing.JButton btnSelectVendor;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbl23;
     private javax.swing.JLabel lblAvgOrder;
-    private javax.swing.JLabel lblAvgOrderValue;
     private javax.swing.JLabel lblAvgOrderVendor;
     private javax.swing.JLabel lblAvgOrderVendor1;
     private javax.swing.JLabel lblTotalOrders;
