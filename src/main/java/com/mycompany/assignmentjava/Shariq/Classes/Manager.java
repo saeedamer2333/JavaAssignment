@@ -23,10 +23,7 @@ public class Manager extends User{
     public Manager (String id, String name, String email, String phone, String password) {
         super(id, name, email, phone, password, "Manager");
         
-        
-//        ManagerHomeJFrame piss = new ManagerHomeJFrame(Manager.this);
-//        piss.setVisible(true);
-        
+        // Components (specific responsibilites)
         this.monitorVendorPerformance = new MonitorVendorPerformance(Manager.this); 
         this.monitorRunnerPerformance = new MonitorRunnerPerformance(Manager.this);
         this.manageVendorListings = new ManageVendorListings(Manager.this);
@@ -34,35 +31,11 @@ public class Manager extends User{
         
     }
     
-    
 // ==============================================
 // =   GETTERS                                  =
 // ==============================================
     public String getManagerID(){
         return this.userID;
     }
-
     
-// ==============================================
-// =   METHODS                                  =
-// ==============================================
-    
-//    //initializes the vendor performance code 
-//    public void monitorVendorPerformance() {
-//        this.monitorVendorPerformance = new MonitorVendorPerformance(Manager.this);   
-//        System.out.println("weird constructor: " + this.monitorRunnerPerformance);
-//
-//    }
-//    //initializes runner feedback code
-//    public void monitorRunnerPerformance() {
-//        this.monitorRunnerPerformance = new MonitorRunnerPerformance();
-//    }
-//    //initializes vendor listings code
-//    public void manageVendorListings(){
-//        this.manageVendorListings = new ManageVendorListings();
-//    }
-//    //initializes customer complaints code
-//    public void manageCustomerComplaints(){
-//        this.manageCustomerComplaints = new ManageCustomerComplaints();
-//    }
 }

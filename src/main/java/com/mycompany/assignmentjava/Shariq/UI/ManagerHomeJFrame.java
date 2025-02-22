@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import com.mycompany.assignmentjava.Lucien.Login;
 import com.mycompany.assignmentjava.Shariq.Classes.Manager;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import javax.swing.JOptionPane;
@@ -47,15 +48,16 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         btnVendorPerformance = new javax.swing.JButton();
         btnRunnerPerformance = new javax.swing.JButton();
         btnVendorListings = new javax.swing.JButton();
         btnCustomerComplaints = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Manager Home");
 
         btnVendorPerformance.setText("Monitor Vendor Performance");
         btnVendorPerformance.addActionListener(new java.awt.event.ActionListener() {
@@ -85,38 +87,52 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Monospaced", 1, 48)); // NOI18N
+        jLabel2.setText("Manager ▣");
+
+        jMenu2.setText("⫸ Options");
+
+        jMenuItem4.setText("🞖 Logout ");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btnVendorPerformance)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnRunnerPerformance)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnVendorListings)
-                        .addGap(45, 45, 45)
-                        .addComponent(btnCustomerComplaints))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel1)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnVendorPerformance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRunnerPerformance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVendorListings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCustomerComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addGap(131, 131, 131)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVendorPerformance)
-                    .addComponent(btnRunnerPerformance)
-                    .addComponent(btnVendorListings)
-                    .addComponent(btnCustomerComplaints))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(btnVendorPerformance, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRunnerPerformance, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVendorListings, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCustomerComplaints, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +153,12 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     private void btnCustomerComplaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerComplaintsActionPerformed
         manager.manageCustomerComplaints.launchJFrame();
     }//GEN-LAST:event_btnCustomerComplaintsActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +200,9 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnRunnerPerformance;
     private javax.swing.JButton btnVendorListings;
     private javax.swing.JButton btnVendorPerformance;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }
