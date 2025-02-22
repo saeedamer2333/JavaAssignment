@@ -9,6 +9,7 @@ import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Review;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -130,6 +131,26 @@ public class ObjectWriter {
                                 Double.parseDouble(rTotalAmount), 
                                 DateConverter.stringToDate(rOrderDate));
         return order;
+    }
+    
+    public List<Review> getReviewHistoryByCustomerID(String customerID){
+//        List<Review> = reviewObjects = new ArrayList<>();
+//        List<String> records = FileManager.searchRecords(FileManager.FileType.REVIEWS, "customerID", customerID);
+//        
+//        for (String record : records){
+//            String[] attributes = record.split(FileManager.DELIMITER);
+//            String rID = attributes[0];
+//            String rName = attributes[1];
+//            String rEmail = attributes[2];
+//            String rPhone = attributes[3];
+//            String rPassword = attributes[4];
+//            String rRole = attributes[5];
+//            
+//            Vendor vendor = new Vendor(rID, rName, rEmail,rPhone, rPassword, rRole);
+//            vendorObjects.add(vendor);
+//        }  
+//        return reviewObjects;
+        return null;
     }
     
     public static List<Vendor> getAllVendors(){

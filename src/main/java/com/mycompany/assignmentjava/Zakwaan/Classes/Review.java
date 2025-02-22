@@ -7,7 +7,9 @@ package com.mycompany.assignmentjava.Zakwaan.Classes;
 import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -15,29 +17,59 @@ import java.time.LocalDateTime;
  */
 public class Review {
     private String reviewID;
+    private String customerID;
     private Customer customer;
+    private String runnerID;
     private Deliveryrunner runner;
+    private String orderID;
     private Order order;
-  //  private Vendor vendor;
+    private String vendorID;
+    private Vendor vendor;
     private String reviewText;
     private int rating;
-    private LocalDateTime date;
+    private Date date;
     
-    //normal constructor
-    public Review(Customer customer, Deliveryrunner runner, Order order, Vendor vendor, String reviewText, int rating){
+    //Constructors
+    //Brand new review with ID generation
+    public Review(String customerID, String runnerID, String orderID, 
+                    String vendorID, String reviewText, int rating){
         //implementation
-        this.reviewID = FileManager.generateID();
-        this.customer = customer;
-        //this.runner = runner;
-        this.order = order;
-        // this.vendor = vendor;
+        this.reviewID = "RID" + FileManager.generateID();
+        this.customerID = customerID;
+        this.customer = ObjectWriter.getCustomerByID(customerID);
+        this.runnerID = runnerID;
+        this.runner = ObjectWriter.getDeliveryrunnerByID(runnerID);
+        this.orderID = orderID;
+        this.order = ObjectWriter.getOrderByID(orderID);
+        this.vendorID = vendorID;
+        this.vendor = ObjectWriter.getVendorByID(vendorID);
         this.reviewText = reviewText;
         this.rating = rating;
-        this.date = LocalDateTime.now();
+        this.date = new Date();
         
-      // FileManager.addReview(this.reviewID, this.customer.getCustomerID(), this.runner.getRunnerID(), this.order.getOrderID(), 
-//              this.vendor.getVendorID(), this.reviewText, this.rating, this.date);
+        FileManager.addReview(this.reviewID, this.customerID, this.runnerID,
+                                this.orderID, this.vendorID, this.reviewText,
+                                this.rating, this.date);
     }
+    
+    //Constructor for reading all the details from the text file, can only work paired with ObjectWriter class
+    //+since that handles the object assignment there
+    public Review(String reviewID, String customerID, Customer customer, String runnerID, Deliveryrunner runner, 
+              String orderID, Order order, String vendorID, Vendor vendor, String reviewText, int rating, Date date) {
+        this.reviewID = reviewID;
+        this.customerID = customerID;
+        this.customer = customer;
+        this.runnerID = runnerID;
+        this.runner = runner;
+        this.orderID = orderID;
+        this.order = order;
+        this.vendorID = vendorID;
+        this.vendor = vendor;
+        this.reviewText = reviewText;
+        this.rating = rating;
+        this.date = date;
+    }
+
     
     //Methods
     public Review[] getCustomerReviews(String customerID){
@@ -106,11 +138,11 @@ public class Review {
         this.rating = rating;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
