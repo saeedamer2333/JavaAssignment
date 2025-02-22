@@ -1,11 +1,13 @@
 userID,name,email,phone,password,role,status,address,balance
-ID34024619;;Saeed Al-ameri;;saeed@yahoo.com;;100032;;R#S@DFFs#24;;customer;;Available
-ID32490921;;Saeed Amer;;saeedamer@gmail.com;;4442;;R#S@DFFs#24;;Runner;;Available
-ID98324567;;John Doe;;john.doe@example.com;;57123;;Password123;;customer;;Available
-ID76109234;;Jane Smith;;jane.smith@example.com;;859761;;Secret@321;;customer;;Available
-ID14785236;;Robert Brown;;robert.brown@example.com;;6097531;;Pass!word;;customer;;Available
-ID25896314;;Emily Davis;;emily.davis@example.com;;93582.0;;Emi@2025;;customer;;Available
-ID36974128;;Michael Johnson;;michael.johnson@example.com;;58760.0;;M!chaelPwd;;customer;;Available
-V001;;Michael Jimbus;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
-V002;;Michael Jimbu2s;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
-V003;;Michael Jimbobos;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
+ID11023517;;Lucien;;lucien@lucien.com;;100032;;admin;;admin;;Available;;0
+ID34024619;;Saeed Al-ameri;;saeed@yahoo.com;;100032;;R#S@DFFs#24;;customer;;Available;;0
+ID32490921;;Saeed Amer;;saeedamer@gmail.com;;4442;;R#S@DFFs#24;;Runner;;Available;;0
+ID98324567;;John Doe;;john.doe@example.com;;57123;;Password123;;customer;;Available;;0
+ID76109234;;Jane Smith;;jane.smith@example.com;;859761;;Secret@321;;customer;;Available;;0
+ID14785236;;Robert Brown;;robert.brown@example.com;;6097531;;Pass!word;;customer;;Available;;0
+ID25896314;;Emily Davis;;emily.davis@example.com;;93582.0;;Emi@2025;;customer;;Available;;0
+ID36974128;;Michael Johnson;;michael.johnson@example.com;;58760.0;;M!chaelPwd;;customer;;Available;;0
+V001;;Michael Jimbus;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available;;58760.0
+V002;;Michael Jimbu2s;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available;;58760.0
+V003;;Michael Jimbobos;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available;;58760.0
+ID11223344;;Admin User;;admin@example.com;;123456;;AdminPass;;Admin;;Available;;0
