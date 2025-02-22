@@ -71,7 +71,7 @@ public class Customer_Dashboard extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Welcome, name");
+        jLabel1.setText("Dashboard");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btn_Notifications.setText("Notifications");
@@ -107,38 +107,40 @@ public class Customer_Dashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(170, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 325, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(137, 137, 137)
-                        .addComponent(btn_helpCentre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Notifications))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_viewVendors)
                             .addComponent(btn_orderHistory)
-                            .addComponent(btn_transactionHistory))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(btn_viewVendors))
+                        .addGap(180, 180, 180))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_transactionHistory)
+                        .addGap(165, 165, 165))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_Notifications)
+                            .addComponent(btn_helpCentre))
+                        .addGap(183, 183, 183))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Notifications)
-                    .addComponent(jLabel1)
-                    .addComponent(btn_helpCentre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(btn_viewVendors)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_orderHistory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_transactionHistory)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_helpCentre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Notifications)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,30 +150,35 @@ public class Customer_Dashboard extends javax.swing.JFrame {
     private void btn_viewVendorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewVendorsActionPerformed
         // TODO add your handling code here:
         Customer_VendorSelection window = new Customer_VendorSelection(this.customer);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }//GEN-LAST:event_btn_viewVendorsActionPerformed
 
     private void btn_orderHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_orderHistoryActionPerformed
         // TODO add your handling code here:
         Customer_OrderHistory window = new Customer_OrderHistory(this.customer);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }//GEN-LAST:event_btn_orderHistoryActionPerformed
 
     private void btn_transactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_transactionHistoryActionPerformed
         // TODO add your handling code here:
         Customer_TransactionHistory window = new Customer_TransactionHistory(this.customer);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }//GEN-LAST:event_btn_transactionHistoryActionPerformed
 
     private void btn_helpCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_helpCentreActionPerformed
         // TODO add your handling code here:
         Customer_HelpCentre window = new Customer_HelpCentre(this.customer);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }//GEN-LAST:event_btn_helpCentreActionPerformed
 
     private void btn_NotificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NotificationsActionPerformed
         // TODO add your handling code here:
         Customer_Notifications window = new Customer_Notifications(this.customer);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setVisible(true);
     }//GEN-LAST:event_btn_NotificationsActionPerformed
 

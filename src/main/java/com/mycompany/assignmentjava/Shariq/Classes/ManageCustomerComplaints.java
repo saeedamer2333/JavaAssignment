@@ -8,7 +8,7 @@ import com.mycompany.assignmentjava.Shariq.UI.ManagerComplaintsJFrame;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import static com.mycompany.assignmentjava.Utilites.FileManager.updateSingleField;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Ticket;
-import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllTickets;
+//import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllTickets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -50,7 +50,7 @@ public class ManageCustomerComplaints {
     }
     
     public void loadAllTickets(){
-        this.ticketList = getAllTickets(); 
+//        this.ticketList = getAllTickets(); 
     }
     
     //view complaint

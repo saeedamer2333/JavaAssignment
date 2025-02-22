@@ -125,6 +125,24 @@ public class ObjectWriter {
         return product;
     }
     
+    //get product list by vendorID
+    public static List<Product> getProductListByVendorID(String vendorID){
+        List<Product> productList = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.PRODUCTS, "vendorID", vendorID);
+        for (String record : records){
+            
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rProductID = attributes[0];
+            String rVendorID = attributes[1];
+            String rProductName = attributes[2];
+            String rPrice = attributes[3];
+
+            Product product = new Product(rProductID, rVendorID, rProductName, Double.parseDouble(rPrice));
+            productList.add(product);
+        }
+        return productList;
+    }
+    
     public static List<Product> getProductListByIDList(List<String> productIDList){
         List<Product> productList = new ArrayList<>();
         for (String productID : productIDList){

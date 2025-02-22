@@ -54,4 +54,9 @@ public class CustomerCart {
         }
         return total;
     }
+    
+    //getters and setters
+    public List<Product> getCartProducts(){
+        return this.cartProducts;
+    }
 }

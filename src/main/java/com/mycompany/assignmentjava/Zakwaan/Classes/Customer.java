@@ -17,7 +17,7 @@ public class Customer extends User{
     //Attributes
     private String address;
     private double balance;
-    private CustomerCart customerCart;
+    public CustomerCart customerCart;
     
     //Brand new Customer
     public Customer(String name, String email, String phone, String password, String address){
