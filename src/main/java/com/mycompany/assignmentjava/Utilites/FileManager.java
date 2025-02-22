@@ -185,11 +185,11 @@ public class FileManager {
                 String.valueOf(amount), dateStr, paymentStatus, receiptGenerated);
         return appendToFile(FileType.TRANSACTIONS, record);
     }
-
+    
+    //Add review to reviews.txt. Would be more ideal to just pass the Review object but this remains more flexible
     public static boolean addReview(String reviewID, String customerID, String runnerID, String orderID, 
-                                    String vendorID, String reviewText, int rating, LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateStr = date.format(formatter);
+                                    String vendorID, String reviewText, int rating, Date date) {
+        String dateStr = DateConverter.dateToString(date);
         String record = String.join(DELIMITER, reviewID, customerID, runnerID, orderID,
                                     vendorID, reviewText, Integer.toString(rating), dateStr);
         return appendToFile(FileType.REVIEWS, record);
@@ -589,6 +589,10 @@ public class FileManager {
     return false;
     }
         return phone.matches("^\\+?[0-9]{10,15}$");
+    }
+    
+    public static SimpleDateFormat getDATE_FORMAT(){
+        return DATE_FORMAT;
     }
 }
 
