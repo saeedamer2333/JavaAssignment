@@ -4,6 +4,8 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.UI;
 
+import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
+
 /**
  *
  * @author zechn
@@ -13,6 +15,12 @@ public class Customer_OrderHistory extends javax.swing.JFrame {
     /**
      * Creates new form Customer_OrderHistory
      */
+    private Customer customer;
+    public Customer_OrderHistory(Customer customer) {
+        initComponents();
+        this.customer = customer;
+    }
+    
     public Customer_OrderHistory() {
         initComponents();
     }

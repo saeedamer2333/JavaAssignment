@@ -1,7 +1,7 @@
 userID,name,email,phone,password,role,status,address,balance
 ID34024619;;Saeed Al-ameri;;saeed@yahoo.com;;100032;;R#S@DFFs#24;;customer;;Available
 ID32490921;;Saeed Amer;;saeedamer@gmail.com;;4442;;R#S@DFFs#24;;Runner;;Available
-ID98324567;;John Doe;;john.doe@example.com;;57123;;Password123;;customer;;Available
+ID98324567;;John Doe;;john.doe@example.com;;57123;;Password123;;customer;;Available,poo,0
 ID76109234;;Jane Smith;;jane.smith@example.com;;859761;;Secret@321;;customer;;Available
 ID14785236;;Robert Brown;;robert.brown@example.com;;6097531;;Pass!word;;customer;;Available
 ID25896314;;Emily Davis;;emily.davis@example.com;;93582.0;;Emi@2025;;customer;;Available

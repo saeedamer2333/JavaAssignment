@@ -42,6 +42,22 @@ public class ObjectWriter {
         return customer;
     }
     
+    public static Customer getCustomerByUserDetails(String[] userDetails){
+        String[] attributes = userDetails;
+        String rID = attributes[0];
+        String rName = attributes[1];
+        String rEmail = attributes[2];
+        String rPhone = attributes[3];
+        String rPassword = attributes[4];
+        String rRole = attributes[5];
+        String rStatus = attributes[6];
+        String rAddress = attributes[7];
+        String rBalance = attributes[8];
+        Customer customer = new Customer(rID, rName, rEmail, rPhone, rPassword, rAddress);
+        
+        return customer;
+    }
+    
     public static Deliveryrunner getDeliveryrunnerByID(String runnerID){
         List<String> record = FileManager.searchRecords(FileManager.FileType.USERS, "userID", runnerID);
         String line = record.get(0);

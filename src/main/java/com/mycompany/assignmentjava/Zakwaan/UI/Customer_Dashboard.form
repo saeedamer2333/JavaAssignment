@@ -38,15 +38,15 @@
                       <EmptySpace min="0" pref="325" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_helpCentre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_Notifications" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_viewVendors" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_orderHistory" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_transactionHistory" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -60,28 +60,28 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_Notifications" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_helpCentre" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_viewVendors" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_orderHistory" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_transactionHistory" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="362" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btn_viewVendors">
       <Properties>
         <Property name="text" type="java.lang.String" value="View Vendors"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_viewVendorsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -94,28 +94,37 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btn_Notifications">
       <Properties>
         <Property name="text" type="java.lang.String" value="Notifications"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_NotificationsActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
+    <Component class="javax.swing.JButton" name="btn_orderHistory">
       <Properties>
         <Property name="text" type="java.lang.String" value="Order History"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_orderHistoryActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
+    <Component class="javax.swing.JButton" name="btn_transactionHistory">
       <Properties>
         <Property name="text" type="java.lang.String" value="Transaction History"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_transactionHistoryActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton9">
+    <Component class="javax.swing.JButton" name="btn_helpCentre">
       <Properties>
         <Property name="text" type="java.lang.String" value="Help Centre"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_helpCentreActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -4,41 +4,25 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.UI;
 
-import com.mycompany.assignmentjava.AbdulRehman.Vendor;
-import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author zechn
  */
-public class Customer_VendorSelection extends javax.swing.JFrame {
+public class Customer_Notifications extends javax.swing.JFrame {
 
     /**
      * Creates new form Customer_VendorSelection
      */
-    
     private Customer customer;
-    
-    public Customer_VendorSelection(Customer customer) {
+    public Customer_Notifications(Customer customer) {
         initComponents();
         this.customer = customer;
     }
     
-    public Customer_VendorSelection() {
+    public Customer_Notifications() {
         initComponents();
-    }
-    
-    public void addRowsToTable(){
-        DefaultTableModel model = (DefaultTableModel)table_VendorSelection.getModel();
-        List<Vendor> vendorsList = ObjectWriter.getAllVendors();
-        Object rowData[] = new Object[1];
-        
-        for (Vendor vendor : vendorsList){
-            rowData[0] = vendor.getName();
-        }
     }
 
     /**
@@ -50,36 +34,42 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        table_VendorSelection = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
+        jButton11 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Vendor Selection");
-
         jButton9.setText("Back");
 
-        jButton10.setText("Confirm");
+        jButton10.setText("Clear");
 
-        table_VendorSelection.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Vendor"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        table_VendorSelection.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(table_VendorSelection);
-        table_VendorSelection.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(jTable2);
+
+        jButton11.setText("Expand");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Notifications");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,34 +78,41 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
-                        .addComponent(jButton10))
-                    .addComponent(jScrollPane2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton11)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(jLabel1)
+                .addGap(347, 347, 347)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
-                    .addComponent(jButton10))
+                    .addComponent(jButton10)
+                    .addComponent(jButton11))
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,14 +131,38 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Customer_VendorSelection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Customer_Notifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Customer_VendorSelection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Customer_Notifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Customer_VendorSelection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Customer_Notifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Customer_VendorSelection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Customer_Notifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -154,16 +175,17 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Customer_VendorSelection().setVisible(true);
+                new Customer_Notifications().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable table_VendorSelection;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
