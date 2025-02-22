@@ -214,16 +214,17 @@ public class Order {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
         ObjectToFileUpdater.updateOrderInOrdersTxt(this, "customerName", customerName);
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-        // No ObjectToFileUpdater line for this one
+        
+        //update the customer object
+        this.customer = ObjectWriter.getCustomerByID(customerID);
     }
 
     public void setVendorID(String vendorID) {
         this.vendorID = vendorID;
         ObjectToFileUpdater.updateOrderInOrdersTxt(this, "vendorID", vendorID);
+        
+        //update the vendor object
+        this.vendor = ObjectWriter.getVendorByID(vendorID);
     }
 
     public void setVendorName(String vendorName) {
@@ -231,19 +232,12 @@ public class Order {
         ObjectToFileUpdater.updateOrderInOrdersTxt(this, "vendorName", vendorName);
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-        // No ObjectToFileUpdater line for this one
-    }
-
     public void setRunnerID(String runnerID) {
         this.runnerID = runnerID;
         ObjectToFileUpdater.updateOrderInOrdersTxt(this, "runnerID", runnerID);
-    }
-
-    public void setRunner(Deliveryrunner runner) {
-        this.runner = runner;
-        // No ObjectToFileUpdater line for this one
+        
+        //update the runner object
+        this.runner = ObjectWriter.getDeliveryrunnerByID(runnerID);
     }
 
     public void setProductIDList(List<String> productIDList) {
@@ -251,11 +245,9 @@ public class Order {
         ObjectToFileUpdater.updateOrderInOrdersTxt(this, "products", String.join(",", productIDList));
         //productID's joined together by commas 
         //eg: product1,product2,product3,product4.....
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-        // No ObjectToFileUpdater line for this one
+        
+        //update the object list
+        this.productList = ObjectWriter.getProductListByIDList(productIDList);
     }
 
     public void setOrderType(String orderType) {

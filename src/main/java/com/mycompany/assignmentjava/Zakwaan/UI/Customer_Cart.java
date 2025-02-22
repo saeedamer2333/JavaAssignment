@@ -4,6 +4,16 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.UI;
 
+import com.mycompany.assignmentjava.AbdulRehman.Vendor;
+import com.mycompany.assignmentjava.Utilites.ObjectWriter;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
+import com.mycompany.assignmentjava.Zakwaan.Classes.CustomerCart;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author zechn
@@ -13,10 +23,33 @@ public class Customer_Cart extends javax.swing.JFrame {
     /**
      * Creates new form Customer_VendorSelection
      */
+    private Customer customer;
+    private CustomerCart cart;
+    
+    public Customer_Cart(Customer customer) {
+        initComponents();
+        this.customer = customer;
+        cart = customer.customerCart;
+        lbl_Total.setText(Double.toString(cart.calculateTotal()));
+        
+        addRowsToTable();
+    }
+    
     public Customer_Cart() {
         initComponents();
     }
 
+    public void addRowsToTable(){
+        DefaultTableModel model = (DefaultTableModel)table_Cart.getModel();
+        List<Product> productList = cart.getCartProducts();
+        Object rowData[] = new Object[2];
+        
+        for (Product product : productList){
+            rowData[0] = product.getProductName();
+            rowData[1] = product.getPrice();
+            model.addRow(rowData);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,11 +61,13 @@ public class Customer_Cart extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        btn_DineIn = new javax.swing.JButton();
+        btn_Takeaway = new javax.swing.JButton();
+        btn_Delivery = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        table_Cart = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        lbl_Total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -42,32 +77,38 @@ public class Customer_Cart extends javax.swing.JFrame {
 
         jButton9.setText("Back");
 
-        jButton10.setText("Dine-in");
+        btn_DineIn.setText("Dine-in");
 
-        jButton11.setText("Takeaway");
+        btn_Takeaway.setText("Takeaway");
 
-        jButton12.setText("Delivery");
+        btn_Delivery.setText("Delivery");
+        btn_Delivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_DeliveryActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        table_Cart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Product", "Quantity", "Price", "Total"
+                "Product Name", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(table_Cart);
+
+        jLabel2.setText("Total = ");
+
+        lbl_Total.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,19 +117,25 @@ public class Customer_Cart extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
-                        .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12))
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(376, 376, 376)
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_DineIn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Takeaway)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Delivery))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -97,19 +144,31 @@ public class Customer_Cart extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lbl_Total))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11)
-                    .addComponent(jButton12))
+                    .addComponent(btn_DineIn)
+                    .addComponent(btn_Takeaway)
+                    .addComponent(btn_Delivery))
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_DeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeliveryActionPerformed
+        // TODO add your handling code here:
+        Order order = this.customer.customerCart.checkOut("Delivery");
+        Customer_ConfirmOrder window = new Customer_ConfirmOrder(order);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.setVisible(true);
+    }//GEN-LAST:event_btn_DeliveryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,12 +207,14 @@ public class Customer_Cart extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
+    private javax.swing.JButton btn_Delivery;
+    private javax.swing.JButton btn_DineIn;
+    private javax.swing.JButton btn_Takeaway;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lbl_Total;
+    private javax.swing.JTable table_Cart;
     // End of variables declaration//GEN-END:variables
 }

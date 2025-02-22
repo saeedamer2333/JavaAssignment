@@ -4,6 +4,13 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.UI;
 
+import com.mycompany.assignmentjava.AbdulRehman.Vendor;
+import com.mycompany.assignmentjava.Utilites.ObjectWriter;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author zechn
@@ -13,8 +20,30 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
     /**
      * Creates new form Customer_VendorSelection
      */
+    
+    private Customer customer;
+    private int selectedRowIndex;
+    private Vendor selectedVendor;
+    
+    public Customer_VendorSelection(Customer customer) {
+        initComponents();
+        this.customer = customer;
+        addRowsToTable();
+    }
+    
     public Customer_VendorSelection() {
         initComponents();
+    }
+    
+    public void addRowsToTable(){
+        DefaultTableModel model = (DefaultTableModel)table_VendorSelection.getModel();
+        List<Vendor> vendorsList = ObjectWriter.getAllVendors();
+        Object rowData[] = new Object[1];
+        
+        for (Vendor vendor : vendorsList){
+            rowData[0] = vendor.getName();
+            model.addRow(rowData);
+        }
     }
 
     /**
@@ -27,10 +56,10 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btn_Back = new javax.swing.JButton();
+        btn_Confirm = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        table_VendorSelection = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -38,30 +67,36 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Vendor Selection");
 
-        jButton9.setText("Back");
-
-        jButton10.setText("Confirm");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Vendor", "Cuisine"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        btn_Back.setText("Back");
+        btn_Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BackActionPerformed(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+
+        btn_Confirm.setText("Confirm");
+        btn_Confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ConfirmActionPerformed(evt);
+            }
+        });
+
+        table_VendorSelection.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Vendor"
+            }
+        ));
+        table_VendorSelection.setColumnSelectionAllowed(true);
+        table_VendorSelection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_VendorSelectionMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(table_VendorSelection);
+        table_VendorSelection.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,9 +106,9 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton9)
+                        .addComponent(btn_Back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
-                        .addComponent(jButton10))
+                        .addComponent(btn_Confirm))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -90,14 +125,37 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10))
+                    .addComponent(btn_Back)
+                    .addComponent(btn_Confirm))
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_BackActionPerformed
+
+    private void table_VendorSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_VendorSelectionMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)table_VendorSelection.getModel();
+        if(selectedRowIndex != -1){
+            selectedRowIndex = table_VendorSelection.getSelectedRow();
+        }
+    }//GEN-LAST:event_table_VendorSelectionMouseClicked
+
+    private void btn_ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConfirmActionPerformed
+        // TODO add your handling code here:
+        List<Vendor> vendorList = ObjectWriter.getAllVendors();
+        selectedVendor = vendorList.get(selectedRowIndex);
+        
+        Customer_FoodMenu window = new Customer_FoodMenu(this.customer, selectedVendor);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.setVisible(true);
+        System.out.println(selectedVendor.getVendorID());
+    }//GEN-LAST:event_btn_ConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,10 +200,10 @@ public class Customer_VendorSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btn_Back;
+    private javax.swing.JButton btn_Confirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable table_VendorSelection;
     // End of variables declaration//GEN-END:variables
 }

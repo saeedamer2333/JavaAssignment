@@ -6,6 +6,7 @@ package com.mycompany.assignmentjava.Utilites;
 
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Review;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Ticket;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Transaction;
@@ -38,9 +39,14 @@ public class ObjectToFileUpdater {
         FileManager.updateSingleFieldWithoutIndex(FileManager.FileType.TRANSACTIONS, transaction.getTransactionID(),
                                                     txtFileHeaderName, newValue);
     }
-    //Ticket - tickets.
+    //Ticket - tickets.txt
     public static void updateTicketInTicketsTxt(Ticket ticket, String txtFileHeaderName, String newValue){
         FileManager.updateSingleFieldWithoutIndex(FileManager.FileType.TICKETS, ticket.getTicketID(),
+                                                    txtFileHeaderName, newValue);
+    }
+    //Product - products.txt
+    public static void updateProductInProductsTxt(Product product, String txtFileHeaderName, String newValue){
+        FileManager.updateSingleFieldWithoutIndex(FileManager.FileType.PRODUCTS, product.getProductID(),
                                                     txtFileHeaderName, newValue);
     }
 }

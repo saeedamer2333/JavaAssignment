@@ -17,6 +17,7 @@ public class Customer extends User{
     //Attributes
     private String address;
     private double balance;
+    public CustomerCart customerCart;
     
     //Brand new Customer
     public Customer(String name, String email, String phone, String password, String address){
@@ -27,6 +28,9 @@ public class Customer extends User{
         
         FileManager.addCustomer(this.name, this.email, this.phone, this.password, 
                                 this.role, this.address, this.balance);
+        
+        CustomerCart newCustomerCart = new CustomerCart(this);
+        this.customerCart = newCustomerCart;
     }
     //new customer object from record that already exists
     public Customer(String customerID, String name, String email, String phone, String password, String address){
@@ -34,6 +38,9 @@ public class Customer extends User{
         
         this.address = address;
         this.balance = 0;
+        
+        CustomerCart newCustomerCart = new CustomerCart(this);
+        this.customerCart = newCustomerCart;
     }
     
     //-------Getters and setteres-------

@@ -31,6 +31,12 @@ public class Manager extends User{
         
     }
     
+    //needed this thanks :) - zakwaan
+    public Manager (String managerID, String name, String email, String phone, 
+                    String password, String role){
+        super(managerID, name, email, phone, password, role);
+    }
+    
 // ==============================================
 // =   GETTERS                                  =
 // ==============================================

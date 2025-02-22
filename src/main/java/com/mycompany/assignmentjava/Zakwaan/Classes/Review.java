@@ -6,7 +6,9 @@ package com.mycompany.assignmentjava.Zakwaan.Classes;
 
 import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
+import com.mycompany.assignmentjava.Utilites.DateConverter;
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectToFileUpdater;
 import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -54,17 +56,17 @@ public class Review {
     
     //Constructor for reading all the details from the text file, can only work paired with ObjectWriter class
     //+since that handles the object assignment there
-    public Review(String reviewID, String customerID, Customer customer, String runnerID, Deliveryrunner runner, 
-              String orderID, Order order, String vendorID, Vendor vendor, String reviewText, int rating, Date date) {
+    public Review(String reviewID, String customerID, String runnerID, 
+              String orderID, String vendorID, String reviewText, int rating, Date date) {
         this.reviewID = reviewID;
         this.customerID = customerID;
-        this.customer = customer;
+        this.customer = ObjectWriter.getCustomerByID(customerID);
         this.runnerID = runnerID;
-        this.runner = runner;
+        this.runner = ObjectWriter.getDeliveryrunnerByID(runnerID);
         this.orderID = orderID;
-        this.order = order;
+        this.order = ObjectWriter.getOrderByID(orderID);
         this.vendorID = vendorID;
-        this.vendor = vendor;
+        this.vendor = ObjectWriter.getVendorByID(vendorID);
         this.reviewText = reviewText;
         this.rating = rating;
         this.date = date;
@@ -78,72 +80,106 @@ public class Review {
     }
     
     //Getters and setters
+    // Getters
     public String getReviewID() {
         return reviewID;
     }
 
-    public void setReviewID(String reviewID) {
-        this.reviewID = reviewID;
+    public String getCustomerID() {
+        return customerID;
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public String getRunnerID() {
+        return runnerID;
     }
 
     public Deliveryrunner getRunner() {
-       // return runner;
-        return null;
-       // return runner;
+        return runner;
     }
 
-    public void setRunner(Deliveryrunner runner) {
-        //this.runner = runner;
+    public String getOrderID() {
+        return orderID;
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public String getVendorID() {
+        return vendorID;
     }
 
     public Vendor getVendor() {
-        //return vendor;
-        return null;
-        //return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        //this.vendor = vendor;
+        return vendor;
     }
 
     public String getReviewText() {
         return reviewText;
     }
 
-    public void setReviewText(String reviewText) {
-        this.reviewText = reviewText;
-    }
-
     public int getRating() {
         return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    // Setters
+    public void setReviewID(String reviewID) {
+        this.reviewID = reviewID;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "reviewID", reviewID);
     }
 
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "customerID", customerID);
+        
+        //update customer object
+        this.customer = ObjectWriter.getCustomerByID(customerID);
+    }
+
+    public void setRunnerID(String runnerID) {
+        this.runnerID = runnerID;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "runnerID", runnerID);
+        
+        //update Deliveryrunner object
+        this.runner = ObjectWriter.getDeliveryrunnerByID(runnerID);
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "orderID", orderID);
+        
+        //update order object
+        this.order = ObjectWriter.getOrderByID(orderID);
+    }
+
+    public void setVendorID(String vendorID) {
+        this.vendorID = vendorID;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "vendorID", vendorID);
+        
+        //update vendor object
+        this.vendor = ObjectWriter.getVendorByID(vendorID);
+    }
+
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "reviewText", reviewText);
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "rating", Integer.toString(rating));
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+        ObjectToFileUpdater.updateReviewInReviewsTxt(this, "date", DateConverter.dateToString(date));
+    }
+    
 }
