@@ -155,6 +155,8 @@ public class Customer_FoodMenu extends javax.swing.JFrame {
 
     private void btn_AddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddToCartActionPerformed
         // TODO add your handling code here:
+        List<Product> productsList = ObjectWriter.getProductListByVendorID(this.vendor.getVendorID());
+        selectedProduct = productsList.get(selectedRowIndex);
         this.customer.customerCart.addProductToCart(selectedProduct);
     }//GEN-LAST:event_btn_AddToCartActionPerformed
 

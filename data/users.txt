@@ -7,4 +7,4 @@ ID76109234;;Jane Smith;;jane.smith@example.com;;859761;;Secret@321;;customer;;Av
 ID14785236;;Robert Brown;;robert.brown@example.com;;6097531;;Pass!word;;customer;;Available;;N/A;;N/A
 ID25896314;;Emily Davis;;emily.davis@example.com;;93582.0;;Emi@2025;;customer;;Available;;N/A;;N/A
 ID36974128;;Michael Johnson;;michael.johnson@example.com;;58760.0;;M!chaelPwd;;customer;;Available;;N/A;;N/A
-
+V002;;BurgerExpo;;abc@gmail.com;;000443;;something;;Vendor;;Available;;N/A;;N/A
