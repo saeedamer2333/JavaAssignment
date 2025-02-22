@@ -9,7 +9,6 @@ import com.mycompany.assignmentjava.Shariq.UI.ManagerRevenueDashboardJFrame;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 import static com.mycompany.assignmentjava.Utilites.FileManager.showErrorDialog;
 import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getAllVendors;
-import static com.mycompany.assignmentjava.Utilites.ObjectWriter.getVendorByID;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;

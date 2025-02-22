@@ -16,14 +16,10 @@ import javax.swing.JFrame;
  *
  * @author ysssh
  */
-class ManageVendorListings {
+public class ManageVendorListings {
     Manager manager;
     private Vendor selectedVendor;
     private List<Vendor> vendorList;
-    
-    public ManageVendorListings(){
-        
-    }
     
     public ManageVendorListings(Manager manager){
         this.manager = manager;   
@@ -43,7 +39,7 @@ class ManageVendorListings {
 // ==============================================
     public void launchJFrame(){
         // launches the Jframe
-        ManagerVendorListingsJFrame vendorListingsForm = new ManagerVendorListingsJFrame();
+        ManagerVendorListingsJFrame vendorListingsForm = new ManagerVendorListingsJFrame(manager);
         vendorListingsForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         vendorListingsForm.setVisible(true);
     }
@@ -78,7 +74,29 @@ class ManageVendorListings {
     }
     
     //remove items of vendor
-    public void removeVendorItems(){
-        
+    public String removeVendorItem(String id){
+        if (FileManager.deleteRecord(FileManager.FileType.PRODUCTS, id)){
+            return "Successful! Product removed.";
+        } else {
+            return "Unsuccessful.";
+        }
+    }
+
+    public List<String> showItemsOfVendor() {
+        List<String> vendorItems = new ArrayList<>();
+        List<String> allItems = FileManager.searchRecords(FileManager.FileType.PRODUCTS, "vendorID", this.selectedVendor.getVendorID());
+        for (String item : allItems) {
+            String[] details = item.split(FileManager.DELIMITER);
+            vendorItems.add(details[0]);
+        } 
+        return vendorItems;
     }
 }
+
+
+
+
+
+
+
+

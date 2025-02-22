@@ -46,8 +46,8 @@ public class Login extends javax.swing.JFrame {
     }
     
     public static void navigateToManager(String[] userDetails) {
-        Manager manager = new Manager(userDetails[1], userDetails[2], userDetails[3], userDetails[4]);
-        ManagerHomeJFrame managerHome = new ManagerHomeJFrame(manager);
+//        Manager manager = new Manager(userDetails[1], userDetails[2], userDetails[3], userDetails[4]);
+        ManagerHomeJFrame managerHome = new ManagerHomeJFrame(userDetails);
         managerHome.setVisible(true);
     }
     

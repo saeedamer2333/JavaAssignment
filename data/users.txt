@@ -10,3 +10,4 @@ V001;;Michael Jimbus;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
 V002;;Michael Jimbu2s;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
 runner3;;Michael Jimbobos;;beebus@example.com;;58760.0;;M!chaelPwd;;Runner;;Available
 runner2;;Michael Jimminy;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
+M2324;;Michael Jeepers;;w@example.com;;58760.0;;M!chaelPwd;;Manager;;Available

@@ -4,17 +4,27 @@
  */
 package com.mycompany.assignmentjava.Shariq.UI;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ysssh
  */
 public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
-
+    Manager manager;
     /**
      * Creates new form Manager_VendorListings
      */
     public ManagerVendorListingsJFrame() {
         initComponents();
+    }
+    
+    public ManagerVendorListingsJFrame(Manager manager) {
+        initComponents();
+        this.manager = manager;
+        
+        showAllVendors();
     }
 
     /**
@@ -47,6 +57,11 @@ public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
         jLabel3.setText("Select Items");
 
         btnSelect.setText("Select Vendor");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
 
         btnRemoveItem.setText("Remove Item");
         btnRemoveItem.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +71,11 @@ public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
         });
 
         jButton1.setText("⟳");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -84,8 +104,7 @@ public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
                                 .addGap(148, 148, 148)
                                 .addComponent(jButton1)
                                 .addGap(27, 27, 27)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBack)
                                 .addGap(79, 79, 79)
@@ -131,12 +150,25 @@ public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemActionPerformed
-        // TODO add your handling code here:
+        String selectedValue = listItems.getSelectedValue();
+        removeVendorItem(selectedValue);
+        showItems();
     }//GEN-LAST:event_btnRemoveItemActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         dispose(); 
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        int selectedIndex = this.listVendors.getSelectedIndex();
+        selectVendor(selectedIndex);
+        showItems();
+    }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        showAllVendors();
+        showItems();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,4 +221,28 @@ public class ManagerVendorListingsJFrame extends javax.swing.JFrame {
     private javax.swing.JList<String> listItems;
     private javax.swing.JList<String> listVendors;
     // End of variables declaration//GEN-END:variables
+
+    private void showAllVendors(){
+        manager.manageVendorListings.loadAllVendors();
+        //(convert List<String> to String[] for JList)
+        String[] vendorNames = manager.manageVendorListings.listAllVendorNames().toArray(new String[0]);
+        listVendors.setListData(vendorNames);
+    }
+
+    private void selectVendor(int index) {
+        if (index >= 0 && index < manager.manageVendorListings.getVendorList().size()) {
+            manager.manageVendorListings.selectVendor(index);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a vendor.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    private void showItems() {
+        String[] vendorItems = manager.manageVendorListings.showItemsOfVendor().toArray(new String[0]);
+        listItems.setListData(vendorItems);
+    }
+
+    private void removeVendorItem(String selectedValue) {
+        JOptionPane.showMessageDialog(this, manager.manageVendorListings.removeVendorItem(selectedValue), "Remove Item", JOptionPane.WARNING_MESSAGE);
+    }
 }
