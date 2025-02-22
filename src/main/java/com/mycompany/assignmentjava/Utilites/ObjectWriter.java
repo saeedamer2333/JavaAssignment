@@ -118,6 +118,14 @@ public class ObjectWriter {
         return productList;
     }
     
+    public static List<String> getIDListByProductList(List<Product> productList){
+        List<String> productIDList = new ArrayList<>();
+        for (Product product : productList){
+            productIDList.add(product.getProductID());
+        }
+        return productIDList;
+    }
+    
     public static Order getOrderByID(String orderID){
         List<String> record = FileManager.searchRecords(FileManager.FileType.ORDERS, "orderID", orderID);
         String line = record.get(0);
