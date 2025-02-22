@@ -1,15 +1,11 @@
 notificationID,userID,message,timestamp,isRead
-ID٨٣٤٤٦٧٨١;;C008;;Your order Order006 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:17:39;;false
-ID٩٣٣٧٢٦٧٩;;C008;;Your order Order006 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:18:55;;false
-ID٤٠٢٠١٢٧٩;;C008;;Your order Order002 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:25:16;;false
-ID٤٤١٨٥٦١١;;C008;;Your order Order006 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:26:06;;false
-ID٣٣٠٣٤٧٩٦;;C008;;Your order Order006 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:26:07;;false
-ID٨٥٢٤٥٧٧١;;C008;;Your order Order006 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 11:26:07;;false
-ID٢٧٣٩٠٨٠١;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:33:04;;false
-ID٥٤٦٢٦٠٢٥;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:40:45;;false
-ID٩٨٦٥٢٥٠٩;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:41:43;;false
-ID٥٣١٦٩٠٨٦;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:41:44;;false
-ID٢٠٧٧١٠١٦;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:41:44;;false
-ID٠٠٥٤١٢٧٣;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 12:43:08;;false
-ID٣٥٥٤٤٠٢٨;;C008;;Your order Order001 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 14:43:59;;false
-ID٠٩٠٥٥٩٤٤;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 15:00:52;;false
+ID58049139;;C003;;Your order Order007 was not accepted. Please choose between Take-away or Dine-in.;;2025-02-22 19:34:54;;false
+ID98668425;;Order002;;Your order Order002 has been accepted by runner runner2. It is on its way!;;2025-02-22 19:38:58;;false
+ID88025624;;Order002;;Your order Order002 has been accepted by runner runner2. It is on its way!;;2025-02-22 19:40:47;;false
+ID47494985;;Order002;;Your order Order002 has been accepted by runner runner2. It is on its way!;;2025-02-22 19:47:29;;false
+ID22829821;;Order010;;Your order Order010 has been accepted by runner runner2. It is on its way!;;2025-02-22 19:50:08;;false
+ID68079030;;Order007;;Your order Order007 has been accepted by runner runner2. It is on its way!;;2025-02-22 20:22:43;;false
+ID84102151;;Order007;;Your order Order007 has been accepted by runner runner2. It is on its way!;;2025-02-22 20:28:32;;false
+ID52350220;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 20:28:50;;false
+ID19015098;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 20:47:22;;false
+ID20543946;;Order001;;Your order Order001 has been accepted by runner runner2. It is on its way!;;2025-02-22 20:48:47;;false

@@ -1,9 +1,11 @@
-orderID,customerID,customerName,vendorID,vendorName,runnerID,products,orderType,status,address,deliveryfees,totalAmount,OrderDate
-Order001;;C001;;John Doe;;V001;;VendorA;;runner2;;Product1,Product2;;Online;;On the Way;;Available;;10.0;;50.0;;2025-02-01
-Order002;;C002;;Jane Smith;;V002;;VendorB;;;;Product3,Product4;;In-store;;No Available Runners;;Rejected;;15.0;;60.0;;2025-02-02
-Order003;;C003;;John Doe;;V003;;VendorA;;runner2;;Product1;;Online;;delivered;;Accepted;;10.0;;40.0;;2025-02-02 14:30:00
-Order004;;C004;;Alice Green;;V004;;VendorB;;runner2;;Product2;;In-store;;Delivered;;dads;;20.0;;50.0;;2025-02-03 16:30:00
-Order005;;C005;;Bob Brown;;V005;;VendorA;;runner1;;Product3;;Online;;decline;;Cancelled;;12.0;;35.0;;2025-02-03 17:00:00
-Order006;;C006;;Charlie Black;;V006;;VendorC;;;;Product4;;In-store;;No Available Runners;;Available;;18.0;;55.0;;2025-03-01 12:00:00
-Order007;;C007;;Tom White;;V007;;VendorC;;runner2;;Product5,Product6;;Online;;Delivered;;Available;;20.0;;70.0;;2025-02-03 13:45:00
-Order008;;C008;;Emily Davis;;V008;;VendorD;;runner1;;Product7;;In-store;;Waiting for Delivery;;Pending;;13.0;;45.0;;2025-03-02 08:30:00
+orderID,customerID,customerName,vendorID,vendorName,runnerID,products,orderType,status,address,deliveryFees,totalAmount,orderDate
+Order001;;C005;;John Doe;;V001;;VendorA;;runner3,runner2;;Product1,Product2;;Online;;Accepted;;on south;;10.0;;50.0;;2025-02-01
+Order002;;C006;;Jane Smith;;V002;;VendorB;;runner1;;Product3,Product4;;Offline;;Waiting for Delivery;;on north;;15.0;;60.0;;2025-02-02
+Order003;;C007;;Charlie Black;;V003;;VendorC;;runner3;;Product5,Product6;;Online;;Waiting for Delivery;;in the park;;12.0;;55.0;;2025-02-03
+Order004;;C008;;Emily Davis;;V004;;VendorD;;runner4,runner1;;Product7,Product8;;Online;;Delivered;;downtown;;18.0;;70.0;;2025-02-04
+Order005;;C009;;Michael Johnson;;V005;;VendorE;;runner2;;Product9,Product10;;Offline;;Delivered;;on west;;20.0;;80.0;;2025-02-05
+Order006;;C010;;Sarah Williams;;V006;;VendorF;;runner3;;Product11,Product12;;Online;;Waiting for Delivery;;at the mall;;14.0;;65.0;;2025-02-06
+Order007;;C011;;David Brown;;V007;;VendorG;;runner2,runner4;;Product13,Product14;;Offline;;Accepted;;on east;;9.0;;45.0;;2025-02-07
+Order008;;C012;;Olivia Davis;;V008;;VendorH;;runner2;;Product15,Product16;;Online;;Delivered;;near the bridge;;22.0;;85.0;;2025-02-08
+Order009;;C013;;James Wilson;;V009;;VendorI;;runner2;;Product17,Product18;;Offline;;Delivered;;on hill;;11.0;;60.0;;2025-02-09
+Order010;;C014;;Sophia Moore;;V010;;VendorJ;;runner3;;Product19,Product20;;Online;;Waiting for Delivery;;at the beach;;13.0;;50.0;;2025-02-10
