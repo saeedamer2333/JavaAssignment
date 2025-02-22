@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
 import com.mycompany.assignmentjava.Utilites.FileManager;
 
 /**
@@ -28,6 +29,17 @@ public class Ticket {
                     String managerReply, String status){
         this.ticketID = "TID" + FileManager.generateID();
         //this.manager = manager;
+        //this.customer = customer;
+        this.customerComment = customerComment;
+        this.managerReply = managerReply;
+        this.status = status;
+    }
+    
+    //Constructors for existing ticket
+    public Ticket(String ticketID, String managerID, String customerID, String customerComment, 
+                    String managerReply, String status){
+        this.ticketID = ticketID;
+        this.managerID = managerID;
         //this.customer = customer;
         this.customerComment = customerComment;
         this.managerReply = managerReply;

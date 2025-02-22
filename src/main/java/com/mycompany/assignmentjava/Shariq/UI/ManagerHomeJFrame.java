@@ -135,7 +135,7 @@ public class ManagerHomeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendorListingsActionPerformed
 
     private void btnCustomerComplaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerComplaintsActionPerformed
-        //manager.manageCustomerComplaints();
+        manager.manageCustomerComplaints.launchJFrame();
     }//GEN-LAST:event_btnCustomerComplaintsActionPerformed
 
     /**

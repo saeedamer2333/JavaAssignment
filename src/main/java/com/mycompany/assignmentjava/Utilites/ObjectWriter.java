@@ -10,6 +10,7 @@ import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Review;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Ticket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -188,6 +189,25 @@ public class ObjectWriter {
             runnerObjects.add(runner);
         }  
         return runnerObjects;
+    }
+    
+    public static List<Ticket> getAllTickets(){
+        List<Ticket> ticketObjects = new ArrayList<>();
+        List<String> records = FileManager.getAllRecords(FileManager.FileType.TICKETS);
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rID = attributes[0];
+            String rManagerID = attributes[1];
+            String rCustomerID = attributes[2];
+            String rcustomerComment = attributes[3];
+            String rManagerReply = attributes[4];
+            String rStatus = attributes[5];
+            
+            Ticket ticket = new Ticket(rID, rManagerID, rCustomerID, rcustomerComment, rManagerReply, rStatus);
+            ticketObjects.add(ticket);
+        }  
+        return ticketObjects;
     }
         
 }

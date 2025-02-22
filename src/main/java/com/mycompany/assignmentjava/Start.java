@@ -13,8 +13,11 @@ public class Start {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         // run whichever Jform you want from here:
-        Login login = new Login();
-        login.setVisible(true);
+//        Login login = new Login();
+//        login.setVisible(true);
+        String[] userDetails = {"M2324", "Michael Jeepers", "w@example.com", "58760.0", "M!chaelPwd", "Manager", "Available"};
+        ManagerHomeJFrame managerHome = new ManagerHomeJFrame(userDetails);
+        managerHome.setVisible(true);
 
           
     }
