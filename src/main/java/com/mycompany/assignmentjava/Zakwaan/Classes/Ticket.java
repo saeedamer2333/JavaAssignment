@@ -4,7 +4,10 @@
  */
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectToFileUpdater;
+import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 
 /**
  *
@@ -13,82 +16,114 @@ import com.mycompany.assignmentjava.Utilites.FileManager;
 public class Ticket {
     private String ticketID;
     private String managerID;
-    //private Manager manager;
+    private Manager manager;
     private String customerID;
     private Customer customer;
     private String customerComment;
     private String managerReply;
-    private String status = "Submitted";
+    private String status;
     /*
-    
+    - Submitted
+    - Resolved
     */
     
-    //Constructors for new ticket
-    public Ticket(String customerID, String customerComment, 
-                    String managerReply, String status){
+    //Constructors 
+    // Constructor for brand new ticket
+    public Ticket(String customerID, String customerComment){
         this.ticketID = "TID" + FileManager.generateID();
-        //this.manager = manager;
-        //this.customer = customer;
+        this.managerID = "";
+        this.manager = null;
+        this.customerID = customerID;
+        this.customer = ObjectWriter.getCustomerByID(customerID);
         this.customerComment = customerComment;
-        this.managerReply = managerReply;
-        this.status = status;
+        this.managerReply = "";
+        this.status = "Submitted";
+        
+        FileManager.addTicket(this.ticketID, this.managerID, this.customerID, 
+                                this.customerComment, this.managerReply, this.status);
     }
     
+    //Constructor for reading from txt file
+    public Ticket(String ticketID, String managerID, String customerID, 
+                    String customerComment, String managerReply, String status) {
+    this.ticketID = ticketID;
+    this.managerID = managerID;
+    this.manager = ObjectWriter.getManagerByID(managerID);
+    this.customerID = customerID;
+    this.customer = ObjectWriter.getCustomerByID(customerID);
+    this.customerComment = customerComment;
+    this.managerReply = managerReply;
+    this.status = status;
+}
+    
     //Getters and setters
+    // Getters
     public String getTicketID() {
         return ticketID;
-    }
-
-    public void setTicketID(String ticketID) {
-        this.ticketID = ticketID;
     }
 
     public String getManagerID() {
         return managerID;
     }
 
-    public void setManagerID(String managerID) {
-        this.managerID = managerID;
+    public Manager getManager() {
+        return manager;
     }
 
     public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
-
     public Customer getCustomer() {
         return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getCustomerComment() {
         return customerComment;
     }
 
-    public void setCustomerComment(String customerComment) {
-        this.customerComment = customerComment;
-    }
-
     public String getManagerReply() {
         return managerReply;
-    }
-
-    public void setManagerReply(String managerReply) {
-        this.managerReply = managerReply;
     }
 
     public String getStatus() {
         return status;
     }
 
+    // Setters
+    public void setTicketID(String ticketID) {
+        this.ticketID = ticketID;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "ticketID", ticketID);
+    }
+
+    public void setManagerID(String managerID) {
+        this.managerID = managerID;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "managerID", managerID);
+        
+        //set manager agian
+        this.manager = ObjectWriter.getManagerByID(managerID);
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "customerID", customerID);
+        
+        this.customer = ObjectWriter.getCustomerByID(customerID);
+    }
+
+    public void setCustomerComment(String customerComment) {
+        this.customerComment = customerComment;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "customerComment", customerComment);
+    }
+
+    public void setManagerReply(String managerReply) {
+        this.managerReply = managerReply;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "managerReply", managerReply);
+    }
+
     public void setStatus(String status) {
         this.status = status;
+        ObjectToFileUpdater.updateTicketInTicketsTxt(this, "status", status);
     }
 
 }

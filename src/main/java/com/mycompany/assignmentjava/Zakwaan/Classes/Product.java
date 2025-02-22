@@ -7,6 +7,7 @@ package com.mycompany.assignmentjava.Zakwaan.Classes;
 import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectToFileUpdater;
 
 /**
  *
@@ -48,6 +49,10 @@ public class Product {
         return vendorID;
     }
     
+    public Vendor getVendor(){
+        return vendor;
+    }
+    
     public String getProductName() {
         return productName;
     }
@@ -61,17 +66,22 @@ public class Product {
     //Put the ObjectToFileUpdater stuff in here to update the file when these details are changed with setters
     public void setProductID(String productID) {
         this.productID = productID;
+        ObjectToFileUpdater.updateProductInProductsTxt(this, "productID", productID);
     }
     
     public void setVendorID(String vendorID) {
         this.vendorID = vendorID;
+        ObjectToFileUpdater.updateProductInProductsTxt(this, "vendorID", vendorID);
+        this.vendor = ObjectWriter.getVendorByID(vendorID);
     }
     
     public void setProductName(String productName) {
         this.productName = productName;
+        ObjectToFileUpdater.updateProductInProductsTxt(this, "productName", productName);
     }
     
     public void setPrice(double price) {
         this.price = price;
+        ObjectToFileUpdater.updateProductInProductsTxt(this, "price", Double.toString(price));
     }
 }

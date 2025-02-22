@@ -5,7 +5,10 @@
 package com.mycompany.assignmentjava.Zakwaan.Classes;
 
 import com.mycompany.assignmentjava.Utilites.FileManager;
+import com.mycompany.assignmentjava.Utilites.ObjectToFileUpdater;
+import com.mycompany.assignmentjava.Utilites.ObjectWriter;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -14,49 +17,51 @@ import java.time.LocalDateTime;
 public class Transaction {
     //---------Attributes---------
     private String transactionID;
+    private String orderID;
     private Order order;
+    private String customerID;
     private Customer customer;
     private double amount;
-    private LocalDateTime paymentDate;
+    private Date paymentDate;
     private String paymentStatus;
-    private boolean receiptGenerated = false;
+    private boolean receiptGenerated;
     //Payment status options
 //    Pending
 //    Completed
 //    Failed
 //    Cancelled
     
-    //transaction constructor for general usage
-    public Transaction(Order order, Customer customer, double amount){
+    //brand new transaction constructor for general usage
+    public Transaction(String orderID, String customerID, double amount){
         this.transactionID = "TRID" + FileManager.generateID();
-        this.order = order;
-        this.customer = customer;
+        this.orderID = orderID;
+        this.order = ObjectWriter.getOrderByID(orderID);
+        this.customerID = customerID;
+        this.customer = ObjectWriter.getCustomerByID(customerID);
         this.amount = amount;
-        this.paymentDate = LocalDateTime.now();
+        this.paymentDate = new Date();
         this.paymentStatus = "Pending";
+        this.receiptGenerated = false;
         
-//        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-  //              this.customer.getCustomerID(), this.amount, this.paymentDate, this.paymentStatus, this.receiptGenerated);
+        FileManager.addTransaction(this.transactionID, this.orderID, this.customerID, 
+                                    this.amount, this.paymentDate, this.paymentStatus, 
+                                    Boolean.toString(this.receiptGenerated));
     }
     
     // Transaction constructor with all attributes
-    public Transaction(String transactionID, Order order, Customer customer, double amount, LocalDateTime paymentDate, String paymentStatus) {
+    public Transaction(String transactionID, String orderID,String customerID, double amount, 
+                        Date paymentDate, String paymentStatus, boolean receiptGenerated) {
         this.transactionID = transactionID;
-        this.order = order;
-        this.customer = customer;
+        this.orderID = orderID;
+        this.order = ObjectWriter.getOrderByID(orderID);
+        this.customerID = customerID;
+        this.customer = ObjectWriter.getCustomerByID(customerID);
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.paymentStatus = paymentStatus;
-        /*
-        FileManager.addTransaction(this.transactionID, this.order.getOrderID(), 
-        this.customer.getCustomerID(), 
-        this.amount, 
-        this.paymentDate, 
-        this.paymentStatus
-          
-        );
- */
+        this.receiptGenerated = receiptGenerated;
     }
+
     
     //---------Methods---------
     public void makePayment() throws InsufficientFundsException {
@@ -86,52 +91,81 @@ public class Transaction {
     
     
     //---------Setters and Getters---------
+    // Getters
     public String getTransactionID() {
         return transactionID;
     }
 
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
+    public String getOrderID() {
+        return orderID;
     }
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public String getCustomerID() {
+        return customerID;
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomerID(Customer customer) {
-        this.customer = customer;
-    }
-
     public double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public LocalDateTime getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
     }
 
     public String getPaymentStatus() {
         return paymentStatus;
     }
 
+    public boolean isReceiptGenerated() {
+        return receiptGenerated;
+    }
+
+    // Setters
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "transactionID", transactionID);
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "orderID", orderID);
+        
+        this.order = ObjectWriter.getOrderByID(orderID);
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "customerID", customerID);
+        
+        this.customer = ObjectWriter.getCustomerByID(customerID);
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "amount", String.valueOf(amount));
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "paymentDate", paymentDate.toString());
+    }
+
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "paymentStatus", paymentStatus);
+    }
+
+    public void setReceiptGenerated(boolean receiptGenerated) {
+        this.receiptGenerated = receiptGenerated;
+        ObjectToFileUpdater.updateTransactionInTransactionsTxt(this, "receiptGenerated", String.valueOf(receiptGenerated));
     }
 
 

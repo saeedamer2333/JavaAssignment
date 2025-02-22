@@ -6,10 +6,13 @@ package com.mycompany.assignmentjava.Utilites;
 
 import com.mycompany.assignmentjava.AbdulRehman.Vendor;
 import com.mycompany.assignmentjava.Saeed.Deliveryrunner;
+import com.mycompany.assignmentjava.Shariq.Classes.Manager;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Customer;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Order;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Product;
 import com.mycompany.assignmentjava.Zakwaan.Classes.Review;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Ticket;
+import com.mycompany.assignmentjava.Zakwaan.Classes.Transaction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class ObjectWriter {
     
-    //get customer by id
+    //-------GET BY ID'S
     public static Customer getCustomerByID(String customerID){
         List<String> record = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
         String line = record.get(0);
@@ -73,6 +76,24 @@ public class ObjectWriter {
         
         Vendor vendor = new Vendor(rID, rName, rEmail,rPhone, rPassword, rRole);
         return vendor;
+    }
+    
+    public static Manager getManagerByID(String managerID){
+        List<String> record = FileManager.searchRecords(FileManager.FileType.USERS, "userID", managerID);
+        String line = record.get(0);
+        String[] attributes = line.split(FileManager.DELIMITER);
+        String rID = attributes[0];
+        String rName = attributes[1];
+        String rEmail = attributes[2];
+        String rPhone = attributes[3];
+        String rPassword = attributes[4];
+        String rRole = attributes[5];
+        String rStatus = attributes[6];
+        String rAddress = attributes[7];
+        String rBalance = attributes[8];
+        
+        Manager manager = new Manager(rID, rName, rEmail, rPhone, rPassword, rRole);
+        return manager;
     }
     
     public static Product getProductByID(String productID){
@@ -133,26 +154,78 @@ public class ObjectWriter {
         return order;
     }
     
+    
+    //-----GET HISTORY
+    //Get the review history using CustomerID
     public List<Review> getReviewHistoryByCustomerID(String customerID){
-//        List<Review> = reviewObjects = new ArrayList<>();
-//        List<String> records = FileManager.searchRecords(FileManager.FileType.REVIEWS, "customerID", customerID);
-//        
-//        for (String record : records){
-//            String[] attributes = record.split(FileManager.DELIMITER);
-//            String rID = attributes[0];
-//            String rName = attributes[1];
-//            String rEmail = attributes[2];
-//            String rPhone = attributes[3];
-//            String rPassword = attributes[4];
-//            String rRole = attributes[5];
-//            
-//            Vendor vendor = new Vendor(rID, rName, rEmail,rPhone, rPassword, rRole);
-//            vendorObjects.add(vendor);
-//        }  
-//        return reviewObjects;
-        return null;
+        List<Review> reviewObjects = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.REVIEWS, "customerID", customerID);
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rReviewID = attributes[0];
+            String rCustomerID = attributes[1];
+            String rRunnerID = attributes[2];
+            String rOrderID = attributes[3];
+            String rVendorID = attributes[4];
+            String rReviewText = attributes[5];
+            String rRating = attributes[6];
+            String rDate = attributes[7];
+            
+            Review review = new Review(rReviewID, rCustomerID, rRunnerID, rOrderID,
+                                        rVendorID, rReviewText, Integer.parseInt(rRating),
+                                        DateConverter.stringToDate(rDate));
+            reviewObjects.add(review);
+        }  
+        return reviewObjects;
     }
     
+    //get Ticket history using customerID
+    public List<Ticket> getTicketHistoryByCustomerID(String customerID){
+        List<Ticket> ticketObjects = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.TICKETS, "customerID", customerID);
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rTicketID = attributes[0];
+            String rManagerID = attributes[1];
+            String rCustomerID = attributes[2];
+            String rCustomerComment = attributes[3];
+            String rManagerReply = attributes[4];
+            String rStatus = attributes[5];
+            
+            Ticket ticket = new Ticket(rTicketID, rManagerID, rCustomerID, 
+                                        rCustomerComment, rManagerReply, rStatus);
+            ticketObjects.add(ticket);
+        }  
+        return ticketObjects;
+    }
+    //get transaction history using customerID
+    public List<Transaction> getTransactionHistoryByCustomerID(String customerID){
+        List<Transaction> transactionObjects = new ArrayList<>();
+        List<String> records = FileManager.searchRecords(FileManager.FileType.TRANSACTIONS, "customerID", customerID);
+        
+        for (String record : records){
+            String[] attributes = record.split(FileManager.DELIMITER);
+            String rTransactionID = attributes[0];
+            String rOrderID = attributes[1];
+            String rCustomerID = attributes[2];
+            String rAmount = attributes[3];
+            String rPaymentDate = attributes[4];
+            String rPaymentStatus = attributes[5];
+            String rReceiptGenerated = attributes[6];
+            
+            Transaction transaction = new Transaction(rTransactionID, rOrderID, 
+                    rCustomerID, Double.parseDouble(rAmount), DateConverter.stringToDate(rPaymentDate), 
+                    rPaymentStatus, Boolean.parseBoolean(rReceiptGenerated));
+            transactionObjects.add(transaction);
+        }  
+        return transactionObjects;
+    }
+    
+    
+    
+    //-----GET ALL
     public static List<Vendor> getAllVendors(){
         List<Vendor> vendorObjects = new ArrayList<>();
         List<String> records = FileManager.searchRecords(FileManager.FileType.USERS, "role", "Vendor");

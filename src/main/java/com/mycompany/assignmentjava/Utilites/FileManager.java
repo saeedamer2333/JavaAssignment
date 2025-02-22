@@ -171,16 +171,15 @@ public class FileManager {
     }
 
     // Other append methods (using LocalDateTime in some cases)
-
+    //transaction append method with Date
     public static boolean addTransaction(String transactionID, String orderID, String customerID,
-                                         double amount, LocalDateTime paymentDate, String paymentStatus, 
+                                         double amount, Date paymentDate, String paymentStatus, 
                                          String receiptGenerated) {
         if (amount <= 0) {
             showErrorDialog("Transaction amount must be greater than 0.");
             return false;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateStr = paymentDate.format(formatter);
+        String dateStr = DateConverter.dateToString(paymentDate);
         String record = String.join(DELIMITER, transactionID, orderID, customerID,
                 String.valueOf(amount), dateStr, paymentStatus, receiptGenerated);
         return appendToFile(FileType.TRANSACTIONS, record);
