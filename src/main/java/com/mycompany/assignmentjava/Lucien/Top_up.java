@@ -352,8 +352,8 @@ public class Top_up extends javax.swing.JFrame {
                 email = parts[2];
                 role = parts[5];
                 phone = parts[3];
-                //        balance = parts[8]; //ucomment this later on
-                Balance_label.setText("RM "+ phone); //change this to
+                balance = parts[8]; //ucomment this later on
+                Balance_label.setText("RM "+ balance); //change this to
                 // Only add the record if the role is "customer"
                 if (role.equalsIgnoreCase("customer")) {
                     displayRecords.add(name + " (" + ID + ") - " + email + " (" + role.toUpperCase() + ")");
@@ -415,12 +415,12 @@ public class Top_up extends javax.swing.JFrame {
                 if (parts.length >= 6) { // Ensure there are enough fields before accessing them
                     String userID = parts[0];
                     Top_up.name = parts[1];
-                    Top_up.phone = parts[3]; // wil be used instead of balance for now
-//                    Top_up.balance = parts[8];      
+                    Top_up.phone = parts[3]; 
+                    Top_up.balance = parts[8];      
                     Top_up.role = parts[5];
                     Top_up.ID = userID;
                     //        balance = parts[8]; //ucomment this later on
-                      Balance_label.setText("RM "+ phone); //change this to 
+                      Balance_label.setText("RM "+ balance); //change this to 
                 } else {
                     System.out.println("Invalid user record format.");
                 }
@@ -526,13 +526,12 @@ public class Top_up extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_50RMActionPerformed
 
     private void updateCustomerBalance(double amount) {
-    // Check if a customer is selected
     if (Top_up.ID == null || Top_up.ID.isEmpty()) {
         JOptionPane.showMessageDialog(this, "No customer selected!");
         return;
     }
     
-    // Call the Admin method to update the balance (using phone as a placeholder for balance)
+    // Call the Admin method to update the balance (now using the balance field)
     boolean success = Admin.updateCustomerBalance(Top_up.ID, amount);
     
     if (success) {
@@ -541,9 +540,9 @@ public class Top_up extends javax.swing.JFrame {
         if (!records.isEmpty()) {
             String updatedRecord = records.get(0);
             String[] parts = updatedRecord.split(FileManager.DELIMITER);
-            // Assuming the balance is stored in the phone field (index 3)
+            // Parse the updated balance from the balance field (index 8)
             try {
-                double updatedBalance = Double.parseDouble(parts[3]);
+                double updatedBalance = Double.parseDouble(parts[8]);
                 Balance_label.setText("RM " + updatedBalance);
             } catch (NumberFormatException e) {
                 Balance_label.setText("Invalid Balance");
@@ -555,6 +554,9 @@ public class Top_up extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Failed to update balance.");
     }
 }
+
+    
+    
     private void jButton_CustomRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CustomRMActionPerformed
             String amountStr = nameText_CustomAmount.getText().trim();
     if (amountStr.isEmpty()) {

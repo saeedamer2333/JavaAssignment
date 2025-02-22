@@ -104,45 +104,46 @@ public class Admin extends User {
     }
     
     public static boolean updateCustomerBalance(String customerID, double addAmount) {
-        // Search for the user record by customerID.
-        List<String> records = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
-        if (records.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Customer not found with ID: " + customerID);
-            return false;
-        }
-
-        // Assume the record is in the format: userID;;name;;email;;phone;;password;;role;;status
-        String record = records.get(0);
-        String[] fields = record.split(FileManager.DELIMITER);
-
-        if (fields.length < 4) {
-            JOptionPane.showMessageDialog(null, "Invalid record format for customer: " + customerID);
-            return false;
-        }
-
-        try {
-            // Parse the current balance from the phone field (index 3)
-            double currentBalance = Double.parseDouble(fields[3]);
-            double newBalance = currentBalance + addAmount;
-
-            // Update the record using updateSingleField. Here, fieldIndex is 3 (phone field)
-            boolean updated = FileManager.updateSingleField(
-                    FileManager.FileType.USERS,
-                    customerID,
-                    "balance", // this is just an identifier; updateSingleField doesn't use it internally
-                    String.valueOf(newBalance),
-                    3
-            );
-
-            if (updated) {
-                JOptionPane.showMessageDialog(null, "Balance updated successfully. New balance: " + newBalance);
-            }
-            return updated;
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Current balance is not a valid number: " + fields[3]);
-            return false;
-        }
+    // Search for the user record by customerID.
+    List<String> records = FileManager.searchRecords(FileManager.FileType.USERS, "userID", customerID);
+    if (records.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Customer not found with ID: " + customerID);
+        return false;
     }
+
+    // Now expect 9 fields: userID, name, email, phone, password, role, status, address, balance
+    String record = records.get(0);
+    String[] fields = record.split(FileManager.DELIMITER);
+
+    if (fields.length < 9) {
+        JOptionPane.showMessageDialog(null, "Invalid record format for customer: " + customerID);
+        return false;
+    }
+
+    try {
+        // Parse the current balance from the balance field (index 8)
+        double currentBalance = Double.parseDouble(fields[8]);
+        double newBalance = currentBalance + addAmount;
+
+        // Update the record using updateSingleField. Here, fieldIndex is 8 (balance field)
+        boolean updated = FileManager.updateSingleField(
+                FileManager.FileType.USERS,
+                customerID,
+                "balance", // this is just an identifier; updateSingleField doesn't use it internally
+                String.valueOf(newBalance),
+                8
+        );
+
+        if (updated) {
+            JOptionPane.showMessageDialog(null, "Balance updated successfully. New balance: " + newBalance);
+        }
+        return updated;
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Current balance is not a valid number: " + fields[8]);
+        return false;
+    }
+}
+
 
         public static void CreateReceipttAndSendNotification() {
         List<String> transactions = FileManager.getAllRecords(FileType.TRANSACTIONS);

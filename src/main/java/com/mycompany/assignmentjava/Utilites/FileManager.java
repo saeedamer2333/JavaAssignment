@@ -105,7 +105,7 @@ public class FileManager {
             return false;
         }
         String userID = "ID" + generateID();
-        String record = String.join(DELIMITER, userID, name, email, phone, password, role, "Available");
+        String record = String.join(DELIMITER, userID, name, email, phone, password, role,  "Available", "noAddress", "0");
         return appendToFile(FileType.USERS, record);
     }
     
