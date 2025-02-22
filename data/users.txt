@@ -8,4 +8,5 @@ ID25896314;;Emily Davis;;emily.davis@example.com;;93582.0;;Emi@2025;;customer;;A
 ID36974128;;Michael Johnson;;michael.johnson@example.com;;58760.0;;M!chaelPwd;;customer;;Available
 V001;;Michael Jimbus;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
 V002;;Michael Jimbu2s;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
-V003;;Michael Jimbobos;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available
+runner3;;Michael Jimbobos;;beebus@example.com;;58760.0;;M!chaelPwd;;Runner;;Available
+runner2;;Michael Jimminy;;beebus@example.com;;58760.0;;M!chaelPwd;;Vendor;;Available

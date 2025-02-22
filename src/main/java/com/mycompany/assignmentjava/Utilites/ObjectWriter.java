@@ -120,16 +120,12 @@ public class ObjectWriter {
             String rEmail = attributes[2];
             String rPhone = attributes[3];
             String rPassword = attributes[4];
-            String rRole = attributes[5];
             
-            Deliveryrunner runner = new Deliveryrunner(rID, rName, rEmail,rPhone, rPassword, rRole);
+            Deliveryrunner runner = new Deliveryrunner(rID, rName, rEmail,rPhone, rPassword);
             runnerObjects.add(runner);
         }  
         return runnerObjects;
-    public static Order getOrderByID(String orderID){
-        
-        return null;
-        
     }
+        
 }
 

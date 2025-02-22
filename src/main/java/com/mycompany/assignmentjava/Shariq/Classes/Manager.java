@@ -30,7 +30,7 @@ public class Manager extends User{
         
         this.monitorVendorPerformance = new MonitorVendorPerformance(Manager.this); 
         this.monitorRunnerPerformance = new MonitorRunnerPerformance(Manager.this);
-        this.manageVendorListings = new ManageVendorListings();
+        this.manageVendorListings = new ManageVendorListings(Manager.this);
         this.manageCustomerComplaints = new ManageCustomerComplaints();
         
     }
@@ -39,8 +39,8 @@ public class Manager extends User{
 // ==============================================
 // =   GETTERS                                  =
 // ==============================================
-    public int getManagerID(){
-        return managerID;
+    public String getManagerID(){
+        return this.userID;
     }
 
     
