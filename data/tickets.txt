@@ -1,1 +1,7 @@
 ticketID,managerID,customerID,customerComment,managerReply,status
+T001;;M001;;C001;;very good;;Reply Feedback here...aasadaadad;;Submitted
+T002;;M001;;C001;;I'd like a refund.;;We will fix this soon.;;Submitted
+T003;;M001;;C001;;My order didn't arrive.;;Hello, we will fix this soon.;;Submitted
+T004;;M001;;C001;;My transaction was cancelled.;; ;;Submitted
+T007;;M001;;C001;;I was overcharged.;; ;;Submitted
+T006;;M001;;C001;;I did not get a refund.;; ;;Submitted

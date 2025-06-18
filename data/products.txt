@@ -1,3 +1,5 @@
 productID,vendorID,productName,price
-PID34257320;;V001;;abc;;100.0
-PID10691743;;V001;;goodname;;100.0
+PID34253320;;V003;;Cheesy Goodness;;100.0
+PID34251320;;V001;;Golden Crisps;;100.0
+PID34252320;;V002;;Creamy Cake;;100.0
+PID34253320;;V003;;Golden Crisps;;100.0
